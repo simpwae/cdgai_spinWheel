@@ -1,0 +1,176 @@
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAppContext } from '../../context/AppContext';
+import { CountdownTimer } from '../../components/CountdownTimer';
+interface ResultPitchProps {
+  onComplete: () => void;
+}
+export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
+  const { currentStudent } = useAppContext();
+  const [isTimeUp, setIsTimeUp] = useState(false);
+  const pendingScore = currentStudent?.pendingScore;
+  const hasScore = pendingScore !== undefined;
+  useEffect(() => {
+    // Auto-transition after score is received
+    if (hasScore) {
+      const timer = setTimeout(() => {
+        onComplete();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasScore, onComplete]);
+  return (
+    <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-8 relative overflow-hidden text-white">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse">
+              
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="white"
+                strokeWidth="1" />
+              
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 30
+        }}
+        animate={{
+          opacity: 1,
+          y: 0
+        }}
+        className="flex flex-col items-center text-center z-10 max-w-3xl">
+        
+        <h1 className="text-7xl font-black tracking-tight mb-6 drop-shadow-lg">
+          Pitch Time!
+        </h1>
+
+        {!hasScore &&
+        <p className="text-2xl font-medium opacity-90 mb-16">
+            You have 60 seconds. Introduce yourself and your biggest career
+            goal.
+          </p>
+        }
+
+        <AnimatePresence mode="wait">
+          {!isTimeUp && !hasScore ?
+          <motion.div
+            key="timer"
+            exit={{
+              opacity: 0,
+              scale: 0.8
+            }}
+            className="flex flex-col items-center">
+            
+              <div className="bg-white/10 p-8 rounded-full backdrop-blur-sm border border-white/20 mb-8">
+                <CountdownTimer
+                totalSeconds={60}
+                onComplete={() => setIsTimeUp(true)}
+                size={200}
+                color="#FFFFFF" />
+              
+              </div>
+              <p className="text-xl font-bold bg-white/20 px-6 py-3 rounded-full">
+                The judge is watching. Give it your best shot!
+              </p>
+            </motion.div> :
+          !hasScore ?
+          <motion.div
+            key="waiting"
+            initial={{
+              opacity: 0,
+              scale: 0.8
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1
+            }}
+            className="flex flex-col items-center">
+            
+              <h2 className="text-5xl font-black text-yellow-300 mb-8">
+                Time's up!
+              </h2>
+              <div className="flex items-center space-x-4 bg-white/20 px-8 py-4 rounded-full">
+                <motion.div
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity
+                }}
+                className="w-4 h-4 rounded-full bg-white" />
+              
+                <span className="text-2xl font-bold">
+                  Awaiting judge score...
+                </span>
+              </div>
+            </motion.div> :
+
+          <motion.div
+            key="score"
+            initial={{
+              opacity: 0,
+              scale: 0.5,
+              rotate: -10
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotate: 0
+            }}
+            transition={{
+              type: 'spring',
+              bounce: 0.6
+            }}
+            className="flex flex-col items-center">
+            
+              <div className="bg-white text-[#EA580C] w-64 h-64 rounded-full flex flex-col items-center justify-center shadow-2xl border-8 border-white/20 mb-8">
+                <span className="text-2xl font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  Score
+                </span>
+                <motion.span
+                initial={{
+                  opacity: 0
+                }}
+                animate={{
+                  opacity: 1
+                }}
+                className="text-8xl font-black leading-none">
+                
+                  {pendingScore}
+                  <span className="text-4xl text-gray-300">/10</span>
+                </motion.span>
+              </div>
+
+              {currentStudent?.pendingFeedback &&
+            <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl max-w-xl text-left border border-white/30">
+                  <span className="block text-sm font-bold uppercase tracking-wider text-white/60 mb-2">
+                    Judge Feedback
+                  </span>
+                  <p className="text-xl italic">
+                    "{currentStudent.pendingFeedback}"
+                  </p>
+                </div>
+            }
+            </motion.div>
+          }
+        </AnimatePresence>
+      </motion.div>
+    </div>);
+
+};
