@@ -2,6 +2,9 @@ export interface DbStudent {
   id: string;
   name: string;
   student_id: string;
+  email: string;
+  phone: string;
+  faculty: string;
   department: string;
   score: number;
   spins_used: number;
@@ -9,6 +12,7 @@ export interface DbStudent {
   status: 'active' | 'locked' | 'banned';
   spin_history: string[];
   reward_claimed: boolean;
+  awarded_prize: string | null;
   pending_score: number | null;
   pending_feedback: string | null;
   created_at: string;
@@ -42,4 +46,12 @@ export interface DbSettings {
   id: string;
   max_tries_default: number;
   event_name: string;
+}
+
+export interface DbAward {
+  id: string;
+  name: string;
+  total_quantity: number;
+  remaining_quantity: number;
+  created_at: string;
 }

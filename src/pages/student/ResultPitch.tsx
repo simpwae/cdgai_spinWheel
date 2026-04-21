@@ -20,7 +20,7 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
     }
   }, [hasScore, onComplete]);
   return (
-    <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-8 relative overflow-hidden text-white">
+    <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -52,14 +52,14 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
           opacity: 1,
           y: 0
         }}
-        className="flex flex-col items-center text-center z-10 max-w-3xl">
+        className="flex flex-col items-center text-center z-10 max-w-3xl w-full px-2 sm:px-4">
         
-        <h1 className="text-7xl font-black tracking-tight mb-6 drop-shadow-lg">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-6 drop-shadow-lg">
           Pitch Time!
         </h1>
 
         {!hasScore &&
-        <p className="text-2xl font-medium opacity-90 mb-16">
+        <p className="text-lg sm:text-2xl font-medium opacity-90 mb-8 sm:mb-16">
             You have 60 seconds. Introduce yourself and your biggest career
             goal.
           </p>
@@ -75,15 +75,15 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
             }}
             className="flex flex-col items-center">
             
-              <div className="bg-white/10 p-8 rounded-full backdrop-blur-sm border border-white/20 mb-8">
+              <div className="bg-white/10 p-5 sm:p-8 rounded-full backdrop-blur-sm border border-white/20 mb-6 sm:mb-8">
                 <CountdownTimer
                 totalSeconds={60}
                 onComplete={() => setIsTimeUp(true)}
-                size={200}
+                size={140}
                 color="#FFFFFF" />
               
               </div>
-              <p className="text-xl font-bold bg-white/20 px-6 py-3 rounded-full">
+              <p className="text-base sm:text-xl font-bold bg-white/20 px-5 sm:px-6 py-2 sm:py-3 rounded-full">
                 The judge is watching. Give it your best shot!
               </p>
             </motion.div> :
@@ -100,10 +100,10 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
             }}
             className="flex flex-col items-center">
             
-              <h2 className="text-5xl font-black text-yellow-300 mb-8">
+              <h2 className="text-3xl sm:text-5xl font-black text-yellow-300 mb-6 sm:mb-8">
                 Time's up!
               </h2>
-              <div className="flex items-center space-x-4 bg-white/20 px-8 py-4 rounded-full">
+              <div className="flex items-center space-x-4 bg-white/20 px-6 sm:px-8 py-3 sm:py-4 rounded-full">
                 <motion.div
                 animate={{
                   scale: [1, 1.5, 1],
@@ -115,7 +115,7 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                 }}
                 className="w-4 h-4 rounded-full bg-white" />
               
-                <span className="text-2xl font-bold">
+                <span className="text-lg sm:text-2xl font-bold">
                   Awaiting judge score...
                 </span>
               </div>
@@ -139,8 +139,8 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
             }}
             className="flex flex-col items-center">
             
-              <div className="bg-white text-[#EA580C] w-64 h-64 rounded-full flex flex-col items-center justify-center shadow-2xl border-8 border-white/20 mb-8">
-                <span className="text-2xl font-bold text-gray-400 uppercase tracking-widest mb-2">
+              <div className="bg-white text-[#EA580C] w-44 h-44 sm:w-64 sm:h-64 rounded-full flex flex-col items-center justify-center shadow-2xl border-8 border-white/20 mb-6 sm:mb-8">
+                <span className="text-base sm:text-2xl font-bold text-gray-400 uppercase tracking-widest mb-1 sm:mb-2">
                   Score
                 </span>
                 <motion.span
@@ -150,19 +150,19 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                 animate={{
                   opacity: 1
                 }}
-                className="text-8xl font-black leading-none">
+                className="text-6xl sm:text-8xl font-black leading-none">
                 
                   {pendingScore}
-                  <span className="text-4xl text-gray-300">/10</span>
+                  <span className="text-2xl sm:text-4xl text-gray-300">/10</span>
                 </motion.span>
               </div>
 
               {currentStudent?.pendingFeedback &&
-            <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl max-w-xl text-left border border-white/30">
+            <div className="bg-white/20 backdrop-blur-md p-4 sm:p-6 rounded-2xl max-w-xl text-left border border-white/30">
                   <span className="block text-sm font-bold uppercase tracking-wider text-white/60 mb-2">
                     Judge Feedback
                   </span>
-                  <p className="text-xl italic">
+                  <p className="text-base sm:text-xl italic">
                     "{currentStudent.pendingFeedback}"
                   </p>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Logo } from '../../components/Logo';
-import { useAppContext, Department } from '../../context/AppContext';
+import { useAppContext, Department, Faculty, FACULTY_DEPARTMENTS } from '../../context/AppContext';
 interface RegistrationProps {
   onComplete: () => void;
   onLocked: () => void;
@@ -13,24 +13,30 @@ export const Registration: React.FC<RegistrationProps> = ({
   const { registerStudent } = useAppContext();
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
+  const [faculty, setFaculty] = useState<Faculty | ''>('');
   const [department, setDepartment] = useState<Department>('');
   const [errors, setErrors] = useState<{
     name?: boolean;
     studentId?: boolean;
+    faculty?: boolean;
     department?: boolean;
   }>({});
   const [warning, setWarning] = useState('');
+
+  const availableDepartments = faculty ? FACULTY_DEPARTMENTS[faculty] : [];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setWarning('');
     const newErrors = {
       name: !name.trim(),
       studentId: !studentId.trim(),
+      faculty: !faculty,
       department: !department
     };
     setErrors(newErrors);
-    if (newErrors.name || newErrors.studentId || newErrors.department) return;
-    const result = await registerStudent(name, studentId, department);
+    if (newErrors.name || newErrors.studentId || newErrors.faculty || newErrors.department) return;
+    const result = await registerStudent(name, studentId, '', '', faculty, department);
     if (!result.success) {
       if (result.error === 'name_mismatch') {
         setWarning(
@@ -38,13 +44,15 @@ export const Registration: React.FC<RegistrationProps> = ({
         );
       } else if (result.error === 'max_spins') {
         onLocked();
+      } else {
+        setWarning('Something went wrong. Please try again or contact admin.');
       }
       return;
     }
     onComplete();
   };
   return (
-    <div className="min-h-screen w-full bg-cdgai-maroon flex flex-col items-center justify-center p-8 relative overflow-hidden">
+    <div className="min-h-screen w-full bg-cdgai-maroon flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-black/20 rounded-full blur-3xl"></div>
@@ -62,14 +70,14 @@ export const Registration: React.FC<RegistrationProps> = ({
           duration: 0.6,
           ease: 'easeOut'
         }}
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-12 relative z-10">
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-6 sm:p-12 relative z-10">
         
-        <div className="text-center mb-10">
-          <Logo size="lg" className="mb-6" />
-          <h1 className="text-4xl font-black text-cdgai-dark tracking-tight mb-2">
+        <div className="text-center mb-6 sm:mb-10">
+          <Logo size="lg" className="mb-4 sm:mb-6" />
+          <h1 className="text-2xl sm:text-4xl font-black text-cdgai-dark tracking-tight mb-2">
             Ready to Spin?
           </h1>
-          <p className="text-gray-500 text-lg font-medium">
+          <p className="text-gray-500 text-base sm:text-lg font-medium">
             Enter your details to take your turn.
           </p>
         </div>
@@ -101,7 +109,7 @@ export const Registration: React.FC<RegistrationProps> = ({
           </motion.div>
         }
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Full Name
@@ -117,7 +125,7 @@ export const Registration: React.FC<RegistrationProps> = ({
                 }));
               }}
               placeholder="Your full name"
-              className={`w-full px-5 py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
+              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
             
             {errors.name &&
             <p className="mt-2 text-sm text-red-500 font-medium">
@@ -141,9 +149,35 @@ export const Registration: React.FC<RegistrationProps> = ({
                 }));
               }}
               placeholder="e.g. 2021-CS-001"
-              className={`w-full px-5 py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.studentId ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
+              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.studentId ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
             
             {errors.studentId &&
+            <p className="mt-2 text-sm text-red-500 font-medium">
+                This field is required
+              </p>
+            }
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
+              Faculty
+            </label>
+            <select
+              value={faculty}
+              onChange={(e) => {
+                const val = e.target.value as Faculty | '';
+                setFaculty(val);
+                setDepartment('');
+                setErrors((p) => ({ ...p, faculty: false, department: false }));
+              }}
+              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none ${errors.faculty ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
+              
+              <option value="">Select Faculty</option>
+              {(Object.keys(FACULTY_DEPARTMENTS) as Faculty[]).map((f) => (
+                <option key={f} value={f}>{f}</option>
+              ))}
+            </select>
+            {errors.faculty &&
             <p className="mt-2 text-sm text-red-500 font-medium">
                 This field is required
               </p>
@@ -156,19 +190,17 @@ export const Registration: React.FC<RegistrationProps> = ({
             </label>
             <select
               value={department}
+              disabled={!faculty}
               onChange={(e) => {
                 setDepartment(e.target.value as Department);
                 setErrors((p) => ({ ...p, department: false }));
               }}
-              className={`w-full px-5 py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none ${errors.department ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
+              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none disabled:opacity-50 disabled:cursor-not-allowed ${errors.department ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
               
-              <option value="">Select Department</option>
-              <option value="Architecture">Architecture</option>
-              <option value="Computer Science">Computer Science</option>
-              <option value="Life Sciences">Life Sciences</option>
-              <option value="Allied Health Sciences">
-                Allied Health Sciences
-              </option>
+              <option value="">{faculty ? 'Select Department' : 'Select a faculty first'}</option>
+              {availableDepartments.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
             </select>
             {errors.department &&
             <p className="mt-2 text-sm text-red-500 font-medium">
@@ -179,7 +211,7 @@ export const Registration: React.FC<RegistrationProps> = ({
 
           <button
             type="submit"
-            className="w-full bg-cdgai-maroon hover:bg-red-900 text-white font-bold text-xl py-5 rounded-xl shadow-lg hover:shadow-xl transform transition-all active:scale-[0.98] mt-4">
+            className="w-full bg-cdgai-maroon hover:bg-red-900 text-white font-bold text-lg sm:text-xl py-4 sm:py-5 rounded-xl shadow-lg hover:shadow-xl transform transition-all active:scale-[0.98] mt-4">
             
             Ready to Spin 🎡
           </button>

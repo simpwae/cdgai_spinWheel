@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS students (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   student_id text UNIQUE NOT NULL,
+  email text NOT NULL DEFAULT '',
+  phone text NOT NULL DEFAULT '',
+  faculty text NOT NULL DEFAULT '',
   department text NOT NULL DEFAULT '',
   score integer NOT NULL DEFAULT 0,
   spins_used integer NOT NULL DEFAULT 0,
@@ -15,8 +18,18 @@ CREATE TABLE IF NOT EXISTS students (
   status text NOT NULL DEFAULT 'active',
   spin_history text[] NOT NULL DEFAULT '{}',
   reward_claimed boolean NOT NULL DEFAULT false,
+  awarded_prize text,
   pending_score integer,
   pending_feedback text,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- 1b. Awards table
+CREATE TABLE IF NOT EXISTS awards (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  total_quantity integer NOT NULL DEFAULT 0,
+  remaining_quantity integer NOT NULL DEFAULT 0,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -98,6 +111,7 @@ ALTER TABLE segments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE questions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE active_session ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE awards ENABLE ROW LEVEL SECURITY;
 
 -- Students: full access for anon
 CREATE POLICY "anon_students_select" ON students FOR SELECT TO anon USING (true);
@@ -108,8 +122,10 @@ CREATE POLICY "anon_students_delete" ON students FOR DELETE TO anon USING (true)
 -- Segments: read-only for anon
 CREATE POLICY "anon_segments_select" ON segments FOR SELECT TO anon USING (true);
 
--- Questions: read-only for anon
+-- Questions: full access for anon (needed for import)
 CREATE POLICY "anon_questions_select" ON questions FOR SELECT TO anon USING (true);
+CREATE POLICY "anon_questions_insert" ON questions FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "anon_questions_delete" ON questions FOR DELETE TO anon USING (true);
 
 -- Active session: full access for anon
 CREATE POLICY "anon_session_select" ON active_session FOR SELECT TO anon USING (true);
@@ -117,6 +133,12 @@ CREATE POLICY "anon_session_update" ON active_session FOR UPDATE TO anon USING (
 
 -- Settings: read-only for anon
 CREATE POLICY "anon_settings_select" ON settings FOR SELECT TO anon USING (true);
+
+-- Awards: full access for anon
+CREATE POLICY "anon_awards_select" ON awards FOR SELECT TO anon USING (true);
+CREATE POLICY "anon_awards_insert" ON awards FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "anon_awards_update" ON awards FOR UPDATE TO anon USING (true) WITH CHECK (true);
+CREATE POLICY "anon_awards_delete" ON awards FOR DELETE TO anon USING (true);
 
 -- ============================================
 -- Enable Realtime
@@ -127,3 +149,50 @@ CREATE POLICY "anon_settings_select" ON settings FOR SELECT TO anon USING (true)
 -- Or via SQL:
 ALTER PUBLICATION supabase_realtime ADD TABLE students;
 ALTER PUBLICATION supabase_realtime ADD TABLE active_session;
+ALTER PUBLICATION supabase_realtime ADD TABLE awards;
+
+-- ============================================
+-- RPC: Atomically claim a random available award
+-- ============================================
+CREATE OR REPLACE FUNCTION claim_random_award(p_student_id uuid)
+RETURNS text
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_award_id uuid;
+  v_award_name text;
+  v_existing text;
+BEGIN
+  -- Check if student already has an award
+  SELECT awarded_prize INTO v_existing FROM students WHERE id = p_student_id;
+  IF v_existing IS NOT NULL THEN
+    RETURN NULL;
+  END IF;
+
+  -- Pick a random award with remaining quantity > 0, lock the row
+  SELECT id, name INTO v_award_id, v_award_name
+  FROM awards
+  WHERE remaining_quantity > 0
+  ORDER BY random()
+  LIMIT 1
+  FOR UPDATE SKIP LOCKED;
+
+  IF v_award_id IS NULL THEN
+    RETURN NULL;
+  END IF;
+
+  -- Decrement remaining quantity
+  UPDATE awards SET remaining_quantity = remaining_quantity - 1 WHERE id = v_award_id;
+
+  -- Set the award on the student
+  UPDATE students SET awarded_prize = v_award_name WHERE id = p_student_id;
+
+  RETURN v_award_name;
+END;
+$$;
+
+-- ============================================
+-- Migration: Add email column (run if table already exists)
+-- ============================================
+ALTER TABLE students ADD COLUMN IF NOT EXISTS email text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '';

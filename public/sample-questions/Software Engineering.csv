@@ -1,0 +1,63 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Software Engineering,What is the SDLC?,Software Development Life Cycle,System Data Loading Configuration,Structured Design Logic Code,Simple Development Language Concept,0
+Question Bank,Software Engineering,What is the difference between verification and validation?,Same thing,Verification checks if built correctly — validation checks if built the right product,Verification is testing — validation is coding,No difference,1
+Question Bank,Software Engineering,What is a design pattern?,A clothing pattern,A reusable solution to common software problems,A UI template,A database schema,1
+Question Bank,Software Engineering,What does CI/CD stand for?,Computer Intelligence/Code Development,Continuous Integration/Continuous Deployment,Central Information/Code Delivery,Complete Integration/Complete Debugging,1
+Question Bank,Software Engineering,What is technical debt?,Money owed for computers,Shortcuts in code that need future refactoring,A hardware cost,A network fee,1
+Question Bank,Software Engineering,What is the purpose of unit testing?,Testing the entire system,Testing individual components in isolation,User acceptance testing,Performance testing,1
+Question Bank,Software Engineering,What is a microservice?,A small waiter,An independently deployable service in a distributed system,A tiny computer,A small database,1
+Question Bank,Software Engineering,What does SOLID stand for in OOP?,Five design principles for maintainable code,A type of material,A programming language,A testing framework,0
+Question Bank,Software Engineering,What is refactoring?,Deleting code,Restructuring code without changing its behavior,Adding new features,Fixing bugs,1
+Question Bank,Software Engineering,What is the purpose of code review?,Criticizing developers,Finding bugs and improving code quality through peer review,Slowing down development,Adding more meetings,1
+IQ Games,Software Engineering,If a sprint is 2 weeks and a project needs 10 sprints how many months?,2.5,5,7.5,10,1
+IQ Games,Software Engineering,A team has velocity of 30 story points per sprint. How many sprints for 150 points?,3,5,10,15,1
+IQ Games,Software Engineering,If a system has 99.9% uptime how many minutes of downtime per year?,5.26,52.6,526,5260,2
+IQ Games,Software Engineering,How many possible states can a Boolean variable have?,1,2,3,4,1
+IQ Games,Software Engineering,If code coverage is 80% and there are 1000 lines how many are tested?,200,400,600,800,3
+IQ Games,Software Engineering,A software team of 5 produces 100 features/year. What is per-person output?,10,15,20,25,2
+IQ Games,Software Engineering,What comes next: 2 3 5 7 11 13 ?,15,17,19,21,1
+IQ Games,Software Engineering,If a deploy takes 5 min and you deploy 4 times daily how much deploy time per day?,10 min,15 min,20 min,25 min,2
+IQ Games,Software Engineering,A bug fix takes on average 2 hours. How many can one developer fix in a 40-hour week?,10,15,20,25,2
+IQ Games,Software Engineering,If technical debt grows 5% per sprint and starts at 100 hours what is it after 3 sprints?,115,115.76,120,125,1
+Career Questions,Software Engineering,Which methodology is most widely used in software teams?,Waterfall only,Agile and Scrum,No methodology,Random approach,1
+Career Questions,Software Engineering,What is the role of a QA engineer?,Write all the code,Ensure software quality through testing,Only manage people,Only design UI,1
+Career Questions,Software Engineering,Which tool is essential for modern software development?,Paintbrush,Git version control,Typewriter,Fax machine,1
+Career Questions,Software Engineering,What should SE students practice for interviews?,Cooking,System design and coding challenges,Singing,Drawing,1
+Career Questions,Software Engineering,What is a tech stack?,A pile of computers,The combination of technologies used in a project,A bookshelf,A filing cabinet,1
+Career Questions,Software Engineering,Which soft skill is critical for software engineers?,Speed reading,Communication and teamwork,Juggling,Dancing,1
+Career Questions,Software Engineering,What is pair programming?,Two people cooking,Two developers working together at one workstation,Two computers connected,Two phones paired,1
+Career Questions,Software Engineering,What does a DevOps engineer focus on?,Only coding,Automating deployment and infrastructure management,Only testing,Only documentation,1
+Career Questions,Software Engineering,What is the importance of documentation in SE?,No importance,Helps maintain and understand the codebase,Only for managers,Only for new employees,1
+Career Questions,Software Engineering,What is a retrospective in Agile?,Looking backward,A team meeting to reflect on what went well and what to improve,A type of test,A documentation method,1
+Question Bank,Software Engineering,What is the difference between unit testing and integration testing?,Unit tests individual components; integration tests combined components,They are the same,Integration tests single units; unit tests full systems,Unit testing is only for frontend,0
+Question Bank,Software Engineering,What does REST stand for?,Representational State Transfer,Remote Execution and Storage Technology,Real-time Endpoint Service Transfer,Rapid Event-driven State Tool,0
+Question Bank,Software Engineering,What is a microservice architecture?,System built as small independent services communicating via APIs,A monolithic application,A type of database,A UI framework,0
+Question Bank,Software Engineering,What is technical debt?,Cost of future work caused by taking shortcuts now,Money owed to software vendors,Time spent on documentation,Budget for hardware,0
+Question Bank,Software Engineering,What does SOLID stand for in OOP principles?,Single responsibility Open/closed Liskov substitution Interface segregation Dependency inversion,Stable Optimised Lightweight Integrated Design,Simplified Object-Layered Interface Design,Structured Open-source Linked Integrated Development,0
+Question Bank,Software Engineering,What is a sprint in Scrum?,Fixed time-boxed period for completing a set of work items,A release cycle,A code review session,A planning meeting,0
+Question Bank,Software Engineering,What is the purpose of a code review?,Improve code quality find bugs and share knowledge,Speed up development,Replace testing,Reduce team size,0
+Question Bank,Software Engineering,What is continuous integration?,Practice of frequently merging code and automatically building and testing it,Daily team meetings,Manual deployment process,Version control only,0
+Question Bank,Software Engineering,What is a UML diagram used for?,Model and visualise software system design,Write code,Test software,Deploy applications,0
+Question Bank,Software Engineering,What is refactoring?,Restructuring existing code without changing its external behaviour,Adding new features,Fixing bugs,Writing documentation,0
+Question Bank,Software Engineering,What does TDD stand for?,Test-Driven Development,Technology-Driven Design,Total Dependency Design,Testing-Before-Deployment,0
+Question Bank,Software Engineering,What is the Model-View-Controller (MVC) pattern?,Architectural pattern separating data presentation and control logic,A database design pattern,A network protocol,A testing framework,0
+Question Bank,Software Engineering,What is a software requirement specification (SRS)?,Document describing what a software system should do,Code documentation,Test plan,Deployment guide,0
+Question Bank,Software Engineering,What is the purpose of version control in software development?,Track changes enable collaboration and allow rollback,Speed up compilation,Improve UI design,Reduce server costs,0
+Question Bank,Software Engineering,What is pair programming?,Two developers working together at one workstation,Remote collaboration,Code sharing tool,Testing methodology,0
+Question Bank,Software Engineering,What is a monolith application?,Application built as a single unified unit,Application with microservices,Application deployed on multiple servers,Application with no database,0
+Question Bank,Software Engineering,What is a design pattern in software engineering?,Reusable solution template to a commonly occurring problem,A specific code snippet,A UI template,A project management tool,0
+Question Bank,Software Engineering,What does API versioning help with?,Maintaining backward compatibility when the API changes,Improving API speed,Securing the API,Documenting the API,0
+Question Bank,Software Engineering,What is static code analysis?,Analysing source code without executing it to find issues,Running code in production,Profiling code performance,Testing code manually,0
+Question Bank,Software Engineering,What is the Waterfall model?,Sequential linear development process with distinct phases,Iterative development,Continuous delivery process,Feature-driven development,0
+Question Bank,Software Engineering,What is a linter?,Tool that analyses code for potential errors and style violations,A code compiler,A testing tool,A version control tool,0
+Question Bank,Software Engineering,What is the purpose of caching in web applications?,Store frequently requested data for faster response,Secure the application,Log user activity,Manage database connections,0
+Question Bank,Software Engineering,What is dependency injection?,Design pattern where dependencies are provided to a class rather than created internally,A type of inheritance,A database pattern,A testing strategy,0
+Question Bank,Software Engineering,What is the role of a product owner in Scrum?,Define product vision prioritise backlog and represent stakeholders,Write all the code,Manage the development team,Perform quality testing,0
+Question Bank,Software Engineering,What is a pull request?,Request to merge code changes from one branch to another for review,Request to download code,Request for production deployment,A request to rollback code,0
+Question Bank,Software Engineering,What is an API gateway?,Entry point that routes and manages requests to backend services,A database server,A testing framework,A caching layer,0
+Question Bank,Software Engineering,What is load testing?,Testing system behaviour under expected and peak load conditions,Testing individual functions,Testing UI design,Testing code logic,0
+Question Bank,Software Engineering,What is the principle of separation of concerns?,Different aspects of a program should be handled by different modules,All code in one file,Sharing state across all modules,Minimising the number of classes,0
+Question Bank,Software Engineering,What is a Git branch?,A parallel version of the repository for developing features in isolation,A backup copy of the main code,A deleted version of code,A release package,0
+Question Bank,Software Engineering,What is serverless computing?,Running code without managing server infrastructure,Code running on a local computer,Code running without internet,A type of database,0
+Question Bank,Software Engineering,What is the purpose of logging in software systems?,Record events and errors to support debugging and monitoring,Improve performance,Secure the application,Reduce memory usage,0
+Question Bank,Software Engineering,What is an abstract class in OOP?,A class that cannot be instantiated and is meant to be subclassed,A class with no methods,A private class,A class with only static methods,0

@@ -16,16 +16,23 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ students }) => {
   slice(0, 10); // Show top 10
   const tabs: (Department | 'All')[] = [
   'All',
-  'Guest',
-  'Computer Science',
+  'Civil',
+  'Mechanical',
+  'Electrical',
   'Architecture',
-  'Life Sciences',
-  'Allied Health Sciences'];
+  'Pharmacy',
+  'Bioscience',
+  'Allied Health Sciences',
+  'Nursing',
+  'Management of Science',
+  'BSH',
+  'Computer Sciences',
+  'Software Engineering'];
 
   return (
     <div className="w-full h-full flex flex-col bg-cdgai-dark/50 rounded-2xl border border-white/10 overflow-hidden backdrop-blur-sm">
-      <div className="p-6 border-b border-white/10">
-        <h2 className="text-3xl font-bold tracking-tight text-white mb-6">
+      <div className="p-3 sm:p-6 border-b border-white/10">
+        <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-white mb-4 sm:mb-6">
           Live Leaderboard
         </h2>
 
@@ -43,12 +50,12 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ students }) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="grid grid-cols-12 gap-4 text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 px-4">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-6">
+        <div className="grid grid-cols-12 gap-2 sm:gap-4 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 px-2 sm:px-4">
           <div className="col-span-2 text-center">Rank</div>
-          <div className="col-span-5">Student</div>
-          <div className="col-span-3">Department</div>
-          <div className="col-span-2 text-right">Score</div>
+          <div className="col-span-7 sm:col-span-5">Student</div>
+          <div className="hidden sm:block sm:col-span-3">Department</div>
+          <div className="col-span-3 sm:col-span-2 text-right">Score</div>
         </div>
 
         <div className="space-y-3">
@@ -93,37 +100,31 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ students }) => {
                     duration: 0.4,
                     delay: index * 0.05
                   }}
-                  className={`grid grid-cols-12 gap-4 items-center p-4 rounded-xl border ${isTop3 ? rankColors[index] : 'bg-white/5 border-white/5 text-white'}`}>
+                  className={`grid grid-cols-12 gap-2 sm:gap-4 items-center p-3 sm:p-4 rounded-xl border ${isTop3 ? rankColors[index] : 'bg-white/5 border-white/5 text-white'}`}>
                   
                     <div className="col-span-2 flex justify-center">
                       {isTop3 ?
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-current/10">
-                          <Trophy size={18} className="text-current" />
+                    <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-current/10">
+                          <Trophy size={16} className="text-current" />
                         </div> :
 
-                    <span className="font-bold text-lg text-gray-400">
+                    <span className="font-bold text-base sm:text-lg text-gray-400">
                           #{index + 1}
                         </span>
                     }
                     </div>
-                    <div className="col-span-5">
-                      <div className="font-bold text-lg truncate">
+                    <div className="col-span-7 sm:col-span-5">
+                      <div className="font-bold text-sm sm:text-lg truncate">
                         {student.name}
                       </div>
-                      <div className="text-xs opacity-70 font-mono">
+                      <div className="text-xs opacity-70 font-mono hidden sm:block">
                         {student.studentId}
                       </div>
                     </div>
-                    <div className="col-span-3 text-sm opacity-80 truncate">
-                      {student.department === 'Guest' ? (
-                        <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase tracking-wider">
-                          Guest
-                        </span>
-                      ) : (
-                        student.department || 'N/A'
-                      )}
+                    <div className="hidden sm:block sm:col-span-3 text-sm opacity-80 truncate">
+                      {student.department || 'N/A'}
                     </div>
-                    <div className="col-span-2 text-right font-black text-2xl">
+                    <div className="col-span-3 sm:col-span-2 text-right font-black text-xl sm:text-2xl">
                       {student.score}
                     </div>
                   </motion.div>);

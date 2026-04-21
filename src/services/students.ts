@@ -20,6 +20,16 @@ export async function fetchStudentByStudentId(studentId: string): Promise<DbStud
   return data;
 }
 
+export async function fetchStudentById(id: string): Promise<DbStudent | null> {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
 export async function insertStudent(student: Omit<DbStudent, 'id' | 'created_at'>): Promise<DbStudent> {
   const { data, error } = await supabase
     .from('students')

@@ -1,60 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { Users, Activity, HelpCircle, Trophy, X } from 'lucide-react';
+import { Users, Activity, HelpCircle, Trophy } from 'lucide-react';
 export const DashboardTab: React.FC = () => {
   const { students, currentStudent, segments, recordSpin } = useAppContext();
-  const [pendingSpin, setPendingSpin] = useState<{
-    segmentId: string;
-    timeout: number;
-  } | null>(null);
+  const [isSpinning, setIsSpinning] = useState(false);
   const activeStudents = students.filter((s) => s.status === 'active').length;
-  const totalQuestions =
-  students.reduce(
-    (acc, s) => acc + s.spinHistory.filter((h) => h.includes('q')).length,
-    0
-  ) + 12; // Mock number
+  const totalQuestionsAnswered =
+    students.reduce(
+      (acc, s) => acc + s.spinHistory.filter((h) => h.includes('q')).length,
+      0
+    );
   const topScore =
   students.length > 0 ? Math.max(...students.map((s) => s.score)) : 0;
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (pendingSpin && pendingSpin.timeout > 0) {
-      timer = setTimeout(() => {
-        setPendingSpin((prev) =>
-        prev ?
-        {
-          ...prev,
-          timeout: prev.timeout - 1
-        } :
-        null
-        );
-      }, 1000);
-    } else if (pendingSpin && pendingSpin.timeout === 0) {
-      // Commit spin
-      if (currentStudent) {
-        // Mock points based on segment
-        const points = pendingSpin.segmentId === 's2' ? 5 : 0;
-        recordSpin(currentStudent.id, pendingSpin.segmentId, points);
-      }
-      setPendingSpin(null);
-    }
-    return () => clearTimeout(timer);
-  }, [pendingSpin, currentStudent, recordSpin]);
-  const handleSegmentClick = (segmentId: string) => {
-    if (!currentStudent || currentStudent.spinsUsed >= currentStudent.maxSpins)
-    return;
-    setPendingSpin({
-      segmentId,
-      timeout: 5
-    }); // 5 seconds for demo instead of 10
-  };
-  const cancelSpin = () => {
-    setPendingSpin(null);
+  const handleSegmentClick = async (segmentId: string) => {
+    if (!currentStudent || currentStudent.spinsUsed >= currentStudent.maxSpins || isSpinning) return;
+    setIsSpinning(true);
+    const points = segmentId === 's2' ? 5 : 0;
+    await recordSpin(currentStudent.id, segmentId, points);
+    setIsSpinning(false);
   };
   return (
     <div className="space-y-6">
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center space-x-4">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-lg">
             <Users size={24} />
@@ -90,7 +58,7 @@ export const DashboardTab: React.FC = () => {
               Questions Answered
             </div>
             <div className="text-2xl font-black text-gray-900">
-              {totalQuestions}
+              {totalQuestionsAnswered}
             </div>
           </div>
         </div>
@@ -181,9 +149,9 @@ export const DashboardTab: React.FC = () => {
                   key={segment.id}
                   onClick={() => handleSegmentClick(segment.id)}
                   disabled={
-                  !!pendingSpin ||
-                  currentStudent.spinsUsed >= currentStudent.maxSpins
+                    currentStudent.spinsUsed >= currentStudent.maxSpins || isSpinning
                   }
+                  aria-label={`Register spin: ${segment.name}`}
                   className="px-4 py-3 rounded-lg font-bold text-white text-sm shadow-sm hover:shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     backgroundColor: segment.color
@@ -193,42 +161,6 @@ export const DashboardTab: React.FC = () => {
                     </button>
                 )}
                 </div>
-
-                <AnimatePresence>
-                  {pendingSpin &&
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 10
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: -10
-                  }}
-                  className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
-                  
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
-                          {pendingSpin.timeout}
-                        </div>
-                        <div className="text-sm font-medium text-blue-800">
-                          Committing spin result...
-                        </div>
-                      </div>
-                      <button
-                    onClick={cancelSpin}
-                    className="flex items-center space-x-1 px-3 py-1.5 bg-white text-gray-700 hover:bg-gray-100 rounded-md text-sm font-bold border border-gray-200 transition-colors">
-                    
-                        <X size={16} />
-                        <span>Undo</span>
-                      </button>
-                    </motion.div>
-                }
-                </AnimatePresence>
               </div>
             </div> :
 

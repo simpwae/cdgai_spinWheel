@@ -19,7 +19,7 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
     }
   }, [hasScore, onComplete]);
   return (
-    <div className="min-h-screen w-full bg-[#16A34A] flex flex-col items-center justify-center p-8 relative overflow-hidden text-white">
+    <div className="min-h-screen w-full bg-[#16A34A] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
         <motion.div
@@ -48,14 +48,14 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
           opacity: 1,
           y: 0
         }}
-        className="flex flex-col items-center text-center z-10 max-w-3xl">
+        className="flex flex-col items-center text-center z-10 max-w-3xl w-full px-2 sm:px-4">
         
-        <h1 className="text-7xl font-black tracking-tight mb-6 drop-shadow-lg">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-6 drop-shadow-lg">
           Résumé Review!
         </h1>
 
         {!hasScore &&
-        <p className="text-2xl font-medium opacity-90 mb-16">
+        <p className="text-lg sm:text-2xl font-medium opacity-90 mb-8 sm:mb-16">
             Hand your résumé to our career expert for a quick review.
           </p>
         }
@@ -79,9 +79,10 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
                 repeat: Infinity,
                 ease: 'easeInOut'
               }}
-              className="bg-white/10 p-12 rounded-3xl backdrop-blur-sm border border-white/20 mb-12 shadow-2xl">
+              className="bg-white/10 p-8 sm:p-12 rounded-3xl backdrop-blur-sm border border-white/20 mb-8 sm:mb-12 shadow-2xl">
               
-                <FileText size={120} strokeWidth={1} />
+                <FileText size={80} strokeWidth={1} className="sm:hidden" />
+                <FileText size={120} strokeWidth={1} className="hidden sm:block" />
               </motion.div>
 
               <div className="flex items-center space-x-4 bg-white/20 px-8 py-4 rounded-full">
@@ -96,7 +97,7 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
                 }}
                 className="w-4 h-4 rounded-full bg-white" />
               
-                <span className="text-2xl font-bold">
+                <span className="text-lg sm:text-2xl font-bold">
                   Awaiting expert feedback...
                 </span>
               </div>
@@ -120,22 +121,22 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
             }}
             className="flex flex-col items-center w-full">
             
-              <div className="flex items-center justify-center space-x-8 mb-12">
-                <div className="bg-white text-[#16A34A] w-48 h-48 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-4 border-white/20 rotate-[-5deg]">
-                  <span className="text-xl font-bold text-gray-400 uppercase tracking-widest mb-1">
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mb-8 sm:mb-12">
+                <div className="bg-white text-[#16A34A] w-36 h-36 sm:w-48 sm:h-48 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-4 border-white/20 rotate-[-5deg]">
+                  <span className="text-sm sm:text-xl font-bold text-gray-400 uppercase tracking-widest mb-1">
                     Score
                   </span>
-                  <span className="text-7xl font-black leading-none">
+                  <span className="text-5xl sm:text-7xl font-black leading-none">
                     {pendingScore}
-                    <span className="text-3xl text-gray-300">/10</span>
+                    <span className="text-xl sm:text-3xl text-gray-300">/10</span>
                   </span>
                 </div>
 
-                <div className="bg-white text-[#16A34A] w-48 h-48 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-4 border-white/20 rotate-[5deg]">
-                  <span className="text-xl font-bold text-gray-400 uppercase tracking-widest mb-1">
+                <div className="bg-white text-[#16A34A] w-36 h-36 sm:w-48 sm:h-48 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-4 border-white/20 rotate-[5deg]">
+                  <span className="text-sm sm:text-xl font-bold text-gray-400 uppercase tracking-widest mb-1">
                     Points
                   </span>
-                  <span className="text-7xl font-black leading-none text-cdgai-accent">
+                  <span className="text-5xl sm:text-7xl font-black leading-none text-cdgai-accent">
                     +{pendingScore}
                   </span>
                 </div>
@@ -154,12 +155,12 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
               transition={{
                 delay: 0.3
               }}
-              className="bg-white text-cdgai-dark p-8 rounded-3xl w-full text-left shadow-2xl relative">
+              className="bg-white text-cdgai-dark p-5 sm:p-8 rounded-3xl w-full text-left shadow-2xl relative">
               
                   <div className="absolute -top-4 left-8 bg-[#16A34A] text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">
                     Expert Feedback
                   </div>
-                  <p className="text-2xl font-medium leading-relaxed mt-2">
+                  <p className="text-lg sm:text-2xl font-medium leading-relaxed mt-2">
                     "{currentStudent.pendingFeedback}"
                   </p>
                 </motion.div>

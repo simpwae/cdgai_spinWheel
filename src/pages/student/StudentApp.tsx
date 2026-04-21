@@ -8,25 +8,33 @@ import { ResultQuestion } from './ResultQuestion';
 import { ResultPitch } from './ResultPitch';
 import { ResultResume } from './ResultResume';
 import { useAppContext } from '../../context/AppContext';
+
 type ScreenState =
-'idle' |
-'waiting' |
-'locked' |
-'result-betterluck' |
-'result-freebee' |
-'result-question' |
-'result-pitch' |
-'result-resume';
+  | 'idle'
+  | 'waiting'
+  | 'locked'
+  | 'result-betterluck'
+  | 'result-freebee'
+  | 'result-question'
+  | 'result-pitch'
+  | 'result-resume';
+
 export const StudentApp: React.FC = () => {
   const [screen, setScreen] = useState<ScreenState>('idle');
-  const [activeSegmentName, setActiveSegmentName] =
-  useState<string>('Question Bank');
-  const { currentStudent, lastSpinResult, clearSpinResult } = useAppContext();
+  const [activeSegmentName, setActiveSegmentName] = useState<string>('Question Bank');
+  const { currentStudent, lastSpinResult, clearSpinResult, setCurrentStudent } = useAppContext();
 
-  // React to admin spin results arriving via cross-tab sync
+  const isResultScreen =
+    screen === 'result-betterluck' ||
+    screen === 'result-freebee' ||
+    screen === 'result-question' ||
+    screen === 'result-pitch' ||
+    screen === 'result-resume';
+
+  // React to admin spin results arriving via realtime
   useEffect(() => {
     if (!lastSpinResult) return;
-    if (screen !== 'waiting') return;
+    if (screen !== 'waiting' && screen !== 'idle') return;
     const { segmentId, segmentName } = lastSpinResult;
     clearSpinResult();
     switch (segmentId) {
@@ -42,8 +50,8 @@ export const StudentApp: React.FC = () => {
       case 's7': setScreen('result-resume'); break;
     }
   }, [lastSpinResult, screen, clearSpinResult]);
-  // Simple keyboard shortcut to simulate flow for demo purposes
-  // In a real app, the admin panel would trigger these state changes via WebSockets/DB
+
+  // Keyboard shortcuts for demo/testing
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
@@ -53,102 +61,85 @@ export const StudentApp: React.FC = () => {
       if (e.key === '4') setScreen('locked');
       if (e.key === '5') setScreen('result-betterluck');
       if (e.key === '6') setScreen('result-freebee');
-      if (e.key === '7') {
-        setActiveSegmentName('Question Bank');
-        setScreen('result-question');
-      }
+      if (e.key === '7') { setActiveSegmentName('Question Bank'); setScreen('result-question'); }
       if (e.key === '8') setScreen('result-pitch');
       if (e.key === '9') setScreen('result-resume');
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-  // Helper to transition back to idle or locked
+
+  // Transition back to idle or locked after a result is dismissed
   const handleResultComplete = () => {
-    if (currentStudent && currentStudent.spinsUsed >= currentStudent.maxSpins) {
+    const wasLocked = currentStudent
+      ? currentStudent.spinsUsed >= currentStudent.maxSpins
+      : false;
+    setCurrentStudent(null);
+    if (wasLocked) {
       setScreen('locked');
     } else {
       setScreen('idle');
     }
   };
-  // Render the active screen
-  switch (screen) {
-    case 'waiting':
-      return <WaitingForSpin />;
-    case 'locked':
-      return <LockedScreen onSeeLeaderboard={() => setScreen('idle')} />;
-    // Result Screens
-    case 'result-betterluck':
-      return (
-        <ResultBetterLuck
-          triesLeft={
-          currentStudent ?
-          currentStudent.maxSpins - currentStudent.spinsUsed :
-          0
-          }
-          onComplete={handleResultComplete} />);
 
+  return (
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Leaderboard - always mounted when idle or as blurred backdrop during result screens */}
+      {(screen === 'idle' || isResultScreen) && (
+        <div
+          className={`absolute inset-0 transition-all duration-500 ${
+            isResultScreen ? 'blur-md brightness-75 pointer-events-none select-none' : ''
+          }`}
+        >
+          <IdleLeaderboard
+            onComplete={() => setScreen('waiting')}
+            onLocked={() => setScreen('locked')}
+          />
+        </div>
+      )}
 
-    case 'result-freebee':
-      return <ResultFreebee onComplete={handleResultComplete} />;
-    case 'result-question':
-      return (
-        <ResultQuestion
-          segmentName={activeSegmentName}
-          onComplete={handleResultComplete} />);
+      {/* Full-screen replacement screens */}
+      {screen === 'waiting' && <WaitingForSpin />}
+      {screen === 'locked' && <LockedScreen onSeeLeaderboard={() => setScreen('idle')} />}
 
+      {/* Result screens rendered as overlays on top of the blurred leaderboard */}
+      {isResultScreen && (
+        <div className="absolute inset-0 z-50">
+          {screen === 'result-betterluck' && (
+            <ResultBetterLuck
+              triesLeft={currentStudent ? currentStudent.maxSpins - currentStudent.spinsUsed : 0}
+              onComplete={handleResultComplete}
+            />
+          )}
+          {screen === 'result-freebee' && <ResultFreebee onComplete={handleResultComplete} />}
+          {screen === 'result-question' && (
+            <ResultQuestion segmentName={activeSegmentName} onComplete={handleResultComplete} />
+          )}
+          {screen === 'result-pitch' && <ResultPitch onComplete={handleResultComplete} />}
+          {screen === 'result-resume' && <ResultResume onComplete={handleResultComplete} />}
+        </div>
+      )}
 
-    case 'result-pitch':
-      return <ResultPitch onComplete={handleResultComplete} />;
-    case 'result-resume':
-      return <ResultResume onComplete={handleResultComplete} />;
-    case 'idle':
-    default:
-      return (
-        <div className="relative w-full h-full">
-          <IdleLeaderboard onComplete={() => setScreen('waiting')} onLocked={() => setScreen('locked')} />
-
-          {/* Demo overlay to help user navigate the prototype */}
-          <div className="absolute bottom-4 left-4 bg-black/80 text-white text-xs p-3 rounded-lg border border-white/20 z-50 flex space-x-6">
-            <div>
-              <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">
-                Core Flow
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">1</kbd> Registration
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">2</kbd> Waiting
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">3</kbd> Leaderboard
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">4</kbd> Locked
-              </div>
-            </div>
-            <div>
-              <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">
-                Results
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">5</kbd> Better Luck
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">6</kbd> Freebee
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">7</kbd> Question
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">8</kbd> Pitch
-              </div>
-              <div>
-                <kbd className="bg-white/20 px-1 rounded">9</kbd> Resume
-              </div>
-            </div>
+      {/* Demo keyboard shortcuts overlay */}
+      {screen === 'idle' && (
+        <div className="absolute bottom-4 left-4 bg-black/80 text-white text-xs p-3 rounded-lg border border-white/20 z-50 flex space-x-6">
+          <div>
+            <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">Core Flow</div>
+            <div><kbd className="bg-white/20 px-1 rounded">1</kbd> Registration</div>
+            <div><kbd className="bg-white/20 px-1 rounded">2</kbd> Waiting</div>
+            <div><kbd className="bg-white/20 px-1 rounded">3</kbd> Leaderboard</div>
+            <div><kbd className="bg-white/20 px-1 rounded">4</kbd> Locked</div>
           </div>
-        </div>);
-
-  }
+          <div>
+            <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">Results</div>
+            <div><kbd className="bg-white/20 px-1 rounded">5</kbd> Better Luck</div>
+            <div><kbd className="bg-white/20 px-1 rounded">6</kbd> Freebee</div>
+            <div><kbd className="bg-white/20 px-1 rounded">7</kbd> Question</div>
+            <div><kbd className="bg-white/20 px-1 rounded">8</kbd> Pitch</div>
+            <div><kbd className="bg-white/20 px-1 rounded">9</kbd> Resume</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };

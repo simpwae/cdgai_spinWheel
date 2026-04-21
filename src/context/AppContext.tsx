@@ -1,20 +1,38 @@
 import React, { useMemo, useState, useEffect, useCallback, useRef, createContext, useContext } from 'react';
 import { supabase } from '../lib/supabase';
-import type { DbStudent, DbActiveSession } from '../lib/database.types';
-import { fetchStudents, fetchStudentByStudentId, insertStudent, updateStudent as updateStudentDb, deleteAllStudents } from '../services/students';
-import { fetchSession, setCurrentStudentId, setSpinResult as setSpinResultDb, clearSpinResult as clearSpinResultDb, resetSession } from '../services/session';
+import type { DbStudent, DbActiveSession, DbAward } from '../lib/database.types';
+import { fetchStudents, fetchStudentByStudentId, fetchStudentById, insertStudent, updateStudent as updateStudentDb, deleteAllStudents } from '../services/students';
+import { fetchSession, setCurrentStudentId, setSpinResultAndClearStudent as setSpinResultAndClearStudentDb, clearSpinResult as clearSpinResultDb, resetSession } from '../services/session';
 import { fetchQuestions } from '../services/questions';
 import { fetchSegments } from '../services/segments';
+import { fetchAwards as fetchAwardsDb, insertAward as insertAwardDb, deleteAward as deleteAwardDb, claimRandomAward } from '../services/awards';
+
+// --- Faculty / Department constants ---
+
+export const FACULTY_DEPARTMENTS = {
+  'Faculty of Engineering': ['Civil', 'Mechanical', 'Electrical', 'Architecture'] as const,
+  'Faculty of Life Sciences': ['Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing'] as const,
+  'Faculty of Computing and Management Sciences': ['Management of Science', 'BSH', 'Computer Sciences', 'Software Engineering'] as const,
+} as const;
+
+export type Faculty = keyof typeof FACULTY_DEPARTMENTS;
+
 export type Department =
-'Architecture' |
-'Computer Science' |
-'Life Sciences' |
-'Allied Health Sciences' |
-'Guest' |
-'';
+  | typeof FACULTY_DEPARTMENTS[Faculty][number]
+  | '';
+
+export interface Award {
+  id: string;
+  name: string;
+  totalQuantity: number;
+  remainingQuantity: number;
+}
 export interface Student {
   id: string;
   name: string;
+  email: string;
+  phone: string;
+  faculty: string;
   department: Department;
   studentId: string;
   score: number;
@@ -23,6 +41,7 @@ export interface Student {
   status: 'active' | 'locked' | 'banned';
   spinHistory: string[];
   rewardClaimed?: boolean;
+  awardedPrize?: string | null;
   pendingScore?: number;
   pendingFeedback?: string;
 }
@@ -45,10 +64,14 @@ interface AppContextType {
   leaderboard: Student[];
   segments: Segment[];
   questions: Question[];
+  awards: Award[];
   maxTriesDefault: number;
   registerStudent: (
     name: string,
     studentId: string,
+    email: string,
+    phone: string,
+    faculty: string,
     department: Department
   ) => Promise<{
     success: boolean;
@@ -70,6 +93,11 @@ interface AppContextType {
   editTries: (studentId: string, newMaxSpins: number) => void;
   lastSpinResult: { segmentId: string; segmentName: string; timestamp: number } | null;
   clearSpinResult: () => void;
+  addAward: (name: string, quantity: number) => Promise<void>;
+  removeAward: (id: string) => Promise<void>;
+  claimAward: (studentId: string) => Promise<string | null>;
+  refreshQuestions: () => Promise<void>;
+  refreshAwards: () => Promise<void>;
 }
 
 // --- Helpers to convert between DB rows and app models ---
@@ -78,6 +106,9 @@ function dbStudentToStudent(row: DbStudent): Student {
   return {
     id: row.id,
     name: row.name,
+    email: row.email || '',
+    phone: row.phone || '',
+    faculty: row.faculty || '',
     department: (row.department || '') as Department,
     studentId: row.student_id,
     score: row.score,
@@ -86,8 +117,18 @@ function dbStudentToStudent(row: DbStudent): Student {
     status: row.status as Student['status'],
     spinHistory: row.spin_history ?? [],
     rewardClaimed: row.reward_claimed,
+    awardedPrize: row.awarded_prize ?? null,
     pendingScore: row.pending_score ?? undefined,
     pendingFeedback: row.pending_feedback ?? undefined,
+  };
+}
+
+function dbAwardToAward(row: DbAward): Award {
+  return {
+    id: row.id,
+    name: row.name,
+    totalQuantity: row.total_quantity,
+    remainingQuantity: row.remaining_quantity,
   };
 }
 
@@ -98,6 +139,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentStudent, setCurrentStudentState] = useState<Student | null>(null);
   const [segments, setSegments] = useState<Segment[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [awards, setAwards] = useState<Award[]>([]);
   const [lastSpinResult, setLastSpinResult] = useState<{
     segmentId: string;
     segmentName: string;
@@ -112,11 +154,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const load = async () => {
       try {
-        const [dbStudents, dbSegments, dbQuestions, dbSession] = await Promise.all([
+        const [dbStudents, dbSegments, dbQuestions, dbSession, dbAwards] = await Promise.all([
           fetchStudents(),
           fetchSegments(),
           fetchQuestions(),
           fetchSession(),
+          fetchAwardsDb(),
         ]);
         setStudents(dbStudents.map(dbStudentToStudent));
         setSegments(dbSegments.map((s) => ({ id: s.id, name: s.name, color: s.color })));
@@ -130,6 +173,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             correctAnswerIndex: q.correct_answer_index,
           }))
         );
+        setAwards(dbAwards.map(dbAwardToAward));
         // Restore current student from session
         if (dbSession.current_student_id) {
           const match = dbStudents.find((s) => s.id === dbSession.current_student_id);
@@ -192,14 +236,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         (payload) => {
           const session = payload.new as DbActiveSession;
 
+          // Detect whether a new spin result is arriving in this same event
+          const isNewSpinResult =
+            !!session.last_spin_segment_id &&
+            !!session.last_spin_timestamp &&
+            session.last_spin_timestamp !== lastProcessedSpinTs.current;
+
           // Update currentStudent
           if (session.current_student_id) {
             setStudents((prev) => {
               const match = prev.find((s) => s.id === session.current_student_id);
-              if (match) setCurrentStudentState(match);
+              if (match) {
+                setCurrentStudentState(match);
+              } else {
+                // Student not yet in local state (INSERT event may not have arrived) — fetch from DB
+                fetchStudentById(session.current_student_id!).then((dbStudent) => {
+                  if (dbStudent) {
+                    const student = dbStudentToStudent(dbStudent);
+                    setStudents((p) => {
+                      if (p.some((s) => s.id === student.id)) return p;
+                      return [...p, student];
+                    });
+                    setCurrentStudentState(student);
+                  }
+                }).catch(console.error);
+              }
               return prev;
             });
-          } else {
+          } else if (!isNewSpinResult) {
+            // Only clear currentStudent if there's no spin result arriving simultaneously.
+            // When a spin is registered, current_student_id is cleared in the same DB write
+            // as the spin result. We skip clearing here so result screens on the student page
+            // still have access to the student (e.g. ResultPitch waiting for pendingScore).
+            // The admin page already clears it locally via setCurrentStudentState(null)
+            // inside recordSpin(), so it won't show a stale student.
             setCurrentStudentState(null);
           }
 
@@ -231,6 +301,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const registerStudent = useCallback(async (
     name: string,
     studentId: string,
+    email: string,
+    phone: string,
+    faculty: string,
     department: Department
   ): Promise<{ success: boolean; error?: string; student?: Student }> => {
     try {
@@ -253,6 +326,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const dbRow = await insertStudent({
         name,
         student_id: studentId,
+        email,
+        phone,
+        faculty,
         department,
         score: 0,
         spins_used: 0,
@@ -260,6 +336,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         status: 'active',
         spin_history: [],
         reward_claimed: false,
+        awarded_prize: null,
         pending_score: null,
         pending_feedback: null,
       });
@@ -304,9 +381,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         pending_feedback: null,
       }).catch(console.error);
 
-      setSpinResultDb(segmentId, segName).catch(console.error);
+      // Single atomic update: sets spin result AND clears current_student_id together
+      // Prevents the race where two separate updates cause stale currentStudent via realtime
+      setSpinResultAndClearStudentDb(segmentId, segName).catch(console.error);
 
-      // Optimistic local update
+      // Optimistic local update (do NOT touch currentStudentState here — cleared below)
       const updated: Student = {
         ...target,
         score: target.score + points,
@@ -317,11 +396,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         pendingScore: undefined,
         pendingFeedback: undefined,
       };
-      setCurrentStudentState((curr) =>
-        curr && (curr.id === target.id) ? updated : curr
-      );
       return prev.map((s) => (s.id === target.id ? updated : s));
     });
+    // Clear current student outside the setStudents updater to avoid nested-setState ordering issues
+    setCurrentStudentState(null);
   }, [segments]);
 
   const updateScore = useCallback((studentId: string, points: number) => {
@@ -442,6 +520,61 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   }, []);
 
+  // --- Award methods ---
+
+  const addAward = useCallback(async (name: string, quantity: number) => {
+    const dbRow = await insertAwardDb(name, quantity);
+    setAwards((prev) => [...prev, dbAwardToAward(dbRow)]);
+  }, []);
+
+  const removeAward = useCallback(async (id: string) => {
+    await deleteAwardDb(id);
+    setAwards((prev) => prev.filter((a) => a.id !== id));
+  }, []);
+
+  const claimAward = useCallback(async (studentId: string): Promise<string | null> => {
+    const prizeName = await claimRandomAward(studentId);
+    if (prizeName) {
+      // Update local student state with the awarded prize
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.id === studentId ? { ...s, awardedPrize: prizeName } : s
+        )
+      );
+      setCurrentStudentState((prev) =>
+        prev && prev.id === studentId ? { ...prev, awardedPrize: prizeName } : prev
+      );
+      // Decrement local award count
+      setAwards((prev) =>
+        prev.map((a) =>
+          a.name === prizeName
+            ? { ...a, remainingQuantity: Math.max(0, a.remainingQuantity - 1) }
+            : a
+        )
+      );
+    }
+    return prizeName;
+  }, []);
+
+  const refreshQuestions = useCallback(async () => {
+    const dbQuestions = await fetchQuestions();
+    setQuestions(
+      dbQuestions.map((q) => ({
+        id: q.id,
+        category: q.category,
+        department: (q.department || undefined) as Department | undefined,
+        text: q.text,
+        options: q.options,
+        correctAnswerIndex: q.correct_answer_index,
+      }))
+    );
+  }, []);
+
+  const refreshAwards = useCallback(async () => {
+    const dbAwards = await fetchAwardsDb();
+    setAwards(dbAwards.map(dbAwardToAward));
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -450,6 +583,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         leaderboard,
         segments,
         questions,
+        awards,
         maxTriesDefault,
         registerStudent,
         setCurrentStudent,
@@ -463,6 +597,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         editTries,
         lastSpinResult,
         clearSpinResult,
+        addAward,
+        removeAward,
+        claimAward,
+        refreshQuestions,
+        refreshAwards,
       }}>
       {children}
     </AppContext.Provider>

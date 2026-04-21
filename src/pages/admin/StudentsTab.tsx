@@ -21,6 +21,7 @@ export const StudentsTab: React.FC = () => {
   const [scoringStudent, setScoringStudent] = useState<Student | null>(null);
   const [manualScore, setManualScore] = useState(5);
   const [manualFeedback, setManualFeedback] = useState('');
+  const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const filteredStudents = students.filter((s) => {
     const matchesSearch =
     s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -51,6 +52,16 @@ export const StudentsTab: React.FC = () => {
       setManualScore(5);
     }
   };
+  const handleBanToggle = async (student: Student) => {
+    if (actionLoadingId) return;
+    setActionLoadingId(student.id);
+    if (student.status === 'banned') {
+      await unbanStudent(student.id);
+    } else {
+      await banStudent(student.id);
+    }
+    setActionLoadingId(null);
+  };
   return (
     <div className="space-y-6">
       {hasConflicts &&
@@ -71,8 +82,9 @@ export const StudentsTab: React.FC = () => {
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={18} />
-          
+          <label htmlFor="student-search" className="sr-only">Search students</label>
           <input
+            id="student-search"
             type="text"
             placeholder="Search by name or ID..."
             value={searchTerm}
@@ -103,6 +115,8 @@ export const StudentsTab: React.FC = () => {
               <tr className="bg-gray-50 border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 font-bold">
                 <th className="p-4">Name</th>
                 <th className="p-4">ID</th>
+                <th className="p-4">Email</th>
+                <th className="p-4">Phone</th>
                 <th className="p-4">Department</th>
                 <th className="p-4 text-center">Score</th>
                 <th className="p-4 text-center">Spins</th>
@@ -114,7 +128,7 @@ export const StudentsTab: React.FC = () => {
               {filteredStudents.length === 0 ?
               <tr>
                   <td
-                  colSpan={7}
+                  colSpan={9}
                   className="p-8 text-center text-gray-400 font-medium">
                   
                     No students found matching your criteria.
@@ -131,6 +145,12 @@ export const StudentsTab: React.FC = () => {
                     </td>
                     <td className="p-4 font-mono text-sm text-gray-600">
                       {student.studentId}
+                    </td>
+                    <td className="p-4 text-sm text-gray-600">
+                      {student.email || '-'}
+                    </td>
+                    <td className="p-4 text-sm text-gray-600">
+                      {student.phone || '-'}
                     </td>
                     <td className="p-4 text-sm text-gray-600">
                       {student.department || '-'}
@@ -155,6 +175,7 @@ export const StudentsTab: React.FC = () => {
                       setNewTries(student.maxSpins);
                     }}
                     className="p-1.5 text-gray-400 hover:text-cdgai-accent hover:bg-blue-50 rounded transition-colors"
+                    aria-label={`Edit tries for ${student.name}`}
                     title="Edit Tries">
                     
                         <Edit2 size={16} />
@@ -162,27 +183,21 @@ export const StudentsTab: React.FC = () => {
                       <button
                     onClick={() => setScoringStudent(student)}
                     className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
+                    aria-label={`Add manual score for ${student.name}`}
                     title="Add Manual Score">
                     
                         <CheckCircle size={16} />
                       </button>
-                      {student.status === 'banned' ?
-                  <button
-                    onClick={() => unbanStudent(student.id)}
-                    className="p-1.5 text-red-500 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
-                    title="Unban">
-                    
-                          <CheckCircle size={16} />
-                        </button> :
-
-                  <button
-                    onClick={() => banStudent(student.id)}
-                    className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
-                    title="Ban">
-                    
-                          <Ban size={16} />
-                        </button>
-                  }
+                      <button
+                    onClick={() => handleBanToggle(student)}
+                    disabled={actionLoadingId === student.id}
+                    className={`p-1.5 rounded transition-colors disabled:opacity-50 ${student.status === 'banned' ? 'text-red-500 hover:text-green-600 hover:bg-green-50' : 'text-gray-400 hover:text-red-600 hover:bg-red-50'}`}
+                    aria-label={student.status === 'banned' ? `Unban ${student.name}` : `Ban ${student.name}`}
+                    title={student.status === 'banned' ? 'Unban' : 'Ban'}>
+                    {actionLoadingId === student.id
+                      ? <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      : student.status === 'banned' ? <CheckCircle size={16} /> : <Ban size={16} />}
+                      </button>
                     </td>
                   </tr>
               )
@@ -207,12 +222,14 @@ export const StudentsTab: React.FC = () => {
               .
             </p>
             <input
+            id="edit-tries-input"
             type="number"
             min="1"
             max="10"
             value={newTries}
             onChange={(e) => setNewTries(parseInt(e.target.value) || 1)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent mb-6" />
+            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent mb-6"
+            aria-label="Maximum tries" />
           
             <div className="flex justify-end space-x-3">
               <button
@@ -248,11 +265,12 @@ export const StudentsTab: React.FC = () => {
             </p>
 
             <div className="mb-6">
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label htmlFor="manual-score" className="block text-sm font-bold text-gray-700 mb-2">
                 Score (0-10)
               </label>
               <div className="flex items-center space-x-4">
                 <input
+                id="manual-score"
                 type="range"
                 min="0"
                 max="10"
@@ -267,13 +285,15 @@ export const StudentsTab: React.FC = () => {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label htmlFor="manual-feedback" className="block text-sm font-bold text-gray-700 mb-2">
                 Feedback (Optional)
               </label>
               <textarea
+              id="manual-feedback"
               value={manualFeedback}
               onChange={(e) => setManualFeedback(e.target.value)}
               placeholder="Great presentation skills..."
+              maxLength={500}
               className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent resize-none h-24">
             </textarea>
             </div>

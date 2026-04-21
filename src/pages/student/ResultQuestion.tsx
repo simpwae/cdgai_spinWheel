@@ -115,9 +115,9 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
       </AnimatePresence>
 
       {/* Top Bar */}
-      <div className="flex justify-between items-center p-8 z-10">
+      <div className="flex justify-between items-center p-4 sm:p-8 z-10">
         <div>
-          <h1 className="text-3xl font-black tracking-tight">{segmentName}</h1>
+          <h1 className="text-xl sm:text-3xl font-black tracking-tight">{segmentName}</h1>
           {question.department &&
           <span className="inline-block mt-2 px-3 py-1 bg-white/10 rounded-full text-sm font-bold text-gray-300">
               {question.department}
@@ -129,14 +129,14 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
         <CountdownTimer
           totalSeconds={90}
           onComplete={handleTimeUp}
-          size={80}
+          size={60}
           color="#2563EB" />
 
         }
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full z-10">
+      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-5xl mx-auto w-full z-10">
         {/* Result Overlay Text */}
         <AnimatePresence>
           {showResult &&
@@ -152,15 +152,15 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
             className="absolute top-32 text-center w-full left-0">
             
               {isTimeUp ?
-            <h2 className="text-4xl font-black text-yellow-500">
+            <h2 className="text-2xl sm:text-4xl font-black text-yellow-500">
                   Time's up!
                 </h2> :
             isCorrect ?
-            <h2 className="text-4xl font-black text-green-400">
+            <h2 className="text-2xl sm:text-4xl font-black text-green-400">
                   Correct! +10 pts
                 </h2> :
 
-            <h2 className="text-4xl font-black text-red-400">Incorrect</h2>
+            <h2 className="text-2xl sm:text-4xl font-black text-red-400">Incorrect</h2>
             }
             </motion.div>
           }
@@ -177,11 +177,11 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
           }}
           className="w-full">
           
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-16 text-center">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight mb-8 sm:mb-16 text-center">
             {question.text}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 w-full">
             {question.options.map((option, index) => {
               const labels = ['A', 'B', 'C', 'D'];
               // Determine card styling based on state
@@ -229,14 +229,14 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
                   }
                   onClick={() => handleSelect(index)}
                   disabled={showResult}
-                  className={`w-full flex items-center p-6 rounded-2xl text-left transition-all duration-300 min-h-[80px] ${cardStyle}`}>
+                  className={`w-full flex items-center p-4 sm:p-6 rounded-2xl text-left transition-all duration-300 min-h-[64px] sm:min-h-[80px] ${cardStyle}`}>
                   
                   <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl mr-6 shrink-0 transition-colors ${labelStyle}`}>
+                    className={`w-9 h-9 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-base sm:text-xl mr-4 sm:mr-6 shrink-0 transition-colors ${labelStyle}`}>
                     
                     {labels[index]}
                   </div>
-                  <span className="text-2xl font-bold leading-tight">
+                  <span className="text-lg sm:text-2xl font-bold leading-tight">
                     {option}
                   </span>
                 </motion.button>);

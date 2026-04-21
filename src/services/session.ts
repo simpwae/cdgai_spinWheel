@@ -37,6 +37,22 @@ export async function setSpinResult(segmentId: string, segmentName: string): Pro
   if (error) throw error;
 }
 
+// Atomically records the spin result AND clears the current student in one DB write
+// to avoid the race where two separate updates cause stale currentStudent via realtime
+export async function setSpinResultAndClearStudent(segmentId: string, segmentName: string): Promise<void> {
+  const { error } = await supabase
+    .from('active_session')
+    .update({
+      current_student_id: null,
+      last_spin_segment_id: segmentId,
+      last_spin_segment_name: segmentName,
+      last_spin_timestamp: Date.now(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', SESSION_ID);
+  if (error) throw error;
+}
+
 export async function clearSpinResult(): Promise<void> {
   const { error } = await supabase
     .from('active_session')

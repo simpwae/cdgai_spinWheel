@@ -1,0 +1,63 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Electrical,What is the SI unit of electric current?,Volt,Ampere,Ohm,Watt,1
+Question Bank,Electrical,What does AC stand for in electrical engineering?,Automatic Current,Alternating Current,Applied Circuit,Active Capacitor,1
+Question Bank,Electrical,Which component stores electrical energy in an electric field?,Resistor,Inductor,Capacitor,Diode,2
+Question Bank,Electrical,What is Ohm's law formula?,V = IR,P = IV,E = mc²,F = ma,0
+Question Bank,Electrical,Which device converts AC to DC?,Transformer,Rectifier,Amplifier,Oscillator,1
+Question Bank,Electrical,What is the color code for a ground wire?,Red,Green or green-yellow,Blue,Black,1
+Question Bank,Electrical,What does a transformer do?,Store energy,Change voltage levels,Generate electricity,Measure current,1
+Question Bank,Electrical,Which type of motor is used in ceiling fans?,DC motor,Induction motor,Servo motor,Stepper motor,1
+Question Bank,Electrical,What is the frequency of AC power in most countries?,25 Hz,50 or 60 Hz,100 Hz,200 Hz,1
+Question Bank,Electrical,What does LED stand for?,Light Emitting Diode,Low Energy Device,Linear Electric Driver,Laser Emitting Device,0
+IQ Games,Electrical,If resistance is 10Ω and current is 5A what is the voltage?,2V,15V,50V,0.5V,2
+IQ Games,Electrical,Three 60Ω resistors in parallel give what total resistance?,180Ω,60Ω,20Ω,30Ω,2
+IQ Games,Electrical,What comes next: 2 4 8 16 32 ?,48,64,36,56,1
+IQ Games,Electrical,A 100W bulb runs for 10 hours. How many kWh consumed?,10,1,0.1,100,1
+IQ Games,Electrical,If voltage doubles and resistance stays the same what happens to current?,Halves,Doubles,Stays same,Quadruples,1
+IQ Games,Electrical,How many bits in a byte?,4,8,16,32,1
+IQ Games,Electrical,A circuit has 5A current for 2 minutes. What charge flows (in Coulombs)?,10,100,600,300,2
+IQ Games,Electrical,What is the square root of 144?,10,11,12,13,2
+IQ Games,Electrical,If power = 200W and voltage = 20V what is the current?,0.1A,10A,100A,20A,1
+IQ Games,Electrical,Two capacitors 4μF and 6μF in series give what total capacitance?,10μF,2.4μF,24μF,1μF,1
+Career Questions,Electrical,Which programming language is useful for embedded systems?,HTML,C/C++,CSS,SQL,1
+Career Questions,Electrical,What does a power systems engineer do?,Design websites,Plan and maintain electrical grids,Cook food,Write novels,1
+Career Questions,Electrical,Which certification is valuable for electrical engineers?,Google Analytics,PE (Professional Engineer),IELTS,TOEFL,1
+Career Questions,Electrical,What is SCADA used for?,Social media management,Supervisory control and data acquisition,Graphic design,Video editing,1
+Career Questions,Electrical,Which industry heavily employs electrical engineers?,Fashion,Energy and telecommunications,Cooking,Tourism,1
+Career Questions,Electrical,What should an EE student learn for career readiness?,Painting,Circuit simulation and PLC programming,Pottery,Dancing,1
+Career Questions,Electrical,What is a PLC?,Programmable Logic Controller,Personal Laptop Computer,Power Line Connector,Passive Load Circuit,0
+Career Questions,Electrical,Which skill is most valued in electrical engineering jobs?,Typing speed,Troubleshooting and analytical skills,Handwriting,Singing ability,1
+Career Questions,Electrical,What does an electrical safety audit involve?,Checking recipes,Inspecting installations for compliance,Reviewing movie scripts,Testing food quality,1
+Career Questions,Electrical,What is the first step in an electrical project design?,Buy materials,Understand requirements and specifications,Start wiring,Order food,1
+Question Bank,Electrical,What is Ohm's Law?,V = IR,P = IV,Q = CV,F = ma,0
+Question Bank,Electrical,What does AC stand for?,Alternating Current,Automatic Current,Accumulated Charge,Active Circuit,0
+Question Bank,Electrical,What is the unit of electrical resistance?,Ohm,Volt,Ampere,Watt,0
+Question Bank,Electrical,What is the purpose of a transformer?,Change AC voltage levels,Convert AC to DC,Store electrical energy,Measure current,0
+Question Bank,Electrical,What is a diode used for?,Allow current in one direction only,Amplify signals,Store charge,Measure voltage,0
+Question Bank,Electrical,What does PLC stand for in automation?,Programmable Logic Controller,Power Line Controller,Parallel Load Circuit,Phase Line Connector,0
+Question Bank,Electrical,What is the unit of electrical power?,Watt,Ohm,Farad,Henry,0
+Question Bank,Electrical,What is impedance?,Total opposition to AC current flow,DC resistance only,Capacitive reactance only,Inductive reactance only,0
+Question Bank,Electrical,What is a fuse used for?,Protect a circuit from overcurrent,Increase voltage,Store energy,Measure resistance,0
+Question Bank,Electrical,What is Faraday's law of electromagnetic induction?,EMF is proportional to rate of change of flux,Current equals voltage times resistance,Power equals current squared times resistance,Charge equals capacitance times voltage,0
+Question Bank,Electrical,What does RMS stand for?,Root Mean Square,Rotational Magnetic Signal,Relative Maximum Strength,Resistive Measuring Scale,0
+Question Bank,Electrical,What is a capacitor?,Device that stores electrical energy in an electric field,Device that stores magnetic energy,Device that converts AC to DC,Device that amplifies current,0
+Question Bank,Electrical,What is the purpose of earthing in electrical systems?,Safety � discharge fault current to earth,Increase voltage,Improve efficiency,Reduce power consumption,0
+Question Bank,Electrical,What is a three-phase power system?,System with three AC voltages 120� apart,System with three DC sources,System with three transformers,System with triple insulation,0
+Question Bank,Electrical,What is the formula for electrical power?,P = VI,P = V/I,P = I/V,P = V + I,0
+Question Bank,Electrical,What is a circuit breaker?,Automatic switch that interrupts overcurrent,Device that amplifies current,Device that stores charge,Manual switch only,0
+Question Bank,Electrical,What does SCADA stand for?,Supervisory Control and Data Acquisition,System Control and Data Analysis,Sensing Control and Digital Automation,Structured Communication and Data Access,0
+Question Bank,Electrical,What is the function of an inductor?,Store energy in a magnetic field,Store energy in an electric field,Convert AC to DC,Amplify voltage,0
+Question Bank,Electrical,What is power factor?,Ratio of real power to apparent power,Ratio of voltage to current,Ratio of resistance to impedance,Efficiency of a transformer,0
+Question Bank,Electrical,What is a semiconductor?,Material with conductivity between conductor and insulator,Perfect conductor,Perfect insulator,Superconductor,0
+Question Bank,Electrical,What does MOSFET stand for?,Metal-Oxide-Semiconductor Field-Effect Transistor,Magnetic Output Signal Field Emitter Terminal,Modulated Oscillating Signal Field Effect Terminal,Multi-Output Semiconductor Frequency Effect Terminal,0
+Question Bank,Electrical,What is Kirchhoff's current law?,Sum of currents entering a node equals sum leaving,Voltage around a loop sums to zero,Power in equals power out,Resistance decreases with temperature,0
+Question Bank,Electrical,What is a rectifier?,Circuit that converts AC to DC,Circuit that amplifies signals,Circuit that filters noise,Circuit that stores charge,0
+Question Bank,Electrical,What is the purpose of a relay?,Electrically controlled switch,Voltage regulator,Current amplifier,Power supply,0
+Question Bank,Electrical,What is frequency in AC systems?,Number of cycles per second measured in Hz,Peak voltage,Phase angle,Power factor,0
+Question Bank,Electrical,What is a motor starter?,Device that limits inrush current when starting a motor,Backup power supply,Voltage booster,Circuit breaker variant,0
+Question Bank,Electrical,What does EMF stand for?,Electromotive Force,Electrical Magnitude Factor,Electromagnetic Frequency,Energy Momentum Force,0
+Question Bank,Electrical,What is a voltage divider?,Circuit that produces a fraction of input voltage,Circuit that multiplies voltage,Circuit that rectifies voltage,Circuit that measures frequency,0
+Question Bank,Electrical,What is Lenz's law?,Induced EMF opposes the change causing it,Induced EMF aids the change causing it,Current is proportional to voltage,Resistance increases with temperature,0
+Question Bank,Electrical,What is the purpose of a UPS?,Provide backup power during outages,Increase voltage,Convert voltage,Measure power,0
+Question Bank,Electrical,What is a Zener diode primarily used for?,Voltage regulation,Current amplification,Rectification,Signal generation,0
+Question Bank,Electrical,What is skin effect in AC conductors?,Current concentration near conductor surface at high frequency,Uniform current distribution,DC resistance increase,Inductance reduction,0
