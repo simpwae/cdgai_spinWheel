@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { Upload, AlertCircle, Save, Trash2, Plus, Download, CheckCircle, XCircle } from 'lucide-react';
 import * as XLSX from 'xlsx';
-import { deleteAllQuestions, deleteQuestionsByDepartment, insertQuestions } from '../../services/questions';
+import { deleteAllQuestions, deleteQuestionsByDepartment, deleteNullDepartmentQuestions, insertQuestions } from '../../services/questions';
 
 interface ParsedQuestion {
   category: string;
@@ -159,7 +159,24 @@ export const SettingsTab: React.FC = () => {
       setImportStatus('importing');
       setImportMessage(`Importing ${allParsed.length} questions from ${files.length} file${files.length > 1 ? 's' : ''}...`);
 
-      await deleteAllQuestions();
+      // Group questions by department so we only replace questions for the
+      // departments present in the uploaded files — leaving other departments intact.
+      const byDept = new Map<string | null, ParsedQuestion[]>();
+      for (const q of allParsed) {
+        if (!byDept.has(q.department)) byDept.set(q.department, []);
+        byDept.get(q.department)!.push(q);
+      }
+
+      // Delete existing questions only for the departments being replaced
+      for (const dept of byDept.keys()) {
+        if (dept) {
+          await deleteQuestionsByDepartment(dept);
+        } else {
+          await deleteNullDepartmentQuestions();
+        }
+      }
+
+      // Insert all parsed questions in one batched call
       await insertQuestions(allParsed);
       await refreshQuestions();
 
@@ -308,7 +325,7 @@ export const SettingsTab: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="text-xs font-semibold text-gray-500 self-center mr-1">Sample CSVs:</span>
-            {['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','BSH','Computer Sciences','Software Engineering'].map(dept => (
+            {['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','Basic Science & Humanities','Computer Sciences','Software Engineering'].map(dept => (
               <a
                 key={dept}
                 href={`/sample-questions/${dept}.csv`}
@@ -323,7 +340,7 @@ export const SettingsTab: React.FC = () => {
         <div className="p-6 space-y-6">
           {/* Per-department breakdown */}
           {questions.length > 0 && (() => {
-            const ALL_DEPTS = ['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','BSH','Computer Sciences','Software Engineering'];
+            const ALL_DEPTS = ['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','Basic Science & Humanities','Computer Sciences','Software Engineering'];
             const countByDept: Record<string, number> = {};
             questions.forEach(q => {
               const d = q.department || 'General';
@@ -433,8 +450,9 @@ export const SettingsTab: React.FC = () => {
           {/* Add new award */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 sm:gap-3 sm:space-x-0">
             <div className="flex-1">
-              <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Award Name</label>
+              <label htmlFor="new-award-name" className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Award Name</label>
               <input
+                id="new-award-name"
                 type="text"
                 value={newAwardName}
                 onChange={(e) => setNewAwardName(e.target.value)}
@@ -442,8 +460,9 @@ export const SettingsTab: React.FC = () => {
                 className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent text-sm text-gray-900" />
             </div>
             <div className="w-24">
-              <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Qty</label>
+              <label htmlFor="new-award-qty" className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Qty</label>
               <input
+                id="new-award-qty"
                 type="number"
                 min={1}
                 value={newAwardQty}
@@ -493,8 +512,9 @@ export const SettingsTab: React.FC = () => {
                         <button
                           onClick={() => handleDeleteAward(award.id)}
                           className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                          aria-label={`Delete ${award.name} award`}
                           title="Delete Award">
-                          <Trash2 size={16} />
+                          <Trash2 size={16} aria-hidden="true" />
                         </button>
                       </td>
                     </tr>
@@ -513,10 +533,11 @@ export const SettingsTab: React.FC = () => {
         </div>
         <div className="p-6 space-y-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="event-name" className="block text-sm font-bold text-gray-700 mb-2">
               Event Name
             </label>
             <input
+              id="event-name"
               type="text"
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}

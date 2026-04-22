@@ -84,6 +84,7 @@ export const Registration: React.FC<RegistrationProps> = ({
 
         {warning &&
         <motion.div
+          role="alert"
           initial={{
             opacity: 0,
             height: 0
@@ -111,10 +112,11 @@ export const Registration: React.FC<RegistrationProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
+            <label htmlFor="reg-full-name" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Full Name
             </label>
             <input
+              id="reg-full-name"
               type="text"
               value={name}
               onChange={(e) => {
@@ -125,20 +127,22 @@ export const Registration: React.FC<RegistrationProps> = ({
                 }));
               }}
               placeholder="Your full name"
+              autoComplete="name"
               className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
             
             {errors.name &&
-            <p className="mt-2 text-sm text-red-500 font-medium">
+            <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
                 This field is required
               </p>
             }
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
+            <label htmlFor="reg-student-id" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Student ID
             </label>
             <input
+              id="reg-student-id"
               type="text"
               value={studentId}
               onChange={(e) => {
@@ -149,20 +153,22 @@ export const Registration: React.FC<RegistrationProps> = ({
                 }));
               }}
               placeholder="e.g. 2021-CS-001"
+              autoComplete="off"
               className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all ${errors.studentId ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`} />
             
             {errors.studentId &&
-            <p className="mt-2 text-sm text-red-500 font-medium">
+            <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
                 This field is required
               </p>
             }
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
+            <label htmlFor="reg-faculty" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Faculty
             </label>
             <select
+              id="reg-faculty"
               value={faculty}
               onChange={(e) => {
                 const val = e.target.value as Faculty | '';
@@ -178,17 +184,18 @@ export const Registration: React.FC<RegistrationProps> = ({
               ))}
             </select>
             {errors.faculty &&
-            <p className="mt-2 text-sm text-red-500 font-medium">
+            <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
                 This field is required
               </p>
             }
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
+            <label htmlFor="reg-department" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Department
             </label>
             <select
+              id="reg-department"
               value={department}
               disabled={!faculty}
               onChange={(e) => {
@@ -203,7 +210,7 @@ export const Registration: React.FC<RegistrationProps> = ({
               ))}
             </select>
             {errors.department &&
-            <p className="mt-2 text-sm text-red-500 font-medium">
+            <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
                 This field is required
               </p>
             }

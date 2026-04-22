@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
@@ -7,17 +7,19 @@ interface ResultResumeProps {
 }
 export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
   const { currentStudent } = useAppContext();
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
   const pendingScore = currentStudent?.pendingScore;
   const hasScore = pendingScore !== undefined;
   useEffect(() => {
     // Auto-transition after score is received
     if (hasScore) {
       const timer = setTimeout(() => {
-        onComplete();
+        onCompleteRef.current();
       }, 8000);
       return () => clearTimeout(timer);
     }
-  }, [hasScore, onComplete]);
+  }, [hasScore]);
   return (
     <div className="min-h-screen w-full bg-[#16A34A] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
       {/* Background decoration */}

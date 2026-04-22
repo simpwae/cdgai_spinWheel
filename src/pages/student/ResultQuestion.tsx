@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Gift } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { CountdownTimer } from '../../components/CountdownTimer';
 interface ResultQuestionProps {
@@ -10,24 +11,36 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   segmentName,
   onComplete
 }) => {
-  const { questions, currentStudent, updateScore } = useAppContext();
+  const { questions, currentStudent, updateScore, claimAward } = useAppContext();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [awardState, setAwardState] = useState<'idle' | 'claiming' | 'claimed' | 'none'>('idle');
+  const [awardName, setAwardName] = useState<string | null>(null);
+  const claimAttempted = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
   // Find a relevant question
   const question = useMemo(() => {
     // Filter by category (segment name)
     let available = questions.filter((q) => q.category === segmentName);
-    // If it's Question Bank, try to match department
-    if (segmentName === 'Question Bank' && currentStudent?.department) {
+    // Always try to match the student's department first (across all categories)
+    if (currentStudent?.department) {
       const deptQuestions = available.filter(
         (q) => q.department === currentStudent.department
       );
       if (deptQuestions.length > 0) {
         available = deptQuestions;
       }
+      // If no dept-specific questions exist for this category, fall back to
+      // questions with no department set (generic/general questions)
+      else {
+        const generic = available.filter((q) => !q.department);
+        if (generic.length > 0) available = generic;
+        // else keep the full category pool as last resort
+      }
     }
-    // Pick a random one if available
+    // Pick a random one from the filtered pool
     return available.length > 0 ?
     available[Math.floor(Math.random() * available.length)] :
     null;
@@ -36,11 +49,11 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   useEffect(() => {
     if (showResult) {
       const timer = setTimeout(() => {
-        onComplete();
+        onCompleteRef.current();
       }, 4000);
       return () => clearTimeout(timer);
     }
-  }, [showResult, onComplete]);
+  }, [showResult]);
   const handleSelect = (index: number) => {
     if (selectedOption !== null || isTimeUp || showResult) return;
     setSelectedOption(index);
@@ -48,6 +61,21 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
     if (question && index === question.correctAnswerIndex) {
       if (currentStudent) {
         updateScore(currentStudent.id, 10); // 10 points for correct answer
+        // Claim a random award for correct answer
+        if (!claimAttempted.current && !currentStudent.awardedPrize) {
+          claimAttempted.current = true;
+          setAwardState('claiming');
+          claimAward(currentStudent.id).then((prize) => {
+            if (prize) {
+              setAwardState('claimed');
+              setAwardName(prize);
+            } else {
+              setAwardState('none');
+            }
+          }).catch(() => {
+            setAwardState('none');
+          });
+        }
       }
     }
   };
@@ -149,16 +177,35 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
               opacity: 1,
               y: 0
             }}
-            className="absolute top-32 text-center w-full left-0">
+            className="absolute top-32 text-center w-full left-0 px-4">
             
               {isTimeUp ?
             <h2 className="text-2xl sm:text-4xl font-black text-yellow-500">
                   Time's up!
                 </h2> :
             isCorrect ?
-            <h2 className="text-2xl sm:text-4xl font-black text-green-400">
-                  Correct! +10 pts
-                </h2> :
+            <div className="flex flex-col items-center space-y-3">
+                  <h2 className="text-2xl sm:text-4xl font-black text-green-400">
+                    Correct! +10 pts
+                  </h2>
+                  {awardState === 'claimed' && awardName && (
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: 'spring', delay: 0.2 }}
+                      className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border border-white/30">
+                      <Gift size={20} className="text-yellow-300 shrink-0" />
+                      <span className="text-base sm:text-2xl font-black text-yellow-300">
+                        You won: {awardName}!
+                      </span>
+                    </motion.div>
+                  )}
+                  {awardState === 'claiming' && (
+                    <p className="text-sm sm:text-base text-white/70 animate-pulse">
+                      Checking for prizes...
+                    </p>
+                  )}
+                </div> :
 
             <h2 className="text-2xl sm:text-4xl font-black text-red-400">Incorrect</h2>
             }
@@ -229,6 +276,8 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
                   }
                   onClick={() => handleSelect(index)}
                   disabled={showResult}
+                  aria-label={`Option ${labels[index]}: ${option}${showResult ? (index === question.correctAnswerIndex ? ' — correct answer' : index === selectedOption ? ' — your incorrect answer' : '') : ''}`}
+                  aria-pressed={selectedOption === index}
                   className={`w-full flex items-center p-4 sm:p-6 rounded-2xl text-left transition-all duration-300 min-h-[64px] sm:min-h-[80px] ${cardStyle}`}>
                   
                   <div

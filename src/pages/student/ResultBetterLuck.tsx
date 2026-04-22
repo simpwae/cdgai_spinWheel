@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Frown } from 'lucide-react';
 interface ResultBetterLuckProps {
@@ -10,10 +10,13 @@ export const ResultBetterLuck: React.FC<ResultBetterLuckProps> = ({
   onComplete
 }) => {
   const [dots, setDots] = useState(0);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
+
   useEffect(() => {
     // Auto-transition after 5 seconds
     const timer = setTimeout(() => {
-      onComplete();
+      onCompleteRef.current();
     }, 5000);
     // Dot animation
     const dotInterval = setInterval(() => {
@@ -23,7 +26,7 @@ export const ResultBetterLuck: React.FC<ResultBetterLuckProps> = ({
       clearTimeout(timer);
       clearInterval(dotInterval);
     };
-  }, [onComplete]);
+  }, []);
   return (
     <div className="min-h-screen w-full bg-[#6B7280] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
       <motion.div

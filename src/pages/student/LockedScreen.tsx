@@ -44,10 +44,10 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
         <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-8 mb-6 sm:mb-10 backdrop-blur-sm">
             <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/10">
               <div className="text-left">
-                <div className="text-xl sm:text-2xl font-bold text-white mb-1">
+                <div className="text-xl sm:text-2xl font-bold text-white mb-1 truncate">
                   {currentStudent.name}
                 </div>
-                <div className="text-sm font-mono text-gray-400">
+                <div className="text-sm font-mono text-gray-400 truncate">
                   {currentStudent.studentId}
                 </div>
               </div>

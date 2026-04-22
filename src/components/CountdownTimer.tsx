@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 interface CountdownTimerProps {
   totalSeconds: number;
@@ -13,6 +13,11 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   color = '#2563EB'
 }) => {
   const [timeLeft, setTimeLeft] = useState(totalSeconds);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
   const strokeWidth = size * 0.08;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
@@ -20,14 +25,14 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   circumference - timeLeft / totalSeconds * circumference;
   useEffect(() => {
     if (timeLeft <= 0) {
-      if (onComplete) onComplete();
+      if (onCompleteRef.current) onCompleteRef.current();
       return;
     }
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [timeLeft, onComplete]);
+  }, [timeLeft]);
   return (
     <div
       className="relative flex items-center justify-center"
@@ -72,6 +77,8 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
       </svg>
       <div className="absolute flex flex-col items-center justify-center">
         <span
+          aria-live="polite"
+          aria-label={`${timeLeft} seconds remaining`}
           className="text-4xl font-black tracking-tighter"
           style={{
             color: '#FFFFFF'

@@ -11,6 +11,8 @@ export const ResultFreebee: React.FC<ResultFreebeeProps> = ({ onComplete }) => {
   const [awardState, setAwardState] = useState<'checking' | 'new-award' | 'already-awarded' | 'no-awards'>('checking');
   const [awardName, setAwardName] = useState<string | null>(null);
   const claimAttempted = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
 
   // Attempt to claim an award on mount
   useEffect(() => {
@@ -47,10 +49,10 @@ export const ResultFreebee: React.FC<ResultFreebeeProps> = ({ onComplete }) => {
   useEffect(() => {
     // Auto-transition after 8 seconds
     const timer = setTimeout(() => {
-      onComplete();
+      onCompleteRef.current();
     }, 8000);
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, []);
 
   const showConfetti = awardState === 'new-award';
 

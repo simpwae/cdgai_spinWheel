@@ -76,7 +76,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({
     return `M ${center} ${center} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`;
   };
   return (
-    <div className="relative w-[500px] h-[500px] flex items-center justify-center">
+    <div role="img" aria-label="Spin wheel" className="relative w-[500px] h-[500px] flex items-center justify-center">
       {/* Pointer */}
       <div className="absolute top-[-20px] left-1/2 -translate-x-1/2 z-10 drop-shadow-lg">
         <svg

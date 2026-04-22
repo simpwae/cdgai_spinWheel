@@ -25,6 +25,14 @@ export async function deleteQuestionsByDepartment(department: string): Promise<v
   if (error) throw new Error(error.message || error.details || JSON.stringify(error));
 }
 
+export async function deleteNullDepartmentQuestions(): Promise<void> {
+  const { error } = await supabase
+    .from('questions')
+    .delete()
+    .is('department', null);
+  if (error) throw new Error(error.message || error.details || JSON.stringify(error));
+}
+
 export async function insertQuestions(
   questions: Omit<DbQuestion, 'id'>[]
 ): Promise<void> {

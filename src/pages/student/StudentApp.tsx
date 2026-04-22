@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { WaitingForSpin } from './WaitingForSpin';
 import { IdleLeaderboard } from './IdleLeaderboard';
 import { LockedScreen } from './LockedScreen';
@@ -23,6 +23,12 @@ export const StudentApp: React.FC = () => {
   const [screen, setScreen] = useState<ScreenState>('idle');
   const [activeSegmentName, setActiveSegmentName] = useState<string>('Question Bank');
   const { currentStudent, lastSpinResult, clearSpinResult, setCurrentStudent } = useAppContext();
+
+  // Keep a stable ref so handleResultComplete never needs to be re-created
+  const currentStudentRef = useRef(currentStudent);
+  useEffect(() => {
+    currentStudentRef.current = currentStudent;
+  }, [currentStudent]);
 
   const isResultScreen =
     screen === 'result-betterluck' ||
@@ -70,9 +76,9 @@ export const StudentApp: React.FC = () => {
   }, []);
 
   // Transition back to idle or locked after a result is dismissed
-  const handleResultComplete = () => {
-    const wasLocked = currentStudent
-      ? currentStudent.spinsUsed >= currentStudent.maxSpins
+  const handleResultComplete = useCallback(() => {
+    const wasLocked = currentStudentRef.current
+      ? currentStudentRef.current.spinsUsed >= currentStudentRef.current.maxSpins
       : false;
     setCurrentStudent(null);
     if (wasLocked) {
@@ -80,7 +86,7 @@ export const StudentApp: React.FC = () => {
     } else {
       setScreen('idle');
     }
-  };
+  }, [setCurrentStudent]);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -120,26 +126,7 @@ export const StudentApp: React.FC = () => {
         </div>
       )}
 
-      {/* Demo keyboard shortcuts overlay */}
-      {screen === 'idle' && (
-        <div className="absolute bottom-4 left-4 bg-black/80 text-white text-xs p-3 rounded-lg border border-white/20 z-50 flex space-x-6">
-          <div>
-            <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">Core Flow</div>
-            <div><kbd className="bg-white/20 px-1 rounded">1</kbd> Registration</div>
-            <div><kbd className="bg-white/20 px-1 rounded">2</kbd> Waiting</div>
-            <div><kbd className="bg-white/20 px-1 rounded">3</kbd> Leaderboard</div>
-            <div><kbd className="bg-white/20 px-1 rounded">4</kbd> Locked</div>
-          </div>
-          <div>
-            <div className="font-bold mb-1 text-gray-400 uppercase tracking-wider">Results</div>
-            <div><kbd className="bg-white/20 px-1 rounded">5</kbd> Better Luck</div>
-            <div><kbd className="bg-white/20 px-1 rounded">6</kbd> Freebee</div>
-            <div><kbd className="bg-white/20 px-1 rounded">7</kbd> Question</div>
-            <div><kbd className="bg-white/20 px-1 rounded">8</kbd> Pitch</div>
-            <div><kbd className="bg-white/20 px-1 rounded">9</kbd> Resume</div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };

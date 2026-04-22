@@ -25,7 +25,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ students }) => {
   'Allied Health Sciences',
   'Nursing',
   'Management of Science',
-  'BSH',
+  'Basic Science & Humanities',
   'Computer Sciences',
   'Software Engineering'];
 
@@ -37,10 +37,12 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ students }) => {
         </h2>
 
         {/* Tabs */}
-        <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div role="tablist" aria-label="Filter by department" className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
           {tabs.map((tab) =>
           <button
             key={tab}
+            role="tab"
+            aria-selected={activeTab === tab}
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${activeTab === tab ? 'bg-cdgai-maroon text-white' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
             

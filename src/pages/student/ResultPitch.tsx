@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../../context/AppContext';
 import { CountdownTimer } from '../../components/CountdownTimer';
@@ -8,21 +8,23 @@ interface ResultPitchProps {
 export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
   const { currentStudent } = useAppContext();
   const [isTimeUp, setIsTimeUp] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
   const pendingScore = currentStudent?.pendingScore;
   const hasScore = pendingScore !== undefined;
   useEffect(() => {
     // Auto-transition after score is received
     if (hasScore) {
       const timer = setTimeout(() => {
-        onComplete();
+        onCompleteRef.current();
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [hasScore, onComplete]);
+  }, [hasScore]);
   return (
     <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
+      <div aria-hidden="true" className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern

@@ -12,7 +12,7 @@ import { fetchAwards as fetchAwardsDb, insertAward as insertAwardDb, deleteAward
 export const FACULTY_DEPARTMENTS = {
   'Faculty of Engineering': ['Civil', 'Mechanical', 'Electrical', 'Architecture'] as const,
   'Faculty of Life Sciences': ['Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing'] as const,
-  'Faculty of Computing and Management Sciences': ['Management of Science', 'BSH', 'Computer Sciences', 'Software Engineering'] as const,
+  'Faculty of Computing and Management Sciences': ['Management of Science', 'Basic Science & Humanities', 'Computer Sciences', 'Software Engineering'] as const,
 } as const;
 
 export type Faculty = keyof typeof FACULTY_DEPARTMENTS;

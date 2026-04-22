@@ -104,10 +104,13 @@ export const AdminPanel: React.FC = () => {
       </div>
 
       {/* Bottom Tab Bar — mobile only */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cdgai-dark border-t border-white/10 flex z-50">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cdgai-dark border-t border-white/10 flex z-50" role="tablist" aria-label="Admin navigation">
         {navItems.map((item) =>
         <button
           key={item.id}
+          role="tab"
+          aria-selected={activeTab === item.id}
+          aria-current={activeTab === item.id ? 'page' : undefined}
           onClick={() => setActiveTab(item.id as Tab)}
           className={`flex-1 flex flex-col items-center justify-center py-3 gap-1 text-xs font-bold transition-colors ${activeTab === item.id ? 'text-cdgai-accent' : 'text-gray-400'}`}>
           {item.icon}
