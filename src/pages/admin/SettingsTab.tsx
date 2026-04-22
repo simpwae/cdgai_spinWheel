@@ -79,20 +79,141 @@ export const SettingsTab: React.FC = () => {
     : (err as any)?.details ? String((err as any).details)
     : fallback;
 
-  const parseSingleFile = async (file: File): Promise<{ parsed: ParsedQuestion[]; errors: string[] }> => {
+  /**
+   * Canonical department names as stored in the database.
+   * Any variation found in an uploaded file is normalised to one of these values.
+   */
+  const KNOWN_DEPARTMENTS = [
+    'Civil', 'Mechanical', 'Electrical', 'Architecture',
+    'Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing',
+    'Management of Science', 'Basic Science & Humanities',
+    'Computer Sciences', 'Software Engineering',
+  ];
+
+  /**
+   * Extra aliases: keys are lowercase+stripped variations → canonical value.
+   * Covers common abbreviations and alternate spellings.
+   */
+  const DEPT_ALIASES: Record<string, string> = {
+    'bsh': 'Basic Science & Humanities',
+    'basic science and humanities': 'Basic Science & Humanities',
+    'basic sciences & humanities': 'Basic Science & Humanities',
+    'basic sciences and humanities': 'Basic Science & Humanities',
+    'allied health': 'Allied Health Sciences',
+    'allied health science': 'Allied Health Sciences',
+    'biosciences': 'Bioscience',
+    'bio science': 'Bioscience',
+    'bio sciences': 'Bioscience',
+    'life sciences': 'Bioscience',
+    'cs': 'Computer Sciences',
+    'computer science': 'Computer Sciences',
+    'compsci': 'Computer Sciences',
+    'se': 'Software Engineering',
+    'soft eng': 'Software Engineering',
+    'software eng': 'Software Engineering',
+    'mgmt of science': 'Management of Science',
+    'management of sciences': 'Management of Science',
+    'management science': 'Management of Science',
+    'mgmt science': 'Management of Science',
+    'arch': 'Architecture',
+    'civil engineering': 'Civil',
+    'mechanical engineering': 'Mechanical',
+    'electrical engineering': 'Electrical',
+  };
+
+  /** Normalise a department value from a CSV row to a known canonical string. */
+  const normalizeDepartment = (raw: string): string | null => {
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+
+    // Exact match first (case-insensitive)
+    const exactMatch = KNOWN_DEPARTMENTS.find(
+      (d) => d.toLowerCase() === trimmed.toLowerCase()
+    );
+    if (exactMatch) return exactMatch;
+
+    // Alias lookup
+    const aliasMatch = DEPT_ALIASES[trimmed.toLowerCase()];
+    if (aliasMatch) return aliasMatch;
+
+    // Partial / contains match: e.g. "BSH Dept" → "Basic Science & Humanities"
+    const lc = trimmed.toLowerCase();
+    for (const known of KNOWN_DEPARTMENTS) {
+      if (lc.includes(known.toLowerCase()) || known.toLowerCase().includes(lc)) {
+        return known;
+      }
+    }
+
+    // Return as-is but trimmed so at least whitespace issues are fixed
+    return trimmed;
+  };
+
+  /**
+   * Column header alias map.  Any of the listed alternatives for a column
+   * will be recognised and remapped to the canonical key.
+   */
+  const HEADER_ALIASES: Record<string, string[]> = {
+    category:             ['category', 'question category', 'segment', 'type', 'question type'],
+    department:           ['department', 'dept', 'branch', 'major', 'faculty', 'school'],
+    text:                 ['text', 'question', 'question text', 'question_text', 'q', 'stem'],
+    option1:              ['option1', 'option_1', 'option 1', 'a', 'choice1', 'choice_1', 'choice a', 'answer a'],
+    option2:              ['option2', 'option_2', 'option 2', 'b', 'choice2', 'choice_2', 'choice b', 'answer b'],
+    option3:              ['option3', 'option_3', 'option 3', 'c', 'choice3', 'choice_3', 'choice c', 'answer c'],
+    option4:              ['option4', 'option_4', 'option 4', 'd', 'choice4', 'choice_4', 'choice d', 'answer d'],
+    correct_answer_index: [
+      'correct_answer_index', 'correct answer index', 'correct answer',
+      'answer', 'answer_index', 'correct', 'correct_index', 'answer index',
+      'key', 'right answer', 'correct option',
+    ],
+  };
+
+  /** Build lowercase-alias → canonical-key lookup once. */
+  const HEADER_LOOKUP: Record<string, string> = {};
+  for (const [canonical, aliases] of Object.entries(HEADER_ALIASES)) {
+    for (const alias of aliases) {
+      HEADER_LOOKUP[alias.toLowerCase().trim()] = canonical;
+    }
+  }
+
+  /**
+   * Remap every key in a parsed row to its canonical column name.
+   * Strips UTF-8 BOM (\uFEFF) that Excel/Windows sometimes prepends to the
+   * first column header, and lowercases+trims all keys before lookup.
+   */
+  const normalizeRow = (row: Record<string, unknown>): Record<string, unknown> => {
+    const out: Record<string, unknown> = {};
+    for (const [rawKey, value] of Object.entries(row)) {
+      const cleanKey = rawKey.replace(/^\uFEFF/, '').toLowerCase().trim();
+      const canonical = HEADER_LOOKUP[cleanKey] ?? cleanKey;
+      out[canonical] = value;
+    }
+    return out;
+  };
+
+  const parseSingleFile = async (
+    file: File,
+    deptOverride?: string | null,
+  ): Promise<{ parsed: ParsedQuestion[]; errors: string[] }> => {
     const data = await file.arrayBuffer();
     const workbook = XLSX.read(data, { type: 'array' });
     const sheetName = workbook.SheetNames[0];
     if (!sheetName) throw new Error(`${file.name}: No sheets found in the file.`);
     const sheet = workbook.Sheets[sheetName];
-    const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
-    if (rows.length === 0) throw new Error(`${file.name}: The file contains no data rows.`);
+    const rawRows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
+    if (rawRows.length === 0) throw new Error(`${file.name}: The file contains no data rows.`);
+
+    // Normalise headers on every row
+    const rows = rawRows.map(normalizeRow);
 
     const firstRow = rows[0];
     const requiredCols = ['category', 'text', 'option1', 'option2', 'option3', 'option4', 'correct_answer_index'];
     const missingCols = requiredCols.filter((c) => !(c in firstRow));
     if (missingCols.length > 0) {
-      throw new Error(`${file.name}: Missing required columns: ${missingCols.join(', ')}`);
+      const foundHeaders = Object.keys(rawRows[0]).join(', ');
+      throw new Error(
+        `${file.name}: Missing required columns: ${missingCols.join(', ')}.\n` +
+        `  Headers found in file: ${foundHeaders}`
+      );
     }
 
     const errors: string[] = [];
@@ -100,10 +221,14 @@ export const SettingsTab: React.FC = () => {
 
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
-      const rowNum = i + 2;
+      const rowNum = i + 2; // 1-based header + 1
 
       const category = String(row.category || '').trim();
-      const department = String(row.department || '').trim() || null;
+      // Department: prefer explicit column, fall back to override (e.g. derived from filename)
+      const rawDept = String(row.department || '').trim();
+      const department = rawDept
+        ? normalizeDepartment(rawDept)
+        : (deptOverride !== undefined ? deptOverride : null);
       const text = String(row.text || '').trim();
       const option1 = String(row.option1 || '').trim();
       const option2 = String(row.option2 || '').trim();
@@ -113,79 +238,119 @@ export const SettingsTab: React.FC = () => {
 
       if (!category) { errors.push(`${file.name} row ${rowNum}: missing category`); continue; }
       if (!text) { errors.push(`${file.name} row ${rowNum}: missing question text`); continue; }
-      if (!option1 || !option2 || !option3 || !option4) { errors.push(`${file.name} row ${rowNum}: all 4 options are required`); continue; }
-      if (isNaN(answerIdx) || answerIdx < 0 || answerIdx > 3) { errors.push(`${file.name} row ${rowNum}: correct_answer_index must be 0–3`); continue; }
+      if (!option1 || !option2 || !option3 || !option4) {
+        errors.push(`${file.name} row ${rowNum}: all 4 options are required`);
+        continue;
+      }
+      if (isNaN(answerIdx) || answerIdx < 0 || answerIdx > 3) {
+        errors.push(`${file.name} row ${rowNum}: correct_answer_index must be 0–3 (got "${row.correct_answer_index}")`);
+        continue;
+      }
 
-      parsed.push({
-        category,
-        department,
-        text,
-        options: [option1, option2, option3, option4],
-        correct_answer_index: answerIdx,
-      });
+      parsed.push({ category, department, text, options: [option1, option2, option3, option4], correct_answer_index: answerIdx });
     }
 
     return { parsed, errors };
   };
 
+  /**
+   * Try to infer the department from the filename.
+   * e.g. "Bioscience MCQs.csv" → "Bioscience"
+   *      "BSH - Questions.xlsx" → "Basic Science & Humanities"
+   */
+  const deptFromFilename = (filename: string): string | null => {
+    // Strip extension and common suffixes
+    const base = filename
+      .replace(/\.(csv|xlsx|xls)$/i, '')
+      .replace(/[-_–—]?\s*(mcqs?|questions?|q bank|question bank|re|final|v\d+)$/i, '')
+      .trim();
+    return normalizeDepartment(base);
+  };
+
   const parseFiles = useCallback(async (files: File[]) => {
     setImportStatus('parsing');
-    setImportMessage(`Parsing ${files.length} file${files.length > 1 ? 's' : ''}...`);
+    setImportMessage(`Parsing ${files.length} file${files.length > 1 ? 's' : ''}…`);
     setImportedFileName(files.map((f) => f.name).join(', '));
 
     try {
-      const allParsed: ParsedQuestion[] = [];
+      // Step 1 — parse every file, collecting questions grouped by department
+      const byDept = new Map<string | null, ParsedQuestion[]>();
       const allErrors: string[] = [];
-      const fileResults: string[] = [];
+      const parseResults: string[] = [];
+      let totalParsed = 0;
 
       for (const file of files) {
         try {
-          const { parsed, errors } = await parseSingleFile(file);
-          allParsed.push(...parsed);
+          // Use filename as dept fallback only when a single dept file is expected
+          const fileDeptHint = files.length > 1 || !file.name.toLowerCase().includes('all')
+            ? deptFromFilename(file.name)
+            : null;
+
+          const { parsed, errors } = await parseSingleFile(file, fileDeptHint);
           allErrors.push(...errors);
-          fileResults.push(`${file.name}: ${parsed.length} questions`);
+          totalParsed += parsed.length;
+
+          for (const q of parsed) {
+            if (!byDept.has(q.department)) byDept.set(q.department, []);
+            byDept.get(q.department)!.push(q);
+          }
+
+          parseResults.push(`✓ ${file.name}: ${parsed.length} questions`);
         } catch (err) {
           allErrors.push(getErrMsg(err, `${file.name}: unknown error`));
-          fileResults.push(`${file.name}: failed`);
+          parseResults.push(`✗ ${file.name}: failed to parse`);
         }
       }
 
-      if (allParsed.length === 0) {
+      if (totalParsed === 0) {
         setImportStatus('error');
-        setImportMessage(`No valid questions found.\n${allErrors.slice(0, 20).join('\n')}`);
+        setImportMessage(
+          `No valid questions found.\n\n${parseResults.join('\n')}` +
+          (allErrors.length > 0 ? `\n\nErrors:\n${allErrors.slice(0, 30).join('\n')}` : '')
+        );
         return;
       }
 
+      // Step 2 — for each department, delete existing then insert new questions.
+      // Done per-department so a failure in one department does NOT affect others.
+      const deptResults: string[] = [];
+      let totalImported = 0;
+      const importErrors: string[] = [];
+
       setImportStatus('importing');
-      setImportMessage(`Importing ${allParsed.length} questions from ${files.length} file${files.length > 1 ? 's' : ''}...`);
+      const deptList = [...byDept.keys()];
+      setImportMessage(
+        `Parsed ${totalParsed} questions across ${deptList.length} department(s). Importing…`
+      );
 
-      // Group questions by department so we only replace questions for the
-      // departments present in the uploaded files — leaving other departments intact.
-      const byDept = new Map<string | null, ParsedQuestion[]>();
-      for (const q of allParsed) {
-        if (!byDept.has(q.department)) byDept.set(q.department, []);
-        byDept.get(q.department)!.push(q);
-      }
-
-      // Delete existing questions only for the departments being replaced
-      for (const dept of byDept.keys()) {
-        if (dept) {
-          await deleteQuestionsByDepartment(dept);
-        } else {
-          await deleteNullDepartmentQuestions();
+      for (const [dept, questions] of byDept.entries()) {
+        try {
+          if (dept) {
+            await deleteQuestionsByDepartment(dept);
+          } else {
+            await deleteNullDepartmentQuestions();
+          }
+          await insertQuestions(questions);
+          totalImported += questions.length;
+          deptResults.push(`✓ ${dept ?? 'General'}: ${questions.length} imported`);
+        } catch (err) {
+          importErrors.push(`✗ ${dept ?? 'General'}: ${getErrMsg(err)}`);
+          deptResults.push(`✗ ${dept ?? 'General'}: failed`);
         }
       }
 
-      // Insert all parsed questions in one batched call
-      await insertQuestions(allParsed);
       await refreshQuestions();
 
-      setImportedRowCount(allParsed.length);
-      setImportStatus('success');
+      setImportedRowCount(totalImported);
+      const hasImportErrors = importErrors.length > 0;
+      const hasParseErrors = allErrors.length > 0;
+      setImportStatus(totalImported === 0 ? 'error' : 'success');
       setImportMessage(
-        `Successfully imported ${allParsed.length} questions from ${files.length} file${files.length > 1 ? 's' : ''}.` +
-        (allErrors.length > 0 ? `\n${allErrors.length} row${allErrors.length > 1 ? 's' : ''} skipped due to errors.` : '') +
-        `\n\n${fileResults.join('\n')}`
+        `Imported ${totalImported} of ${totalParsed} questions across ${byDept.size} department(s).` +
+        (hasParseErrors ? `\n${allErrors.length} row(s) skipped.` : '') +
+        `\n\n── Parse results ──\n${parseResults.join('\n')}` +
+        `\n\n── Import results ──\n${deptResults.join('\n')}` +
+        (hasImportErrors ? `\n\nImport errors:\n${importErrors.join('\n')}` : '')
       );
     } catch (err) {
       console.error('Import error:', err);
