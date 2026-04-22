@@ -1,0 +1,201 @@
+Category,Department,Question,Option 0,Option 1,Option 2,Option 3,Answer
+Question Bank,Bioscience,Q1: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Cell swelling due to osmotic imbalance,Immediate DNA damage,Cell shrinkage due to ion loss,1
+IQ Games,Bioscience,Q2: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,mRNA splicing,Transcription initiation,Translation termination,2
+Career Questions,Bioscience,"Q3: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0
+Question Bank,Bioscience,Q4: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Ligase,Helicase,RNA polymerase,DNA polymerase,2
+IQ Games,Bioscience,Q5: Immunology: Memory B cells are important because they:,Enable faster secondary response,Produce antibodies immediately,Suppress immune response,Destroy pathogens directly,0
+Career Questions,Bioscience,Q6: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Thick peptidoglycan,High mutation rate,Lack of ribosomes,Outer membrane barrier,3
+Question Bank,Bioscience,Q7: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Hemoglobin increases,Temperature decreases,CO2 increases,3
+IQ Games,Bioscience,Q8: Ecology: Carrying capacity refers to:,Growth rate of population,Death rate only,Migration rate,Max population environment supports,3
+Career Questions,Bioscience,Q9: Evolution: Natural selection acts on:,Phenotype,Chromosomes only,DNA sequence directly,Genotype only,0
+Question Bank,Bioscience,Q10: Biotechnology: PCR amplification requires:,Ligase enzyme,Restriction enzymes,"DNA template, primers, Taq polymerase",RNA polymerase,2
+IQ Games,Bioscience,Q11: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Immediate DNA damage,Cell shrinkage due to ion loss,No effect on osmotic balance,Cell swelling due to osmotic imbalance,3
+Career Questions,Bioscience,Q12: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Translation termination,Transcription initiation,Protein folding,2
+Question Bank,Bioscience,"Q13: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Higher enzyme affinity,Substrate depletion,Lower enzyme affinity,Enzyme denaturation,2
+IQ Games,Bioscience,Q14: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Ligase,Helicase,DNA polymerase,0
+Career Questions,Bioscience,Q15: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Produce antibodies immediately,Suppress immune response,Enable faster secondary response,3
+Question Bank,Bioscience,Q16: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Lack of ribosomes,Outer membrane barrier,Thick peptidoglycan,2
+IQ Games,Bioscience,Q17: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,Temperature decreases,Hemoglobin increases,pH increases,0
+Career Questions,Bioscience,Q18: Ecology: Carrying capacity refers to:,Max population environment supports,Growth rate of population,Migration rate,Death rate only,0
+Question Bank,Bioscience,Q19: Evolution: Natural selection acts on:,DNA sequence directly,Genotype only,Chromosomes only,Phenotype,3
+IQ Games,Bioscience,Q20: Biotechnology: PCR amplification requires:,Restriction enzymes,"DNA template, primers, Taq polymerase",RNA polymerase,Ligase enzyme,1
+Career Questions,Bioscience,Q21: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Immediate DNA damage,Cell shrinkage due to ion loss,Cell swelling due to osmotic imbalance,3
+Question Bank,Bioscience,Q22: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Transcription initiation,Protein folding,Translation termination,1
+IQ Games,Bioscience,"Q23: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Lower enzyme affinity,Higher enzyme affinity,Substrate depletion,1
+Career Questions,Bioscience,Q24: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,DNA polymerase,RNA polymerase,Helicase,Ligase,1
+Question Bank,Bioscience,Q25: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Produce antibodies immediately,Suppress immune response,Enable faster secondary response,3
+IQ Games,Bioscience,Q26: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Lack of ribosomes,Thick peptidoglycan,High mutation rate,Outer membrane barrier,3
+Career Questions,Bioscience,Q27: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Temperature decreases,CO2 increases,Hemoglobin increases,2
+Question Bank,Bioscience,Q28: Ecology: Carrying capacity refers to:,Migration rate,Death rate only,Max population environment supports,Growth rate of population,2
+IQ Games,Bioscience,Q29: Evolution: Natural selection acts on:,Phenotype,Genotype only,DNA sequence directly,Chromosomes only,0
+Career Questions,Bioscience,Q30: Biotechnology: PCR amplification requires:,Restriction enzymes,Ligase enzyme,RNA polymerase,"DNA template, primers, Taq polymerase",3
+Question Bank,Bioscience,Q31: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,Immediate DNA damage,No effect on osmotic balance,0
+IQ Games,Bioscience,Q32: Genetics: A mutation in the promoter region of a gene most likely affects:,Translation termination,mRNA splicing,Protein folding,Transcription initiation,3
+Career Questions,Bioscience,"Q33: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0
+Question Bank,Bioscience,Q34: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,DNA polymerase,Ligase,RNA polymerase,3
+IQ Games,Bioscience,Q35: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Suppress immune response,Produce antibodies immediately,Enable faster secondary response,3
+Career Questions,Bioscience,Q36: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Thick peptidoglycan,Lack of ribosomes,Outer membrane barrier,High mutation rate,2
+Question Bank,Bioscience,Q37: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,Hemoglobin increases,pH increases,Temperature decreases,0
+IQ Games,Bioscience,Q38: Ecology: Carrying capacity refers to:,Growth rate of population,Max population environment supports,Migration rate,Death rate only,1
+Career Questions,Bioscience,Q39: Evolution: Natural selection acts on:,Genotype only,DNA sequence directly,Phenotype,Chromosomes only,2
+Question Bank,Bioscience,Q40: Biotechnology: PCR amplification requires:,"DNA template, primers, Taq polymerase",Ligase enzyme,RNA polymerase,Restriction enzymes,0
+IQ Games,Bioscience,Q41: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell swelling due to osmotic imbalance,Immediate DNA damage,No effect on osmotic balance,Cell shrinkage due to ion loss,0
+Career Questions,Bioscience,Q42: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Transcription initiation,Translation termination,Protein folding,1
+Question Bank,Bioscience,"Q43: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Enzyme denaturation,Higher enzyme affinity,0
+IQ Games,Bioscience,Q44: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Ligase,Helicase,DNA polymerase,0
+Career Questions,Bioscience,Q45: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Enable faster secondary response,Produce antibodies immediately,Suppress immune response,1
+Question Bank,Bioscience,Q46: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Outer membrane barrier,Thick peptidoglycan,Lack of ribosomes,1
+IQ Games,Bioscience,Q47: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Hemoglobin increases,Temperature decreases,CO2 increases,3
+Career Questions,Bioscience,Q48: Ecology: Carrying capacity refers to:,Max population environment supports,Migration rate,Growth rate of population,Death rate only,0
+Question Bank,Bioscience,Q49: Evolution: Natural selection acts on:,Genotype only,Phenotype,DNA sequence directly,Chromosomes only,1
+IQ Games,Bioscience,Q50: Biotechnology: PCR amplification requires:,RNA polymerase,Restriction enzymes,"DNA template, primers, Taq polymerase",Ligase enzyme,2
+Career Questions,Bioscience,Q51: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell shrinkage due to ion loss,Immediate DNA damage,No effect on osmotic balance,Cell swelling due to osmotic imbalance,3
+Question Bank,Bioscience,Q52: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Translation termination,Transcription initiation,Protein folding,2
+IQ Games,Bioscience,"Q53: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,1
+Career Questions,Bioscience,Q54: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,Ligase,DNA polymerase,RNA polymerase,3
+Question Bank,Bioscience,Q55: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Produce antibodies immediately,Enable faster secondary response,Suppress immune response,2
+IQ Games,Bioscience,Q56: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Thick peptidoglycan,Lack of ribosomes,Outer membrane barrier,3
+Career Questions,Bioscience,Q57: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Hemoglobin increases,CO2 increases,Temperature decreases,2
+Question Bank,Bioscience,Q58: Ecology: Carrying capacity refers to:,Death rate only,Growth rate of population,Migration rate,Max population environment supports,3
+IQ Games,Bioscience,Q59: Evolution: Natural selection acts on:,DNA sequence directly,Chromosomes only,Genotype only,Phenotype,3
+Career Questions,Bioscience,Q60: Biotechnology: PCR amplification requires:,Restriction enzymes,"DNA template, primers, Taq polymerase",RNA polymerase,Ligase enzyme,1
+Question Bank,Bioscience,Q61: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Cell shrinkage due to ion loss,Immediate DNA damage,Cell swelling due to osmotic imbalance,3
+IQ Games,Bioscience,Q62: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Protein folding,Transcription initiation,Translation termination,2
+Career Questions,Bioscience,"Q63: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Substrate depletion,Enzyme denaturation,Higher enzyme affinity,Lower enzyme affinity,3
+Question Bank,Bioscience,Q64: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Ligase,DNA polymerase,Helicase,RNA polymerase,3
+IQ Games,Bioscience,Q65: Immunology: Memory B cells are important because they:,Produce antibodies immediately,Enable faster secondary response,Destroy pathogens directly,Suppress immune response,1
+Career Questions,Bioscience,Q66: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Lack of ribosomes,Thick peptidoglycan,High mutation rate,Outer membrane barrier,3
+Question Bank,Bioscience,Q67: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,CO2 increases,pH increases,Hemoglobin increases,1
+IQ Games,Bioscience,Q68: Ecology: Carrying capacity refers to:,Max population environment supports,Death rate only,Growth rate of population,Migration rate,0
+Career Questions,Bioscience,Q69: Evolution: Natural selection acts on:,Chromosomes only,DNA sequence directly,Phenotype,Genotype only,2
+Question Bank,Bioscience,Q70: Biotechnology: PCR amplification requires:,"DNA template, primers, Taq polymerase",Restriction enzymes,RNA polymerase,Ligase enzyme,0
+IQ Games,Bioscience,Q71: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Immediate DNA damage,No effect on osmotic balance,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,2
+Career Questions,Bioscience,Q72: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Protein folding,Translation termination,Transcription initiation,3
+Question Bank,Bioscience,"Q73: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Higher enzyme affinity,Enzyme denaturation,Lower enzyme affinity,Substrate depletion,2
+IQ Games,Bioscience,Q74: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Ligase,Helicase,DNA polymerase,RNA polymerase,3
+Career Questions,Bioscience,Q75: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Suppress immune response,Enable faster secondary response,Produce antibodies immediately,2
+Question Bank,Bioscience,Q76: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Thick peptidoglycan,Lack of ribosomes,High mutation rate,Outer membrane barrier,3
+IQ Games,Bioscience,Q77: Physiology: Oxygen dissociation curve shifts right when:,Hemoglobin increases,pH increases,CO2 increases,Temperature decreases,2
+Career Questions,Bioscience,Q78: Ecology: Carrying capacity refers to:,Migration rate,Max population environment supports,Death rate only,Growth rate of population,1
+Question Bank,Bioscience,Q79: Evolution: Natural selection acts on:,Genotype only,DNA sequence directly,Chromosomes only,Phenotype,3
+IQ Games,Bioscience,Q80: Biotechnology: PCR amplification requires:,Restriction enzymes,Ligase enzyme,"DNA template, primers, Taq polymerase",RNA polymerase,2
+Career Questions,Bioscience,Q81: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Cell shrinkage due to ion loss,Immediate DNA damage,Cell swelling due to osmotic imbalance,3
+Question Bank,Bioscience,Q82: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,Translation termination,mRNA splicing,Transcription initiation,3
+IQ Games,Bioscience,"Q83: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Higher enzyme affinity,Lower enzyme affinity,Substrate depletion,Enzyme denaturation,1
+Career Questions,Bioscience,Q84: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Ligase,Helicase,DNA polymerase,0
+Question Bank,Bioscience,Q85: Immunology: Memory B cells are important because they:,Produce antibodies immediately,Suppress immune response,Destroy pathogens directly,Enable faster secondary response,3
+IQ Games,Bioscience,Q86: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Outer membrane barrier,Lack of ribosomes,High mutation rate,Thick peptidoglycan,0
+Career Questions,Bioscience,Q87: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,pH increases,CO2 increases,Hemoglobin increases,2
+Question Bank,Bioscience,Q88: Ecology: Carrying capacity refers to:,Max population environment supports,Growth rate of population,Migration rate,Death rate only,0
+IQ Games,Bioscience,Q89: Evolution: Natural selection acts on:,Phenotype,DNA sequence directly,Chromosomes only,Genotype only,0
+Career Questions,Bioscience,Q90: Biotechnology: PCR amplification requires:,"DNA template, primers, Taq polymerase",RNA polymerase,Restriction enzymes,Ligase enzyme,0
+Question Bank,Bioscience,Q91: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Immediate DNA damage,Cell shrinkage due to ion loss,Cell swelling due to osmotic imbalance,3
+IQ Games,Bioscience,Q92: Genetics: A mutation in the promoter region of a gene most likely affects:,Transcription initiation,Protein folding,mRNA splicing,Translation termination,0
+Career Questions,Bioscience,"Q93: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Lower enzyme affinity,Higher enzyme affinity,Substrate depletion,1
+Question Bank,Bioscience,Q94: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,DNA polymerase,RNA polymerase,Ligase,2
+IQ Games,Bioscience,Q95: Immunology: Memory B cells are important because they:,Suppress immune response,Enable faster secondary response,Produce antibodies immediately,Destroy pathogens directly,1
+Career Questions,Bioscience,Q96: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Outer membrane barrier,High mutation rate,Lack of ribosomes,Thick peptidoglycan,0
+Question Bank,Bioscience,Q97: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,CO2 increases,pH increases,Hemoglobin increases,1
+IQ Games,Bioscience,Q98: Ecology: Carrying capacity refers to:,Migration rate,Death rate only,Max population environment supports,Growth rate of population,2
+Career Questions,Bioscience,Q99: Evolution: Natural selection acts on:,DNA sequence directly,Phenotype,Chromosomes only,Genotype only,1
+Question Bank,Bioscience,Q100: Biotechnology: PCR amplification requires:,Ligase enzyme,"DNA template, primers, Taq polymerase",Restriction enzymes,RNA polymerase,1
+IQ Games,Bioscience,Q101: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Immediate DNA damage,Cell shrinkage due to ion loss,Cell swelling due to osmotic imbalance,No effect on osmotic balance,2
+Career Questions,Bioscience,Q102: Genetics: A mutation in the promoter region of a gene most likely affects:,Translation termination,mRNA splicing,Transcription initiation,Protein folding,2
+Question Bank,Bioscience,"Q103: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Substrate depletion,Lower enzyme affinity,Higher enzyme affinity,2
+IQ Games,Bioscience,Q104: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,DNA polymerase,RNA polymerase,Ligase,2
+Career Questions,Bioscience,Q105: Immunology: Memory B cells are important because they:,Suppress immune response,Produce antibodies immediately,Destroy pathogens directly,Enable faster secondary response,3
+Question Bank,Bioscience,Q106: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Outer membrane barrier,Thick peptidoglycan,High mutation rate,Lack of ribosomes,0
+IQ Games,Bioscience,Q107: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Temperature decreases,CO2 increases,Hemoglobin increases,2
+Career Questions,Bioscience,Q108: Ecology: Carrying capacity refers to:,Growth rate of population,Death rate only,Max population environment supports,Migration rate,2
+Question Bank,Bioscience,Q109: Evolution: Natural selection acts on:,DNA sequence directly,Genotype only,Phenotype,Chromosomes only,2
+IQ Games,Bioscience,Q110: Biotechnology: PCR amplification requires:,Restriction enzymes,"DNA template, primers, Taq polymerase",RNA polymerase,Ligase enzyme,1
+Career Questions,Bioscience,Q111: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,No effect on osmotic balance,Immediate DNA damage,0
+Question Bank,Bioscience,Q112: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Transcription initiation,Translation termination,Protein folding,1
+IQ Games,Bioscience,"Q113: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Substrate depletion,Lower enzyme affinity,Higher enzyme affinity,2
+Career Questions,Bioscience,Q114: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Ligase,Helicase,DNA polymerase,RNA polymerase,3
+Question Bank,Bioscience,Q115: Immunology: Memory B cells are important because they:,Produce antibodies immediately,Enable faster secondary response,Destroy pathogens directly,Suppress immune response,1
+IQ Games,Bioscience,Q116: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Outer membrane barrier,Lack of ribosomes,High mutation rate,Thick peptidoglycan,0
+Career Questions,Bioscience,Q117: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,pH increases,Hemoglobin increases,CO2 increases,3
+Question Bank,Bioscience,Q118: Ecology: Carrying capacity refers to:,Max population environment supports,Growth rate of population,Migration rate,Death rate only,0
+IQ Games,Bioscience,Q119: Evolution: Natural selection acts on:,DNA sequence directly,Chromosomes only,Genotype only,Phenotype,3
+Career Questions,Bioscience,Q120: Biotechnology: PCR amplification requires:,Restriction enzymes,"DNA template, primers, Taq polymerase",RNA polymerase,Ligase enzyme,1
+Question Bank,Bioscience,Q121: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell shrinkage due to ion loss,Cell swelling due to osmotic imbalance,Immediate DNA damage,No effect on osmotic balance,1
+IQ Games,Bioscience,Q122: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,Transcription initiation,Translation termination,mRNA splicing,1
+Career Questions,Bioscience,"Q123: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Substrate depletion,Enzyme denaturation,Higher enzyme affinity,Lower enzyme affinity,3
+Question Bank,Bioscience,Q124: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Helicase,DNA polymerase,Ligase,0
+IQ Games,Bioscience,Q125: Immunology: Memory B cells are important because they:,Suppress immune response,Produce antibodies immediately,Enable faster secondary response,Destroy pathogens directly,2
+Career Questions,Bioscience,Q126: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Lack of ribosomes,Thick peptidoglycan,High mutation rate,Outer membrane barrier,3
+Question Bank,Bioscience,Q127: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,Temperature decreases,pH increases,Hemoglobin increases,0
+IQ Games,Bioscience,Q128: Ecology: Carrying capacity refers to:,Migration rate,Growth rate of population,Max population environment supports,Death rate only,2
+Career Questions,Bioscience,Q129: Evolution: Natural selection acts on:,Phenotype,Genotype only,Chromosomes only,DNA sequence directly,0
+Question Bank,Bioscience,Q130: Biotechnology: PCR amplification requires:,RNA polymerase,Ligase enzyme,"DNA template, primers, Taq polymerase",Restriction enzymes,2
+IQ Games,Bioscience,Q131: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell swelling due to osmotic imbalance,Immediate DNA damage,No effect on osmotic balance,Cell shrinkage due to ion loss,0
+Career Questions,Bioscience,Q132: Genetics: A mutation in the promoter region of a gene most likely affects:,Translation termination,Protein folding,Transcription initiation,mRNA splicing,2
+Question Bank,Bioscience,"Q133: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Enzyme denaturation,Lower enzyme affinity,Higher enzyme affinity,Substrate depletion,1
+IQ Games,Bioscience,Q134: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Helicase,DNA polymerase,Ligase,0
+Career Questions,Bioscience,Q135: Immunology: Memory B cells are important because they:,Produce antibodies immediately,Destroy pathogens directly,Enable faster secondary response,Suppress immune response,2
+Question Bank,Bioscience,Q136: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Thick peptidoglycan,Lack of ribosomes,Outer membrane barrier,3
+IQ Games,Bioscience,Q137: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Temperature decreases,CO2 increases,Hemoglobin increases,2
+Career Questions,Bioscience,Q138: Ecology: Carrying capacity refers to:,Death rate only,Growth rate of population,Migration rate,Max population environment supports,3
+Question Bank,Bioscience,Q139: Evolution: Natural selection acts on:,Chromosomes only,DNA sequence directly,Genotype only,Phenotype,3
+IQ Games,Bioscience,Q140: Biotechnology: PCR amplification requires:,"DNA template, primers, Taq polymerase",Restriction enzymes,Ligase enzyme,RNA polymerase,0
+Career Questions,Bioscience,Q141: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Immediate DNA damage,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,2
+Question Bank,Bioscience,Q142: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Transcription initiation,Protein folding,Translation termination,1
+IQ Games,Bioscience,"Q143: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0
+Career Questions,Bioscience,Q144: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,DNA polymerase,RNA polymerase,Helicase,Ligase,1
+Question Bank,Bioscience,Q145: Immunology: Memory B cells are important because they:,Suppress immune response,Destroy pathogens directly,Produce antibodies immediately,Enable faster secondary response,3
+IQ Games,Bioscience,Q146: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Thick peptidoglycan,High mutation rate,Lack of ribosomes,Outer membrane barrier,3
+Career Questions,Bioscience,Q147: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,Temperature decreases,Hemoglobin increases,pH increases,0
+Question Bank,Bioscience,Q148: Ecology: Carrying capacity refers to:,Death rate only,Migration rate,Growth rate of population,Max population environment supports,3
+IQ Games,Bioscience,Q149: Evolution: Natural selection acts on:,DNA sequence directly,Chromosomes only,Phenotype,Genotype only,2
+Career Questions,Bioscience,Q150: Biotechnology: PCR amplification requires:,RNA polymerase,Restriction enzymes,"DNA template, primers, Taq polymerase",Ligase enzyme,2
+Question Bank,Bioscience,Q151: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Immediate DNA damage,Cell shrinkage due to ion loss,Cell swelling due to osmotic imbalance,No effect on osmotic balance,2
+IQ Games,Bioscience,Q152: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,Transcription initiation,mRNA splicing,Translation termination,1
+Career Questions,Bioscience,"Q153: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0
+Question Bank,Bioscience,Q154: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Ligase,RNA polymerase,DNA polymerase,Helicase,1
+IQ Games,Bioscience,Q155: Immunology: Memory B cells are important because they:,Enable faster secondary response,Produce antibodies immediately,Suppress immune response,Destroy pathogens directly,0
+Career Questions,Bioscience,Q156: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Lack of ribosomes,Outer membrane barrier,Thick peptidoglycan,2
+Question Bank,Bioscience,Q157: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,pH increases,Hemoglobin increases,Temperature decreases,0
+IQ Games,Bioscience,Q158: Ecology: Carrying capacity refers to:,Death rate only,Max population environment supports,Migration rate,Growth rate of population,1
+Career Questions,Bioscience,Q159: Evolution: Natural selection acts on:,Chromosomes only,Phenotype,Genotype only,DNA sequence directly,1
+Question Bank,Bioscience,Q160: Biotechnology: PCR amplification requires:,Restriction enzymes,"DNA template, primers, Taq polymerase",Ligase enzyme,RNA polymerase,1
+IQ Games,Bioscience,Q161: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,Immediate DNA damage,1
+Career Questions,Bioscience,Q162: Genetics: A mutation in the promoter region of a gene most likely affects:,Transcription initiation,mRNA splicing,Translation termination,Protein folding,0
+Question Bank,Bioscience,"Q163: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0
+IQ Games,Bioscience,Q164: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,Ligase,DNA polymerase,RNA polymerase,3
+Career Questions,Bioscience,Q165: Immunology: Memory B cells are important because they:,Suppress immune response,Enable faster secondary response,Destroy pathogens directly,Produce antibodies immediately,1
+Question Bank,Bioscience,Q166: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,High mutation rate,Thick peptidoglycan,Lack of ribosomes,Outer membrane barrier,3
+IQ Games,Bioscience,Q167: Physiology: Oxygen dissociation curve shifts right when:,CO2 increases,pH increases,Temperature decreases,Hemoglobin increases,0
+Career Questions,Bioscience,Q168: Ecology: Carrying capacity refers to:,Death rate only,Growth rate of population,Migration rate,Max population environment supports,3
+Question Bank,Bioscience,Q169: Evolution: Natural selection acts on:,DNA sequence directly,Genotype only,Chromosomes only,Phenotype,3
+IQ Games,Bioscience,Q170: Biotechnology: PCR amplification requires:,Restriction enzymes,RNA polymerase,"DNA template, primers, Taq polymerase",Ligase enzyme,2
+Career Questions,Bioscience,Q171: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell shrinkage due to ion loss,Immediate DNA damage,No effect on osmotic balance,Cell swelling due to osmotic imbalance,3
+Question Bank,Bioscience,Q172: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Transcription initiation,Translation termination,Protein folding,1
+IQ Games,Bioscience,"Q173: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Enzyme denaturation,Substrate depletion,Higher enzyme affinity,0
+Career Questions,Bioscience,Q174: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,RNA polymerase,Ligase,DNA polymerase,1
+Question Bank,Bioscience,Q175: Immunology: Memory B cells are important because they:,Destroy pathogens directly,Suppress immune response,Produce antibodies immediately,Enable faster secondary response,3
+IQ Games,Bioscience,Q176: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Lack of ribosomes,Thick peptidoglycan,Outer membrane barrier,High mutation rate,2
+Career Questions,Bioscience,Q177: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,CO2 increases,Hemoglobin increases,pH increases,1
+Question Bank,Bioscience,Q178: Ecology: Carrying capacity refers to:,Migration rate,Growth rate of population,Max population environment supports,Death rate only,2
+IQ Games,Bioscience,Q179: Evolution: Natural selection acts on:,Chromosomes only,Phenotype,Genotype only,DNA sequence directly,1
+Career Questions,Bioscience,Q180: Biotechnology: PCR amplification requires:,"DNA template, primers, Taq polymerase",RNA polymerase,Ligase enzyme,Restriction enzymes,0
+Question Bank,Bioscience,Q181: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Cell swelling due to osmotic imbalance,Immediate DNA damage,No effect on osmotic balance,Cell shrinkage due to ion loss,0
+IQ Games,Bioscience,Q182: Genetics: A mutation in the promoter region of a gene most likely affects:,mRNA splicing,Translation termination,Protein folding,Transcription initiation,3
+Career Questions,Bioscience,"Q183: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Higher enzyme affinity,Substrate depletion,Lower enzyme affinity,Enzyme denaturation,2
+Question Bank,Bioscience,Q184: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,RNA polymerase,Helicase,DNA polymerase,Ligase,0
+IQ Games,Bioscience,Q185: Immunology: Memory B cells are important because they:,Produce antibodies immediately,Suppress immune response,Enable faster secondary response,Destroy pathogens directly,2
+Career Questions,Bioscience,Q186: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Lack of ribosomes,High mutation rate,Outer membrane barrier,Thick peptidoglycan,2
+Question Bank,Bioscience,Q187: Physiology: Oxygen dissociation curve shifts right when:,pH increases,Temperature decreases,CO2 increases,Hemoglobin increases,2
+IQ Games,Bioscience,Q188: Ecology: Carrying capacity refers to:,Max population environment supports,Death rate only,Migration rate,Growth rate of population,0
+Career Questions,Bioscience,Q189: Evolution: Natural selection acts on:,Phenotype,DNA sequence directly,Genotype only,Chromosomes only,0
+Question Bank,Bioscience,Q190: Biotechnology: PCR amplification requires:,Ligase enzyme,"DNA template, primers, Taq polymerase",RNA polymerase,Restriction enzymes,1
+IQ Games,Bioscience,Q191: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,Immediate DNA damage,No effect on osmotic balance,Cell swelling due to osmotic imbalance,Cell shrinkage due to ion loss,2
+Career Questions,Bioscience,Q192: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,Transcription initiation,mRNA splicing,Translation termination,1
+Question Bank,Bioscience,"Q193: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Substrate depletion,Higher enzyme affinity,Lower enzyme affinity,Enzyme denaturation,2
+IQ Games,Bioscience,Q194: Molecular Biology: Which enzyme synthesizes RNA from DNA template?,Helicase,DNA polymerase,RNA polymerase,Ligase,2
+Career Questions,Bioscience,Q195: Immunology: Memory B cells are important because they:,Enable faster secondary response,Destroy pathogens directly,Suppress immune response,Produce antibodies immediately,0
+Question Bank,Bioscience,Q196: Microbiology: Gram-negative bacteria are resistant to penicillin mainly due to:,Thick peptidoglycan,Outer membrane barrier,Lack of ribosomes,High mutation rate,1
+IQ Games,Bioscience,Q197: Physiology: Oxygen dissociation curve shifts right when:,Temperature decreases,CO2 increases,Hemoglobin increases,pH increases,1
+Career Questions,Bioscience,Q198: Ecology: Carrying capacity refers to:,Max population environment supports,Death rate only,Migration rate,Growth rate of population,0
+Question Bank,Bioscience,Q199: Evolution: Natural selection acts on:,Phenotype,DNA sequence directly,Genotype only,Chromosomes only,0
+IQ Games,Bioscience,Q200: Biotechnology: PCR amplification requires:,Ligase enzyme,"DNA template, primers, Taq polymerase",RNA polymerase,Restriction enzymes,1

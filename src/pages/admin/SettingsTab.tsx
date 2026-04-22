@@ -12,6 +12,366 @@ interface ParsedQuestion {
   correct_answer_index: number;
 }
 
+interface QuestionImportSource {
+  file: File;
+  departmentHint?: string | null;
+  sourceLabel?: string;
+}
+
+const BUNDLED_QUESTION_FILES = [
+  { fileName: 'Allied Heath Sciences Question Bank (1).csv', department: 'Allied Health Sciences' },
+  { fileName: 'Architecuture_Mcqs - Architecture.csv', department: 'Architecture' },
+  { fileName: 'BioScience-Re - Bioscience MCQs.csv', department: 'Bioscience' },
+  { fileName: 'BSH_MCQs.csv', department: 'Basic Science & Humanities' },
+  { fileName: 'Civil_Engineering_MCQs_200.csv', department: 'Civil' },
+  { fileName: 'Computer_Science_MCQs_200.csv', department: 'Computer Sciences' },
+  { fileName: 'Electrical_Engineering_MCQs_200.csv', department: 'Electrical' },
+  { fileName: 'Management_Sciences_MCQs_200.csv', department: 'Management of Science' },
+  { fileName: 'Mechanical_MCQs_200.csv', department: 'Mechanical' },
+  { fileName: 'nursing_200_mcqs.csv', department: 'Nursing' },
+  { fileName: 'pharmacy_200_mcqs.csv', department: 'Pharmacy' },
+  { fileName: 'Software eng_200_mcqs.csv', department: 'Software Engineering' },
+] as const;
+
+const KNOWN_DEPARTMENTS = [
+  'Civil', 'Mechanical', 'Electrical', 'Architecture',
+  'Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing',
+  'Management of Science', 'Basic Science & Humanities',
+  'Computer Sciences', 'Software Engineering',
+] as const;
+
+const CANONICAL_CATEGORIES = ['Question Bank', 'IQ Games', 'Career Questions'] as const;
+
+const DEPT_ALIASES: Record<string, string> = {
+  'bsh': 'Basic Science & Humanities',
+  'basic science and humanities': 'Basic Science & Humanities',
+  'basic sciences and humanities': 'Basic Science & Humanities',
+  'basic sciences humanities': 'Basic Science & Humanities',
+  'allied health': 'Allied Health Sciences',
+  'allied health science': 'Allied Health Sciences',
+  'allied health sciences': 'Allied Health Sciences',
+  'allied heath science': 'Allied Health Sciences',
+  'allied heath sciences': 'Allied Health Sciences',
+  'biosciences': 'Bioscience',
+  'bio science': 'Bioscience',
+  'bio sciences': 'Bioscience',
+  'life sciences': 'Bioscience',
+  'cs': 'Computer Sciences',
+  'computer science': 'Computer Sciences',
+  'compsci': 'Computer Sciences',
+  'se': 'Software Engineering',
+  'soft eng': 'Software Engineering',
+  'software eng': 'Software Engineering',
+  'mgt': 'Management of Science',
+  'management science': 'Management of Science',
+  'management sciences': 'Management of Science',
+  'management of sciences': 'Management of Science',
+  'mgmt of science': 'Management of Science',
+  'mgmt science': 'Management of Science',
+  'arch': 'Architecture',
+  'architecuture': 'Architecture',
+  'ce': 'Civil',
+  'civil engineering': 'Civil',
+  'mech': 'Mechanical',
+  'mechanical engineering': 'Mechanical',
+  'ee': 'Electrical',
+  'electrical engineering': 'Electrical',
+};
+
+const CATEGORY_ALIASES: Record<string, string> = {
+  'question bank': 'Question Bank',
+  'questionbank': 'Question Bank',
+  'questions bank': 'Question Bank',
+  'iq games': 'IQ Games',
+  'iq game': 'IQ Games',
+  'career question': 'Career Questions',
+  'career questions': 'Career Questions',
+};
+
+const HEADER_ALIASES: Record<string, string[]> = {
+  category: ['category', 'question category', 'segment', 'type', 'question type'],
+  department: ['department', 'dept', 'branch', 'major', 'school'],
+  text: ['text', 'question', 'question text', 'question_text', 'q', 'stem'],
+  option1: ['option1', 'option_1', 'option 1', 'a', 'choice1', 'choice_1', 'choice 1', 'choice a', 'answer a'],
+  option2: ['option2', 'option_2', 'option 2', 'b', 'choice2', 'choice_2', 'choice 2', 'choice b', 'answer b'],
+  option3: ['option3', 'option_3', 'option 3', 'c', 'choice3', 'choice_3', 'choice 3', 'choice c', 'answer c'],
+  option4: ['option4', 'option_4', 'option 4', 'd', 'choice4', 'choice_4', 'choice 4', 'choice d', 'answer d'],
+  correct_answer_index: [
+    'correct answer index',
+    'correct_answer_index',
+    'correct answer',
+    'answer',
+    'answer index',
+    'answer_index',
+    'correct',
+    'correct index',
+    'key',
+    'right answer',
+    'correct option',
+  ],
+};
+
+const buildLookupMap = (source: Record<string, string>) => {
+  const map = new Map<string, string>();
+  Object.entries(source).forEach(([alias, canonical]) => {
+    const normalized = alias
+      .toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+    if (normalized) {
+      map.set(normalized, canonical);
+      map.set(normalized.replace(/\s+/g, ''), canonical);
+    }
+  });
+  return map;
+};
+
+const HEADER_LOOKUP = (() => {
+  const map: Record<string, string> = {};
+  Object.entries(HEADER_ALIASES).forEach(([canonical, aliases]) => {
+    aliases.forEach((alias) => {
+      const normalized = alias
+        .toLowerCase()
+        .replace(/^\uFEFF/, '')
+        .trim()
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ');
+      map[normalized] = canonical;
+    });
+  });
+  return map;
+})();
+
+const DEPARTMENT_LOOKUP = buildLookupMap({
+  ...Object.fromEntries(KNOWN_DEPARTMENTS.map((department) => [department, department])),
+  ...DEPT_ALIASES,
+});
+
+const CATEGORY_LOOKUP = buildLookupMap({
+  ...Object.fromEntries(CANONICAL_CATEGORIES.map((category) => [category, category])),
+  ...CATEGORY_ALIASES,
+});
+
+const normalizeLookupValue = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/^\uFEFF/, '')
+    .replace(/&/g, ' and ')
+    .replace(/[_-]+/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+
+const collapseLookupValue = (value: string) => normalizeLookupValue(value).replace(/\s+/g, '');
+
+const normalizeDepartment = (raw: string): string | null => {
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+
+  const normalized = normalizeLookupValue(trimmed);
+  const collapsed = collapseLookupValue(trimmed);
+  const directMatch = DEPARTMENT_LOOKUP.get(normalized) || DEPARTMENT_LOOKUP.get(collapsed);
+  if (directMatch) return directMatch;
+
+  for (const department of KNOWN_DEPARTMENTS) {
+    const normalizedDepartment = normalizeLookupValue(department);
+    const collapsedDepartment = collapseLookupValue(department);
+    if (normalized.includes(normalizedDepartment) || collapsed.includes(collapsedDepartment)) {
+      return department;
+    }
+  }
+
+  for (const [alias, canonical] of Object.entries(DEPT_ALIASES)) {
+    const normalizedAlias = normalizeLookupValue(alias);
+    const collapsedAlias = collapseLookupValue(alias);
+    if (
+      normalizedAlias.length > 3 &&
+      (normalized.includes(normalizedAlias) || collapsed.includes(collapsedAlias))
+    ) {
+      return canonical;
+    }
+  }
+
+  return null;
+};
+
+const normalizeCategory = (raw: string): string | null => {
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const normalized = normalizeLookupValue(trimmed);
+  const collapsed = collapseLookupValue(trimmed);
+  return CATEGORY_LOOKUP.get(normalized) || CATEGORY_LOOKUP.get(collapsed) || null;
+};
+
+const inferCategoryFromQuestionText = (text: string, rowIndex: number, totalRows: number): string => {
+  const lowerText = text.toLowerCase();
+
+  if (
+    /\bcareer\b/.test(lowerText) ||
+    /\b(role|profession|skills?|portfolio|resume|scrum|project manager|software engineer)\b/.test(lowerText)
+  ) {
+    return 'Career Questions';
+  }
+
+  if (
+    /\b(find the next|sequence|analogy|odd one out|how many|what comes next|logical|pattern|rooms\?)\b/.test(lowerText)
+  ) {
+    return 'IQ Games';
+  }
+
+  if (totalRows >= 180) {
+    if (rowIndex < 80) return 'Question Bank';
+    if (rowIndex < 140) return 'IQ Games';
+    return 'Career Questions';
+  }
+
+  return 'Question Bank';
+};
+
+const normalizeHeaderKey = (rawKey: string) =>
+  rawKey
+    .replace(/^\uFEFF/, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ');
+
+const isZeroBasedOptionHeader = (key: string) => /^(option|choice)\s*0$/.test(key);
+
+const normalizeRow = (
+  row: Record<string, unknown>,
+  zeroBasedOptions: boolean,
+): Record<string, unknown> => {
+  const output: Record<string, unknown> = {};
+
+  for (const [rawKey, value] of Object.entries(row)) {
+    const cleanedKey = normalizeHeaderKey(rawKey);
+
+    if (zeroBasedOptions) {
+      if (/^(option|choice)\s*0$/.test(cleanedKey)) {
+        output.option1 = value;
+        continue;
+      }
+      if (/^(option|choice)\s*1$/.test(cleanedKey)) {
+        output.option2 = value;
+        continue;
+      }
+      if (/^(option|choice)\s*2$/.test(cleanedKey)) {
+        output.option3 = value;
+        continue;
+      }
+      if (/^(option|choice)\s*3$/.test(cleanedKey)) {
+        output.option4 = value;
+        continue;
+      }
+    }
+
+    const canonicalKey = HEADER_LOOKUP[cleanedKey] ?? cleanedKey.replace(/\s+/g, '_');
+    output[canonicalKey] = value;
+  }
+
+  return output;
+};
+
+const deptFromFilename = (filename: string): string | null => {
+  const base = filename
+    .replace(/\.(csv|xlsx|xls)$/i, '')
+    .replace(/\(\d+\)$/i, '')
+    .replace(/\b(mcqs?|questions?|question bank|q bank|final|re)\b/gi, ' ')
+    .replace(/\b\d+\b/g, ' ')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return normalizeDepartment(base);
+};
+
+const toCellText = (value: unknown) => {
+  if (value === null || value === undefined) return '';
+  return String(value).trim();
+};
+
+const parseSingleFile = async (
+  file: File,
+  departmentHint?: string | null,
+): Promise<{ parsed: ParsedQuestion[]; errors: string[] }> => {
+  const workbook = /\.csv$/i.test(file.name)
+    ? XLSX.read(await file.text(), { type: 'string', raw: true, cellFormula: false })
+    : XLSX.read(await file.arrayBuffer(), { type: 'array' });
+  const sheetName = workbook.SheetNames[0];
+  if (!sheetName) throw new Error(`${file.name}: No sheets found in the file.`);
+
+  const sheet = workbook.Sheets[sheetName];
+  const rawRows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
+  if (rawRows.length === 0) throw new Error(`${file.name}: The file contains no data rows.`);
+
+  const firstRawHeaderKeys = Object.keys(rawRows[0]).map(normalizeHeaderKey);
+  const zeroBasedOptions = firstRawHeaderKeys.some(isZeroBasedOptionHeader);
+  const hasCategoryColumn = firstRawHeaderKeys.includes('category');
+  const rows = rawRows.map((row) => normalizeRow(row, zeroBasedOptions));
+  const firstRow = rows[0];
+
+  const requiredCols = ['text', 'option1', 'option2', 'option3', 'option4', 'correct_answer_index'];
+  const missingCols = requiredCols.filter((column) => !(column in firstRow));
+  if (missingCols.length > 0) {
+    throw new Error(
+      `${file.name}: Missing required columns: ${missingCols.join(', ')}.\n` +
+      `  Headers found in file: ${Object.keys(rawRows[0]).join(', ')}`
+    );
+  }
+
+  const errors: string[] = [];
+  const parsed: ParsedQuestion[] = [];
+  const fallbackDepartment = normalizeDepartment(departmentHint || '') || deptFromFilename(file.name);
+
+  for (let index = 0; index < rows.length; index += 1) {
+    const row = rows[index];
+    const rowNum = index + 2;
+    const text = toCellText(row.text);
+    const rawCategory = toCellText(row.category);
+    const category = normalizeCategory(rawCategory) || (!hasCategoryColumn ? inferCategoryFromQuestionText(text, index, rows.length) : null);
+    const rawDepartment = toCellText(row.department);
+    const department = normalizeDepartment(rawDepartment) || fallbackDepartment || null;
+    const option1 = toCellText(row.option1);
+    const option2 = toCellText(row.option2);
+    const option3 = toCellText(row.option3);
+    const option4 = toCellText(row.option4);
+    const answerIdx = Number(row.correct_answer_index);
+
+    if (!category) {
+      errors.push(`${file.name} row ${rowNum}: missing or unrecognized category`);
+      continue;
+    }
+    if (!text) {
+      errors.push(`${file.name} row ${rowNum}: missing question text`);
+      continue;
+    }
+    if (!option1 || !option2 || !option3 || !option4) {
+      errors.push(`${file.name} row ${rowNum}: all 4 options are required`);
+      continue;
+    }
+    if (Number.isNaN(answerIdx) || answerIdx < 0 || answerIdx > 3) {
+      errors.push(`${file.name} row ${rowNum}: correct_answer_index must be 0–3 (got "${row.correct_answer_index}")`);
+      continue;
+    }
+    if (!department && rawDepartment) {
+      errors.push(`${file.name} row ${rowNum}: could not normalize department "${rawDepartment}"`);
+      continue;
+    }
+
+    parsed.push({
+      category,
+      department,
+      text,
+      options: [option1, option2, option3, option4],
+      correct_answer_index: answerIdx,
+    });
+  }
+
+  return { parsed, errors };
+};
+
 export const SettingsTab: React.FC = () => {
   const { maxTriesDefault, resetLeaderboard, awards, addAward, removeAward, refreshQuestions, questions } = useAppContext();
   const [maxTries, setMaxTries] = useState(maxTriesDefault);
@@ -27,6 +387,7 @@ export const SettingsTab: React.FC = () => {
   const [importedFileName, setImportedFileName] = useState('');
   const [importedRowCount, setImportedRowCount] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isBundledImporting, setIsBundledImporting] = useState(false);
 
   // Question delete state
   const [deletingDept, setDeletingDept] = useState<string | null>(null);
@@ -79,198 +440,10 @@ export const SettingsTab: React.FC = () => {
     : (err as any)?.details ? String((err as any).details)
     : fallback;
 
-  /**
-   * Canonical department names as stored in the database.
-   * Any variation found in an uploaded file is normalised to one of these values.
-   */
-  const KNOWN_DEPARTMENTS = [
-    'Civil', 'Mechanical', 'Electrical', 'Architecture',
-    'Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing',
-    'Management of Science', 'Basic Science & Humanities',
-    'Computer Sciences', 'Software Engineering',
-  ];
-
-  /**
-   * Extra aliases: keys are lowercase+stripped variations → canonical value.
-   * Covers common abbreviations and alternate spellings.
-   */
-  const DEPT_ALIASES: Record<string, string> = {
-    'bsh': 'Basic Science & Humanities',
-    'basic science and humanities': 'Basic Science & Humanities',
-    'basic sciences & humanities': 'Basic Science & Humanities',
-    'basic sciences and humanities': 'Basic Science & Humanities',
-    'allied health': 'Allied Health Sciences',
-    'allied health science': 'Allied Health Sciences',
-    'biosciences': 'Bioscience',
-    'bio science': 'Bioscience',
-    'bio sciences': 'Bioscience',
-    'life sciences': 'Bioscience',
-    'cs': 'Computer Sciences',
-    'computer science': 'Computer Sciences',
-    'compsci': 'Computer Sciences',
-    'se': 'Software Engineering',
-    'soft eng': 'Software Engineering',
-    'software eng': 'Software Engineering',
-    'mgmt of science': 'Management of Science',
-    'management of sciences': 'Management of Science',
-    'management science': 'Management of Science',
-    'mgmt science': 'Management of Science',
-    'arch': 'Architecture',
-    'civil engineering': 'Civil',
-    'mechanical engineering': 'Mechanical',
-    'electrical engineering': 'Electrical',
-  };
-
-  /** Normalise a department value from a CSV row to a known canonical string. */
-  const normalizeDepartment = (raw: string): string | null => {
-    const trimmed = raw.trim();
-    if (!trimmed) return null;
-
-    // Exact match first (case-insensitive)
-    const exactMatch = KNOWN_DEPARTMENTS.find(
-      (d) => d.toLowerCase() === trimmed.toLowerCase()
-    );
-    if (exactMatch) return exactMatch;
-
-    // Alias lookup
-    const aliasMatch = DEPT_ALIASES[trimmed.toLowerCase()];
-    if (aliasMatch) return aliasMatch;
-
-    // Partial / contains match: e.g. "BSH Dept" → "Basic Science & Humanities"
-    const lc = trimmed.toLowerCase();
-    for (const known of KNOWN_DEPARTMENTS) {
-      if (lc.includes(known.toLowerCase()) || known.toLowerCase().includes(lc)) {
-        return known;
-      }
-    }
-
-    // Return as-is but trimmed so at least whitespace issues are fixed
-    return trimmed;
-  };
-
-  /**
-   * Column header alias map.  Any of the listed alternatives for a column
-   * will be recognised and remapped to the canonical key.
-   */
-  const HEADER_ALIASES: Record<string, string[]> = {
-    category:             ['category', 'question category', 'segment', 'type', 'question type'],
-    department:           ['department', 'dept', 'branch', 'major', 'faculty', 'school'],
-    text:                 ['text', 'question', 'question text', 'question_text', 'q', 'stem'],
-    option1:              ['option1', 'option_1', 'option 1', 'a', 'choice1', 'choice_1', 'choice a', 'answer a'],
-    option2:              ['option2', 'option_2', 'option 2', 'b', 'choice2', 'choice_2', 'choice b', 'answer b'],
-    option3:              ['option3', 'option_3', 'option 3', 'c', 'choice3', 'choice_3', 'choice c', 'answer c'],
-    option4:              ['option4', 'option_4', 'option 4', 'd', 'choice4', 'choice_4', 'choice d', 'answer d'],
-    correct_answer_index: [
-      'correct_answer_index', 'correct answer index', 'correct answer',
-      'answer', 'answer_index', 'correct', 'correct_index', 'answer index',
-      'key', 'right answer', 'correct option',
-    ],
-  };
-
-  /** Build lowercase-alias → canonical-key lookup once. */
-  const HEADER_LOOKUP: Record<string, string> = {};
-  for (const [canonical, aliases] of Object.entries(HEADER_ALIASES)) {
-    for (const alias of aliases) {
-      HEADER_LOOKUP[alias.toLowerCase().trim()] = canonical;
-    }
-  }
-
-  /**
-   * Remap every key in a parsed row to its canonical column name.
-   * Strips UTF-8 BOM (\uFEFF) that Excel/Windows sometimes prepends to the
-   * first column header, and lowercases+trims all keys before lookup.
-   */
-  const normalizeRow = (row: Record<string, unknown>): Record<string, unknown> => {
-    const out: Record<string, unknown> = {};
-    for (const [rawKey, value] of Object.entries(row)) {
-      const cleanKey = rawKey.replace(/^\uFEFF/, '').toLowerCase().trim();
-      const canonical = HEADER_LOOKUP[cleanKey] ?? cleanKey;
-      out[canonical] = value;
-    }
-    return out;
-  };
-
-  const parseSingleFile = async (
-    file: File,
-    deptOverride?: string | null,
-  ): Promise<{ parsed: ParsedQuestion[]; errors: string[] }> => {
-    const data = await file.arrayBuffer();
-    const workbook = XLSX.read(data, { type: 'array' });
-    const sheetName = workbook.SheetNames[0];
-    if (!sheetName) throw new Error(`${file.name}: No sheets found in the file.`);
-    const sheet = workbook.Sheets[sheetName];
-    const rawRows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
-    if (rawRows.length === 0) throw new Error(`${file.name}: The file contains no data rows.`);
-
-    // Normalise headers on every row
-    const rows = rawRows.map(normalizeRow);
-
-    const firstRow = rows[0];
-    const requiredCols = ['category', 'text', 'option1', 'option2', 'option3', 'option4', 'correct_answer_index'];
-    const missingCols = requiredCols.filter((c) => !(c in firstRow));
-    if (missingCols.length > 0) {
-      const foundHeaders = Object.keys(rawRows[0]).join(', ');
-      throw new Error(
-        `${file.name}: Missing required columns: ${missingCols.join(', ')}.\n` +
-        `  Headers found in file: ${foundHeaders}`
-      );
-    }
-
-    const errors: string[] = [];
-    const parsed: ParsedQuestion[] = [];
-
-    for (let i = 0; i < rows.length; i++) {
-      const row = rows[i];
-      const rowNum = i + 2; // 1-based header + 1
-
-      const category = String(row.category || '').trim();
-      // Department: prefer explicit column, fall back to override (e.g. derived from filename)
-      const rawDept = String(row.department || '').trim();
-      const department = rawDept
-        ? normalizeDepartment(rawDept)
-        : (deptOverride !== undefined ? deptOverride : null);
-      const text = String(row.text || '').trim();
-      const option1 = String(row.option1 || '').trim();
-      const option2 = String(row.option2 || '').trim();
-      const option3 = String(row.option3 || '').trim();
-      const option4 = String(row.option4 || '').trim();
-      const answerIdx = Number(row.correct_answer_index);
-
-      if (!category) { errors.push(`${file.name} row ${rowNum}: missing category`); continue; }
-      if (!text) { errors.push(`${file.name} row ${rowNum}: missing question text`); continue; }
-      if (!option1 || !option2 || !option3 || !option4) {
-        errors.push(`${file.name} row ${rowNum}: all 4 options are required`);
-        continue;
-      }
-      if (isNaN(answerIdx) || answerIdx < 0 || answerIdx > 3) {
-        errors.push(`${file.name} row ${rowNum}: correct_answer_index must be 0–3 (got "${row.correct_answer_index}")`);
-        continue;
-      }
-
-      parsed.push({ category, department, text, options: [option1, option2, option3, option4], correct_answer_index: answerIdx });
-    }
-
-    return { parsed, errors };
-  };
-
-  /**
-   * Try to infer the department from the filename.
-   * e.g. "Bioscience MCQs.csv" → "Bioscience"
-   *      "BSH - Questions.xlsx" → "Basic Science & Humanities"
-   */
-  const deptFromFilename = (filename: string): string | null => {
-    // Strip extension and common suffixes
-    const base = filename
-      .replace(/\.(csv|xlsx|xls)$/i, '')
-      .replace(/[-_–—]?\s*(mcqs?|questions?|q bank|question bank|re|final|v\d+)$/i, '')
-      .trim();
-    return normalizeDepartment(base);
-  };
-
-  const parseFiles = useCallback(async (files: File[]) => {
+  const parseFiles = useCallback(async (sources: QuestionImportSource[]) => {
     setImportStatus('parsing');
-    setImportMessage(`Parsing ${files.length} file${files.length > 1 ? 's' : ''}…`);
-    setImportedFileName(files.map((f) => f.name).join(', '));
+    setImportMessage(`Parsing ${sources.length} file${sources.length > 1 ? 's' : ''}…`);
+    setImportedFileName(sources.map((source) => source.sourceLabel ?? source.file.name).join(', '));
 
     try {
       // Step 1 — parse every file, collecting questions grouped by department
@@ -279,14 +452,10 @@ export const SettingsTab: React.FC = () => {
       const parseResults: string[] = [];
       let totalParsed = 0;
 
-      for (const file of files) {
+      for (const source of sources) {
         try {
-          // Use filename as dept fallback only when a single dept file is expected
-          const fileDeptHint = files.length > 1 || !file.name.toLowerCase().includes('all')
-            ? deptFromFilename(file.name)
-            : null;
-
-          const { parsed, errors } = await parseSingleFile(file, fileDeptHint);
+          const fileDeptHint = source.departmentHint || deptFromFilename(source.file.name);
+          const { parsed, errors } = await parseSingleFile(source.file, fileDeptHint);
           allErrors.push(...errors);
           totalParsed += parsed.length;
 
@@ -295,10 +464,10 @@ export const SettingsTab: React.FC = () => {
             byDept.get(q.department)!.push(q);
           }
 
-          parseResults.push(`✓ ${file.name}: ${parsed.length} questions`);
+          parseResults.push(`✓ ${source.sourceLabel ?? source.file.name}: ${parsed.length} questions`);
         } catch (err) {
-          allErrors.push(getErrMsg(err, `${file.name}: unknown error`));
-          parseResults.push(`✗ ${file.name}: failed to parse`);
+          allErrors.push(getErrMsg(err, `${source.file.name}: unknown error`));
+          parseResults.push(`✗ ${source.sourceLabel ?? source.file.name}: failed to parse`);
         }
       }
 
@@ -359,9 +528,41 @@ export const SettingsTab: React.FC = () => {
     }
   }, [refreshQuestions]);
 
+  const handleBundledImport = useCallback(async () => {
+    setIsBundledImporting(true);
+    setImportStatus('parsing');
+    setImportedFileName(BUNDLED_QUESTION_FILES.map((entry) => entry.fileName).join(', '));
+    setImportMessage(`Loading ${BUNDLED_QUESTION_FILES.length} bundled question files…`);
+
+    try {
+      const sources = await Promise.all(
+        BUNDLED_QUESTION_FILES.map(async (entry) => {
+          const response = await fetch(`/questions/${encodeURIComponent(entry.fileName)}`);
+          if (!response.ok) {
+            throw new Error(`${entry.fileName}: failed to load (${response.status})`);
+          }
+
+          const blob = await response.blob();
+          return {
+            file: new File([blob], entry.fileName, { type: blob.type || 'text/csv' }),
+            departmentHint: entry.department,
+            sourceLabel: entry.fileName,
+          } satisfies QuestionImportSource;
+        }),
+      );
+
+      await parseFiles(sources);
+    } catch (err) {
+      setImportStatus('error');
+      setImportMessage(`Bundled import failed: ${getErrMsg(err)}`);
+    } finally {
+      setIsBundledImporting(false);
+    }
+  }, [parseFiles]);
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
-    if (files.length > 0) parseFiles(files);
+    if (files.length > 0) parseFiles(files.map((file) => ({ file })));
     // Reset the input so the same files can be re-selected
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -372,7 +573,7 @@ export const SettingsTab: React.FC = () => {
     const files = Array.from(e.dataTransfer.files).filter((f) =>
       /\.(csv|xlsx|xls)$/i.test(f.name)
     );
-    if (files.length > 0) parseFiles(files);
+    if (files.length > 0) parseFiles(files.map((file) => ({ file })));
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -490,7 +691,7 @@ export const SettingsTab: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="text-xs font-semibold text-gray-500 self-center mr-1">Sample CSVs:</span>
-            {['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','Basic Science & Humanities','Computer Sciences','Software Engineering'].map(dept => (
+            {KNOWN_DEPARTMENTS.map(dept => (
               <a
                 key={dept}
                 href={`/sample-questions/${dept}.csv`}
@@ -505,7 +706,6 @@ export const SettingsTab: React.FC = () => {
         <div className="p-6 space-y-6">
           {/* Per-department breakdown */}
           {questions.length > 0 && (() => {
-            const ALL_DEPTS = ['Civil','Mechanical','Electrical','Architecture','Pharmacy','Bioscience','Allied Health Sciences','Nursing','Management of Science','Basic Science & Humanities','Computer Sciences','Software Engineering'];
             const countByDept: Record<string, number> = {};
             questions.forEach(q => {
               const d = q.department || 'General';
@@ -515,7 +715,7 @@ export const SettingsTab: React.FC = () => {
               <div>
                 <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Questions per Department</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {ALL_DEPTS.map(dept => {
+                  {KNOWN_DEPARTMENTS.map(dept => {
                     const count = countByDept[dept] || 0;
                     return (
                       <div key={dept} className={`flex items-center justify-between px-3 py-2 rounded-lg border text-sm ${count > 0 ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'}`}>
@@ -549,6 +749,20 @@ export const SettingsTab: React.FC = () => {
             multiple
             onChange={handleFileSelect}
             className="hidden" />
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              type="button"
+              onClick={handleBundledImport}
+              disabled={isBundledImporting || importStatus === 'parsing' || importStatus === 'importing'}
+              className="inline-flex items-center justify-center space-x-2 rounded-lg bg-cdgai-accent px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+              <Upload size={16} />
+              <span>{isBundledImporting ? 'Importing Bundled Files…' : `Import Bundled Questions (${BUNDLED_QUESTION_FILES.length})`}</span>
+            </button>
+            <p className="text-xs text-gray-500 self-center">
+              Loads every CSV from <span className="font-semibold">public/questions</span> into the database using the same validation path as manual uploads.
+            </p>
+          </div>
 
           <div
             onClick={() => fileInputRef.current?.click()}

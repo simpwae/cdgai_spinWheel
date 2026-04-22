@@ -1,0 +1,201 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Nursing,What is the normal adult body temperature in Celsius?,35°C,36.5–37.5°C,38.5°C,40°C,1
+Question Bank,Nursing,Which blood type is known as the universal donor?,AB+,O+,O-,A-,2
+Question Bank,Nursing,How many bones are in the adult human body?,196,206,216,226,1
+Question Bank,Nursing,What is the normal adult respiratory rate per minute?,6-10,12-20,22-30,30-40,1
+Question Bank,Nursing,What does BP stand for in nursing?,Body Proportion,Blood Pressure,Body Pulse,Bone Position,1
+Question Bank,Nursing,Which organ produces insulin?,Liver,Kidney,Pancreas,Spleen,2
+Question Bank,Nursing,What is the normal adult pulse rate per minute?,40-60,60-100,100-120,120-140,1
+Question Bank,Nursing,Which vitamin is produced when skin is exposed to sunlight?,Vitamin A,Vitamin B12,Vitamin C,Vitamin D,3
+Question Bank,Nursing,What is the largest organ of the human body?,Heart,Liver,Skin,Lung,2
+Question Bank,Nursing,Normal blood glucose fasting level is?,2-4 mmol/L,4-7 mmol/L,8-10 mmol/L,10-12 mmol/L,1
+Question Bank,Nursing,Which part of the heart pumps blood to the lungs?,Left ventricle,Right ventricle,Left atrium,Right atrium,1
+Question Bank,Nursing,What does IV stand for in medication administration?,Internal Vein,Intravenous,Intermediate Volume,Intravascular,1
+Question Bank,Nursing,Which position is used for patients in shock?,Sitting upright,Trendelenburg,Prone,Lateral,1
+Question Bank,Nursing,What is the universal precaution all nurses must take?,Wear gloves always,Handwashing,Use mask,Double gloving,1
+Question Bank,Nursing,Which nerve controls heart rate?,Femoral,Radial,Vagus,Ulnar,2
+Question Bank,Nursing,What does 'NPO' mean in nursing orders?,No Pain Observed,Nothing by Mouth,Normal Patient Outcome,No Pressure Order,1
+Question Bank,Nursing,How many chambers does the human heart have?,2,3,4,5,2
+Question Bank,Nursing,Normal urine output per hour for an adult is?,10-20 mL,30-50 mL,60-80 mL,100 mL,1
+Question Bank,Nursing,Which artery is used to check pulse at the wrist?,Brachial,Carotid,Radial,Femoral,2
+Question Bank,Nursing,What is the correct sequence of CPR compressions to breaths for adults?,15:2,30:2,20:1,10:1,1
+Question Bank,Nursing,Which electrolyte is most abundant inside body cells?,Sodium,Chloride,Potassium,Calcium,2
+Question Bank,Nursing,What is the normal SpO2 range for a healthy adult?,80-85%,86-90%,95-100%,70-80%,2
+Question Bank,Nursing,What does 'PRN' mean in medication orders?,Per Routine Needs,As Needed,Per Registered Nurse,Post Recovery Note,1
+Question Bank,Nursing,Which lobe of the brain controls movement?,Frontal,Parietal,Temporal,Occipital,0
+Question Bank,Nursing,A patient who cannot swallow should be given medications?,Orally,Via nasogastric tube,Rectally,Sublingually,1
+Question Bank,Nursing,What is the main function of red blood cells?,Fight infection,Clot blood,Carry oxygen,Produce antibodies,2
+Question Bank,Nursing,Which PPE is used to prevent droplet transmission?,Gloves,Surgical mask,N95 respirator,Eye goggles,2
+Question Bank,Nursing,What does 'ROM' stand for in physiotherapy?,Rate Of Movement,Range of Motion,Rotation of Muscle,Rest on Mat,1
+Question Bank,Nursing,How often should bed-ridden patients be repositioned to prevent bedsores?,Every 8 hours,Every 4 hours,Every 2 hours,Every 30 minutes,2
+Question Bank,Nursing,A patient with chest pain should first be?,Given water,Placed in supine,Given aspirin,Seated upright and monitored,3
+Question Bank,Nursing,Which route of injection goes into the muscle?,Intradermal,Subcutaneous,Intramuscular,Intravenous,2
+Question Bank,Nursing,Which vitamin deficiency causes scurvy?,Vitamin A,Vitamin B1,Vitamin C,Vitamin D,2
+Question Bank,Nursing,What is the normal adult diastolic blood pressure?,40-60 mmHg,60-80 mmHg,80-100 mmHg,100-120 mmHg,1
+Question Bank,Nursing,The Glasgow Coma Scale measures?,Pain level,Consciousness level,Blood pressure,Heart rhythm,1
+IQ Games,Nursing,A nurse has 8 patients and gives each 3 medications. How many medications are given total?,20,24,28,30,1
+IQ Games,Nursing,"If a patient's BP was 120/80 yesterday and 130/90 today, what has happened?",Decreased,Stayed the same,Increased,Cannot tell,2
+IQ Games,Nursing,Which of these does NOT belong in a first aid kit?,Bandage,Antiseptic,Scalpel,Gloves,2
+IQ Games,Nursing,"A syringe has 10 mL total. If 4 mL is used, how much remains?",4 mL,6 mL,8 mL,2 mL,1
+IQ Games,Nursing,"Which is the odd one out: stethoscope, thermometer, scalpel, sphygmomanometer?",Stethoscope,Thermometer,Scalpel,Sphygmomanometer,2
+IQ Games,Nursing,"If medication is given every 8 hours starting at 6 AM, the next dose is at?",12 PM,2 PM,6 PM,3 PM,1
+IQ Games,Nursing,Patient A weighs 60 kg and Patient B weighs 80 kg. What is their average weight?,65 kg,70 kg,75 kg,72 kg,1
+IQ Games,Nursing,Which does NOT describe an emergency?,Cardiac arrest,Minor paper cut,Severe allergic reaction,Stroke,1
+IQ Games,Nursing,A nurse works 12-hour shifts. How many hours per week if working 5 days?,48,56,60,72,2
+IQ Games,Nursing,"If drug A costs Rs.10 and drug B costs Rs.15, what is the combined cost of 2 of each?",Rs. 40,Rs. 50,Rs. 30,Rs. 60,1
+IQ Games,Nursing,Nurse : Hospital :: Teacher : ?,Classroom,School,Student,Textbook,1
+IQ Games,Nursing,"Which comes next in sequence: injection, tablet, syrup, injection, tablet, ?",Injection,Tablet,Syrup,Capsule,2
+IQ Games,Nursing,"Which is the largest: 1 L, 500 mL, 250 mL, 2000 mL?",1 L,500 mL,250 mL,2000 mL,3
+IQ Games,Nursing,A patient takes 2 tablets twice daily. How many tablets in one week?,14,21,28,35,2
+IQ Games,Nursing,Which word is most related to 'diagnosis'?,Treatment,Assessment,Surgery,Discharge,1
+IQ Games,Nursing,"If body temp is 37°C and normal is 36.5°C, the patient has?",Hypothermia,Normal temperature,Low-grade fever,High fever,2
+IQ Games,Nursing,"Find the odd one out: morphine, paracetamol, ibuprofen, aspirin",Morphine,Paracetamol,Ibuprofen,Aspirin,0
+IQ Games,Nursing,"A ward has 20 beds, 15 are occupied. What % is occupied?",65%,70%,75%,80%,2
+IQ Games,Nursing,"Which does NOT belong: pulse, respiration, temperature, height?",Pulse,Respiration,Temperature,Height,3
+IQ Games,Nursing,Which is heavier: 1 kg of cotton or 1 kg of iron?,Cotton,Iron,Both equal,Cannot compare,2
+IQ Games,Nursing,A drip runs at 30 drops/min. How many drops in 2 hours?,3200,3400,3600,4000,2
+IQ Games,Nursing,"Which number is missing: 2, 4, 8, ?, 32",12,14,16,18,2
+IQ Games,Nursing,Stethoscope listens to heart :: X-ray is used to see?,Blood cells,Bones,Nerves,Skin layers,1
+IQ Games,Nursing,A clock shows 3:00. The angle between hands is?,45°,60°,90°,120°,2
+IQ Games,Nursing,"Which is smallest unit: milligram, gram, kilogram, microgram?",Milligram,Gram,Kilogram,Microgram,3
+IQ Games,Nursing,"If a patient is prescribed 500 mg and tablets are 250 mg each, how many tablets?",1,2,3,4,1
+IQ Games,Nursing,"Which shape has the most sides: triangle, square, pentagon, hexagon?",Triangle,Square,Pentagon,Hexagon,3
+IQ Games,Nursing,A patient's fluid intake is 2000 mL and output is 1800 mL. The balance is?,200 mL positive,200 mL negative,Zero,100 mL positive,0
+IQ Games,Nursing,Which is NOT a vital sign?,Blood pressure,Temperature,Pulse,Hair color,3
+IQ Games,Nursing,"Nurse A finishes work in 3 hours, Nurse B in 6 hours. Together they finish in?",2 hours,2.5 hours,3 hours,4 hours,0
+IQ Games,Nursing,"What connects all of these: doctor, nurse, pharmacist, physiotherapist?",Work in ICU,Healthcare professionals,Prescribe medication,Work night shifts,1
+IQ Games,Nursing,A 500 mL IV bag drips for 5 hours. Rate per hour is?,50 mL,80 mL,100 mL,120 mL,2
+IQ Games,Nursing,Which does NOT relate to infection control?,Handwashing,Sterilization,Exercise,PPE,2
+Career Questions,Nursing,What is the primary role of a registered nurse?,Diagnose diseases,Prescribe medication,Provide patient care,Perform surgery,2
+Career Questions,Nursing,Which ethical principle means 'do no harm'?,Autonomy,Beneficence,Non-maleficence,Justice,2
+Career Questions,Nursing,A nurse must maintain patient information as?,Public knowledge,Confidential,Shared with family,Posted on notice board,1
+Career Questions,Nursing,The nursing process starts with which step?,Planning,Implementation,Assessment,Evaluation,2
+Career Questions,Nursing,Which document outlines a nurse's scope of practice?,Prescription,Nursing license,Patient chart,Duty roster,1
+Career Questions,Nursing,A good nurse-patient relationship is built on?,Authority,Trust and respect,Distance,Friendship,1
+Career Questions,Nursing,Which skill is MOST important for a nurse?,Speed,Communication,Memorization,Multitasking,1
+Career Questions,Nursing,Continuing education in nursing is important because?,It is mandatory only,It keeps knowledge updated,It increases salary,It reduces working hours,1
+Career Questions,Nursing,A nursing care plan is developed based on?,Nurse's preference,Hospital policy,Patient assessment,Doctor's mood,2
+Career Questions,Nursing,Professional boundaries in nursing mean?,Being close friends with patients,Maintaining appropriate professional relationships,Avoiding all patient contact,Following dress code only,1
+Career Questions,Nursing,What does 'evidence-based practice' mean in nursing?,Using old methods,Using research to guide care,Following senior nurse's advice,Trying new unproven methods,1
+Career Questions,Nursing,Which is a nurse's legal responsibility?,Making diagnoses,Documenting care accurately,Prescribing medications,Performing surgery,1
+Career Questions,Nursing,Who is the founder of modern nursing?,Marie Curie,Florence Nightingale,Clara Barton,Dorothea Dix,1
+Career Questions,Nursing,What is the purpose of a nursing handover?,Break time,Shift change communication,Administration meeting,Training session,1
+Career Questions,Nursing,Critical thinking in nursing means?,Thinking fast,Analyzing situations carefully to make sound decisions,Memorizing protocols,Following orders blindly,1
+Career Questions,Nursing,Which is an example of patient advocacy?,Ignoring patient concerns,Speaking up for patient rights,Following doctor only,Avoiding patient interaction,1
+Career Questions,Nursing,What does 'holistic care' mean?,Only treating the disease,"Caring for physical, mental, social, and spiritual needs",Giving more medications,Speeding up discharge,1
+Career Questions,Nursing,Infection prevention is part of which nursing standard?,Pharmacology,Safety and quality care,Career development,Documentation,1
+Career Questions,Nursing,Which quality is essential for pediatric nursing?,Strictness,Patience and gentleness,Speed,Technical skill only,1
+Career Questions,Nursing,What does 'scope of practice' refer to?,Working hours,What a nurse is legally allowed to do,Uniform requirements,Hospital location,1
+Career Questions,Nursing,Which type of nurse works mainly in operating rooms?,Community nurse,Scrub nurse,School nurse,Psychiatric nurse,1
+Career Questions,Nursing,Reporting a medication error is?,Optional,Unnecessary if no harm done,A professional obligation,A career risk,2
+Career Questions,Nursing,What is a nursing diagnosis?,Same as medical diagnosis,A nurse's identification of patient health problems,A test result,A prescription,1
+Career Questions,Nursing,Night shift nurses must be skilled in?,Public speaking,Time management and alertness,Teaching,Research only,1
+Career Questions,Nursing,Which is NOT part of a nursing assessment?,Vital signs,Medical history,Surgical procedure,Physical examination,2
+Career Questions,Nursing,Empathy in nursing means?,Feeling sorry for patients,Understanding and sharing patient feelings,Crying with patients,Being emotional,1
+Career Questions,Nursing,What is the purpose of a nursing care plan?,Billing purposes,Guide individualized patient care,Administrative records,Shift planning,1
+Career Questions,Nursing,Which professional body regulates nursing in most countries?,Ministry of Finance,Nursing Council or Board,Medical Association,Pharmacy Board,1
+Career Questions,Nursing,Time management for nurses includes?,Working alone,Prioritizing patient care tasks effectively,Taking long breaks,Delegating all tasks,1
+Career Questions,Nursing,A nurse should refuse an order if?,The doctor is junior,The order could harm the patient,The shift is ending,The medication is expensive,1
+Career Questions,Nursing,Culturally sensitive care means?,Ignoring cultural differences,Respecting patient's cultural beliefs and practices,Treating all patients identically,Following only hospital culture,1
+Career Questions,Nursing,Which is a primary prevention activity for nurses?,Treating infections,Giving vaccines,Post-surgical care,Wound dressing,1
+Career Questions,Nursing,Professionalism in nursing includes?,Wearing uniform only,"Accountability, integrity, and ethical behavior",Speed and efficiency only,Following senior nurses,1
+Question Bank,Nursing,A patient is in metabolic acidosis. Which arterial blood gas finding confirms this?,"pH 7.45, HCO3 28","pH 7.30, HCO3 18","pH 7.50, HCO3 30","pH 7.35, HCO3 24",1
+Question Bank,Nursing,Which medication is a first-line treatment for anaphylaxis?,Diphenhydramine,Hydrocortisone,Epinephrine,Salbutamol,2
+Question Bank,Nursing,"Cushing's triad includes hypertension, bradycardia, and?",Hyperthermia,Irregular respirations,Tachypnea,Diaphoresis,1
+Question Bank,Nursing,A patient on warfarin has an INR of 5.0. The nurse should?,Administer next dose,Hold the dose and notify physician,Double the next dose,Continue as prescribed,1
+Question Bank,Nursing,Which electrolyte imbalance causes peaked T-waves on ECG?,Hypernatremia,Hypokalemia,Hyperkalemia,Hypercalcemia,2
+Question Bank,Nursing,Chvostek's sign and Trousseau's sign indicate which imbalance?,Hyperkalemia,Hypocalcemia,Hypernatremia,Hypomagnesemia,1
+Question Bank,Nursing,Priority nursing intervention for a patient with hypoglycemia is?,Administer insulin,Give 15g fast-acting carbohydrate,Start IV fluids,Call the doctor immediately,1
+Question Bank,Nursing,Which position is used for a patient with increased intracranial pressure?,Flat supine,Trendelenburg,Head of bed elevated 30°,Prone,2
+Question Bank,Nursing,A patient on digoxin reports seeing yellow halos. This suggests?,Normal side effect,Therapeutic level,Digoxin toxicity,Allergic reaction,2
+Question Bank,Nursing,What does a positive Homans sign suggest?,Pulmonary embolism,Deep vein thrombosis,Arterial occlusion,Lymphedema,1
+Question Bank,Nursing,"In DKA management, after fluid resuscitation the nurse expects to administer?",Oral glucose,Regular insulin IV,Glucagon,Bicarbonate immediately,1
+Question Bank,Nursing,Which assessment finding indicates worsening heart failure?,Weight loss of 1 kg,3+ pitting edema,Improved urine output,Clear lung sounds,1
+Question Bank,Nursing,A patient receiving packed red blood cells develops fever and chills 15 minutes into transfusion. The nurse should first?,Slow the infusion,Administer antipyretics,Stop the transfusion,Notify the physician,2
+Question Bank,Nursing,Which cranial nerve is assessed by asking the patient to shrug their shoulders?,CN X,CN XI,CN XII,CN VII,1
+Question Bank,Nursing,Normal central venous pressure (CVP) range is?,0-2 mmHg,2-6 mmHg,8-12 mmHg,15-20 mmHg,1
+Question Bank,Nursing,Which medication requires monitoring of serum lithium levels?,Amoxicillin,Lithium carbonate,Metformin,Warfarin,1
+Question Bank,Nursing,A patient has a serum sodium of 125 mEq/L. Which symptom is expected?,Excessive thirst,Confusion and headache,Muscle twitching,Polyuria,1
+Question Bank,Nursing,Kernig's sign is associated with?,Meningitis,Appendicitis,Hip fracture,Liver disease,0
+Question Bank,Nursing,A post-operative patient has urinary output of 20 mL/hour for 2 consecutive hours. The nurse should?,Ignore it as normal,Document and monitor,Notify physician immediately,Encourage oral fluids,2
+Question Bank,Nursing,Which drug is the antidote for heparin overdose?,Vitamin K,Protamine sulfate,Naloxone,Flumazenil,1
+Question Bank,Nursing,A patient with SIADH will have?,High serum sodium,Low urine osmolality,Low serum sodium,High serum potassium,2
+Question Bank,Nursing,Glasgow Coma Scale score of 8 or below indicates?,Mild confusion,Need for intubation consideration,Normal consciousness,Moderate sedation,1
+Question Bank,Nursing,Which acid-base imbalance occurs with prolonged vomiting?,Metabolic acidosis,Respiratory acidosis,Metabolic alkalosis,Respiratory alkalosis,2
+Question Bank,Nursing,A patient with myasthenia gravis crisis needs monitoring for?,Renal failure,Respiratory muscle weakness,Liver failure,Cardiac arrhythmia,1
+Question Bank,Nursing,Which medication is used to reverse benzodiazepine overdose?,Naloxone,Atropine,Flumazenil,Neostigmine,2
+Question Bank,Nursing,Orthostatic hypotension is defined as a drop in systolic BP of at least?,5 mmHg,10 mmHg,20 mmHg,30 mmHg,2
+Question Bank,Nursing,A patient with jaundice has pruritus. The priority intervention is?,Apply lotion,Keep skin cool,Administer antihistamine,Provide colestyramine as ordered,3
+IQ Games,Nursing,A nurse must give 0.5 mg of a drug. The vial contains 2 mg/mL. How many mL should she draw?,0.1 mL,0.25 mL,0.5 mL,1 mL,1
+IQ Games,Nursing,"Patient A improves in 3 days, Patient B in 6 days, Patient C in 9 days. What is the pattern?",Arithmetic +2,Arithmetic +3,Geometric ×2,Random,1
+IQ Games,Nursing,"Drug X has a half-life of 4 hours. If 100 mg is given at 8 AM, how much remains at 4 PM?",50 mg,25 mg,12.5 mg,6.25 mg,1
+IQ Games,Nursing,A ward uses 120 gloves per day. How many boxes of 100 are needed for 2 weeks?,16,17,18,19,1
+IQ Games,Nursing,"If a nurse earns Rs 50,000/month and spends 60% on expenses, how much is saved yearly?","Rs 180,000","Rs 240,000","Rs 300,000","Rs 360,000",1
+IQ Games,Nursing,Nurse : Patient :: Mechanic : ?,Tools,Car,Workshop,Road,1
+IQ Games,Nursing,"Which does NOT follow: vital signs, assessment, diagnosis, intervention, evaluation?",Vital signs,Assessment,Diagnosis,Intervention,0
+IQ Games,Nursing,"A 250 mL infusion runs over 2 hours. At 20 drops/mL, what is the drop rate per minute?",42 drops/min,38 drops/min,35 drops/min,41.7 drops/min,3
+IQ Games,Nursing,Complete the analogy: Scalpel : Surgeon :: Stethoscope : ?,Hospital,Doctor/Nurse,Patient,Medicine,1
+IQ Games,Nursing,"If every third patient needs a wheelchair and there are 90 patients, how many wheelchairs?",20,25,30,35,2
+IQ Games,Nursing,"A medication is given at 100 mg twice daily. After 5 days, total dose given is?",500 mg,750 mg,1000 mg,1500 mg,2
+IQ Games,Nursing,"Which number comes next: 1, 1, 2, 3, 5, 8, ?",10,11,13,15,2
+IQ Games,Nursing,A hospital bed costs Rs 500 to maintain per day. Monthly cost for 10 beds is?,"Rs 100,000","Rs 120,000","Rs 150,000","Rs 200,000",2
+IQ Games,Nursing,"If Patient X gets 500 mL IV in 4 hours, what is the rate in mL/min?",1.5,2.0,2.08,2.5,2
+IQ Games,Nursing,"Which word is the odd one out: assess, diagnose, treat, prescribe, evaluate?",Assess,Diagnose,Treat,Prescribe,3
+IQ Games,Nursing,A patient weighs 70 kg. Drug dose is 5 mg/kg/day. What is the daily dose?,250 mg,300 mg,350 mg,400 mg,2
+IQ Games,Nursing,How many minutes in 6.5 hours?,360,380,390,420,2
+IQ Games,Nursing,"A nurse makes 3 errors per 1000 procedures. In 5000 procedures, expected errors are?",12,15,18,20,1
+IQ Games,Nursing,"Which pattern completes the series: 100, 90, 81, 73, ?",66,67,68,65,0
+IQ Games,Nursing,"If 1 unit of blood raises Hb by 1 g/dL and patient needs to raise Hb from 7 to 10, how many units?",2,3,4,5,1
+IQ Games,Nursing,A thermometer reads 98.6°F. In Celsius this is?,36°C,37°C,38°C,39°C,1
+IQ Games,Nursing,A hospital has 200 nurses. 25% work night shifts. How many work day shifts?,100,125,150,175,2
+IQ Games,Nursing,"Which item does NOT belong: saline, glucose, lactated Ringer's, penicillin?",Saline,Glucose,Lactated Ringer's,Penicillin,3
+IQ Games,Nursing,"If a drug expires in 6 months and today is January, it expires in?",June,July,August,September,0
+IQ Games,Nursing,Patient BMI = weight(kg)/height(m)². A 80 kg person who is 1.6 m tall has BMI of?,28.5,30.2,31.25,33,2
+IQ Games,Nursing,"A catheter bag holds 800 mL. If output is 200 mL/hr, when should it be emptied?",2 hrs,3 hrs,4 hrs,5 hrs,2
+IQ Games,Nursing,Complete: Prevention : Vaccine :: Cure : ?,Surgery,Injection,Treatment/Medicine,Hospital,2
+Career Questions,Nursing,A senior nurse asks you to falsify a patient record. You should?,Comply to avoid conflict,Report to nursing supervisor,Do it if no one is watching,Ignore the request,1
+Career Questions,Nursing,"When a nurse disagrees with a physician's order, the best action is?",Ignore the order,Carry out the order silently,Clarify the order professionally,Refuse without explanation,2
+Career Questions,Nursing,Which advanced nursing role involves diagnosis and prescribing?,Staff nurse,Charge nurse,Nurse practitioner,Nursing assistant,2
+Career Questions,Nursing,What is 'burnout' in nursing and its primary cause?,Excitement from overwork; too many patients,Physical/emotional exhaustion; chronic workplace stress,A motivational state; high performance,Temporary fatigue; lack of sleep only,1
+Career Questions,Nursing,An effective charge nurse demonstrates?,Technical skills only,Clinical expertise plus leadership and coordination,Seniority based authority,Speed in completing tasks,1
+Career Questions,Nursing,What is the best approach when breaking bad news to a patient?,Be abrupt to save time,Use SPIKES protocol with empathy,Avoid telling the patient,Send a written note,1
+Career Questions,Nursing,Delegation in nursing requires the nurse to?,Hand all tasks to juniors,Ensure tasks are matched to the delegate's competence,Avoid delegating,Delegate based on seniority only,1
+Career Questions,Nursing,Which nursing specialty focuses on mental health treatment?,Oncology nursing,Psychiatric nursing,Forensic nursing,Pediatric nursing,1
+Career Questions,Nursing,How does a nurse manage a demanding or aggressive patient?,Match their aggression,Set firm boundaries calmly and de-escalate,Avoid all interaction,Report without addressing,1
+Career Questions,Nursing,A patient refuses a prescribed treatment. Ethically the nurse must?,Force treatment for their wellbeing,Respect autonomy and document refusal,Convince family to override,Call the doctor to force compliance,1
+Career Questions,Nursing,What is 'secondary traumatic stress' in healthcare workers?,Physical injury from patient,Emotional stress from caring for traumatized patients,Work-related physical fatigue,Stress from administrative work,1
+Career Questions,Nursing,SMART goals in nursing education stand for?,"Simple, Measurable, Attainable, Relevant, Timed","Specific, Measurable, Achievable, Relevant, Time-bound","Strategic, Motivational, Accurate, Realistic, Tested","Simplified, Managed, Aligned, Reviewed, Timed",1
+Career Questions,Nursing,Which nursing theorist developed the 'Self-Care Deficit Theory'?,Virginia Henderson,Dorothy Orem,Betty Neuman,Jean Watson,1
+Career Questions,Nursing,Inter-professional collaboration in healthcare means?,Doctors doing all work,Multiple health professionals working together for patient care,Nurses working independently,Administrative coordination only,1
+Career Questions,Nursing,What is the purpose of clinical supervision in nursing?,Punish poor performance,Support professional development and safe practice,Replace performance appraisal,Monitor attendance,1
+Career Questions,Nursing,Telehealth nursing requires competency in?,Only clinical skills,Clinical skills plus technology and remote communication,Administrative skills only,Physical assessment only,1
+Career Questions,Nursing,A nurse notices a colleague appears impaired at work. Best action is?,Ignore it,Cover for the colleague,Report through proper channels,Confront aggressively,2
+Career Questions,Nursing,What is 'lateral violence' in nursing?,Patient aggression,Bullying among nursing peers,Violence from visitors,Physical injury at work,1
+Career Questions,Nursing,Nursing leadership style that involves staff in decisions is called?,Autocratic,Laissez-faire,Democratic/participative,Transactional,2
+Career Questions,Nursing,Reflective practice in nursing involves?,Following procedures without question,Analyzing experiences to improve future practice,Memorizing clinical guidelines,Evaluating other nurses,1
+Career Questions,Nursing,Which is most important when prioritizing multiple critical patients?,Patient's family demands,"ABC (Airway, Breathing, Circulation)",Physician orders only,Length of hospital stay,1
+Career Questions,Nursing,What does 'vicarious liability' mean for a nursing manager?,Personal malpractice,Responsibility for staff's negligent acts,Patient's legal rights,Liability waiver,1
+Career Questions,Nursing,Nurses pursuing a Masters in Nursing Science (MNSc) aim for?,Staff nurse role only,Advanced clinical practice or academic/research roles,Hospital administration only,Community outreach only,1
+Career Questions,Nursing,An ethical dilemma in nursing occurs when?,Policies are unclear,Two equally important moral duties conflict,Patient refuses care,Nurse lacks clinical skills,1
+Career Questions,Nursing,Root cause analysis (RCA) in nursing is used for?,Performance ranking,Investigating adverse events to prevent recurrence,Budget management,Hiring new staff,1
+Career Questions,Nursing,Which is an example of transformational leadership in nursing?,Strict rule enforcement,Inspiring staff through vision and motivation,Delegating all tasks,Avoiding conflict,1
+Question Bank,Nursing,"A patient on mechanical ventilation has PaO2 of 55 mmHg, PaCO2 of 55 mmHg, pH 7.28, HCO3 24 mEq/L. This represents?",Metabolic acidosis with compensation,Respiratory acidosis uncompensated,Mixed respiratory and metabolic acidosis,Respiratory alkalosis,1
+Question Bank,Nursing,"In a patient with suspected aortic dissection, which finding is most critical to assess?",Blood pressure difference between arms,Pedal edema,Urine output,Peripheral temperature,0
+Question Bank,Nursing,Which mechanism explains why patients with SIADH develop hyponatremia?,Excessive sodium loss via kidneys,Excessive water retention due to inappropriate ADH secretion,Inadequate sodium intake,Aldosterone excess,1
+Question Bank,Nursing,"A patient post-CABG develops sudden hypotension, elevated CVP, and muffled heart sounds. The nurse suspects?",Pulmonary embolism,Cardiogenic shock,Cardiac tamponade,Tension pneumothorax,2
+Question Bank,Nursing,Which pharmacokinetic principle explains why elderly patients need lower drug doses?,Increased first-pass effect,Decreased renal and hepatic clearance,Increased volume of distribution,Enhanced drug absorption,1
+Question Bank,Nursing,A patient with burns covering 36% BSA requires fluid resuscitation using Parkland formula. Weight 75 kg. First 8 hours fluid is?,2700 mL,5400 mL,10800 mL,8100 mL,1
+Question Bank,Nursing,Neurogenic shock differs from hypovolemic shock by presenting with?,Tachycardia and cool clammy skin,Bradycardia and warm dry skin,High blood pressure,Elevated CVP,1
+IQ Games,Nursing,A nurse must infuse 1L of NS with 40 mEq KCl over 8 hours via infusion pump. The safe max rate for KCl is 10 mEq/hr. Is this safe?,"Yes, the rate is exactly 10 mEq/hr — safe if monitored","No, the rate exceeds 10 mEq/hr","Yes, any KCl rate is safe","No, KCl should never be added to NS",0
+IQ Games,Nursing,Drug X concentration is 250 mg/5 mL. Order is for 175 mg. Volume to draw = ?,2.5 mL,3.0 mL,3.5 mL,4.0 mL,2
+IQ Games,Nursing,A patient's creatinine clearance drops from 90 to 30 mL/min. Drug dose should be?,Doubled,Increased by 50%,Reduced significantly — dose adjustment needed,Kept the same,2
+IQ Games,Nursing,"Using the rule of nines, a burn patient has anterior trunk and entire right leg burned. What % BSA?",27%,36%,37%,45%,1
+IQ Games,Nursing,A patient receives 3 units of blood each raising Hb by 1 g/dL. Pre-transfusion Hb was 6 g/dL. Post-transfusion Hb target of 10 g/dL requires how many more units?,0,1,2,3,1
+IQ Games,Nursing,"In a logical sequence: assess → diagnose → plan → implement → evaluate → reassess. Which step is skipped here: assess, plan, implement, evaluate?",Diagnose,Reassess,Both diagnose and reassess,Nothing is skipped,0
+IQ Games,Nursing,A patient is on TPN at 80 mL/hr. The bag has 1000 mL remaining. A new bag should be ready in how many minutes to prevent interruption (allowing 15 min setup)?,600,735,585,615,2
+Career Questions,Nursing,You discover that a colleague has been systematically administering smaller opioid doses than prescribed and pocketing the remainder. Your ethical-legal obligations include?,Report to nursing council and document the incident — potential drug diversion,Counsel the colleague privately first and give them a chance,Ignore it unless a patient complains,Report only if you witness it again,0
+Career Questions,Nursing,A research study asks nurses to participate without full disclosure of risks. The ethical principle being violated is?,Justice,Beneficence,Informed consent/Autonomy,Non-maleficence,2
+Career Questions,Nursing,Which advanced practice nursing framework describes the nurse's role in navigating complex systems to improve patient outcomes?,Benner's Novice to Expert,Clinical Nurse Leader (CNL) framework,Henderson's 14 Basic Needs,Peplau's Interpersonal Theory,1
+Career Questions,Nursing,A hospital introduces mandatory overtime due to staff shortage. Under which legal framework can nurses challenge this safely?,Personal employment contract only,Occupational health and safety laws plus nursing professional standards,Hospital policy alone,Medical ethics committee,1
+Career Questions,Nursing,A nurse identifies a systemic medication administration error pattern in the unit. The most appropriate systemic response is?,Blame the individuals involved,Conduct a root cause analysis and implement system-level change,Increase individual nurse supervision,Report only future errors,1
+Career Questions,Nursing,When navigating moral distress — knowing the right action but being constrained from doing it — the evidence-based coping strategy is?,Suppress emotions and continue working,Seek clinical ethics consultation and peer support,Resign from position,Follow instructions without question,1

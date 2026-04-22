@@ -1,0 +1,201 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Mechanical,What is the standard SI unit of Force?,Watt,Joule,Pascal,Newton,3
+Question Bank,Mechanical,What is the standard SI unit of Work?,Pascal,Watt,Joule,Newton,2
+Question Bank,Mechanical,What is the standard SI unit of Power?,Joule,Pascal,Newton,Watt,3
+Question Bank,Mechanical,What is the standard SI unit of Pressure?,Newton,Joule,Pascal,Watt,2
+Question Bank,Mechanical,What is the standard SI unit of Stress?,Newton,Joule,Watt,Pascal,3
+Question Bank,Mechanical,What is the standard SI unit of Frequency?,Joule,Watt,Newton,Hertz,3
+Question Bank,Mechanical,What is the standard SI unit of Velocity?,N/m,m/s^2,m/s,kg/m^3,2
+Question Bank,Mechanical,What is the standard SI unit of Acceleration?,m/s,kg/m^3,m/s^2,N/m,2
+Question Bank,Mechanical,What is the standard SI unit of Density?,kg/m^3,N/m,m/s^2,m/s,0
+Question Bank,Mechanical,What is the standard SI unit of Surface Tension?,kg/m^3,m/s,N/m,m/s^2,2
+Question Bank,Mechanical,What is the standard SI unit of Dynamic Viscosity?,N/m,m^2/s,J/kg,Pa.s,3
+Question Bank,Mechanical,What is the standard SI unit of Kinematic Viscosity?,J/kg,N/m,Pa.s,m^2/s,3
+Question Bank,Mechanical,What is the standard SI unit of Specific Heat?,W/m^2,W/(m.K),J/(kg.K),J/kg,2
+Question Bank,Mechanical,What is the standard SI unit of Thermal Conductivity?,J/kg,W/m^2,J/(kg.K),W/(m.K),3
+Question Bank,Mechanical,What is the standard SI unit of Heat Flux?,W/m^2,J/(kg.K),J/kg,W/(m.K),0
+Question Bank,Mechanical,What is the standard SI unit of Torque?,J/kg,N.m,W,N/m,1
+Question Bank,Mechanical,What is the standard SI unit of Angular Velocity?,rad/s^2,Hz,m/s,rad/s,3
+Question Bank,Mechanical,What is the standard SI unit of Angular Acceleration?,rad/s,Hz,rad/s^2,m/s^2,2
+Question Bank,Mechanical,What is the standard SI unit of Moment of Inertia?,kg/m^3,N.m,kg.m,kg.m^2,3
+Question Bank,Mechanical,What is the standard SI unit of Mass Flow Rate?,kg/s,m^3/s,N/s,J/s,0
+Question Bank,Mechanical,What is primarily associated with the First Law of Thermodynamics?,Energy conservation,Absolute zero,Ideal gas behavior,Entropy increase,0
+Question Bank,Mechanical,Which principle or concept is best described by: 'Energy conservation'?,First Law of Thermodynamics,Pascal's Law,Newton's Law of Cooling,Boyle's Law,0
+Question Bank,Mechanical,What is primarily associated with the Second Law of Thermodynamics?,Energy conservation,Ideal gas behavior,Absolute zero,Entropy increase,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Entropy increase'?,Newton's Law of Cooling,Pascal's Law,Second Law of Thermodynamics,Boyle's Law,2
+Question Bank,Mechanical,What is primarily associated with the Zeroth Law of Thermodynamics?,Energy conservation,Thermal equilibrium,Entropy increase,Absolute zero,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Thermal equilibrium'?,Boyle's Law,Pascal's Law,Zeroth Law of Thermodynamics,Newton's Law of Cooling,2
+Question Bank,Mechanical,What is primarily associated with the Third Law of Thermodynamics?,Energy conservation,Entropy increase,Thermal equilibrium,Absolute zero,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Absolute zero'?,Boyle's Law,Pascal's Law,Third Law of Thermodynamics,Newton's Law of Cooling,2
+Question Bank,Mechanical,What is primarily associated with the Otto Cycle?,Steam power plants,Compression ignition engines,Spark ignition engines,Gas turbines,2
+Question Bank,Mechanical,Which principle or concept is best described by: 'Spark ignition engines'?,Otto Cycle,Boyle's Law,Newton's Law of Cooling,Pascal's Law,0
+Question Bank,Mechanical,What is primarily associated with the Diesel Cycle?,Gas turbines,Compression ignition engines,Steam power plants,Spark ignition engines,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Compression ignition engines'?,Diesel Cycle,Pascal's Law,Newton's Law of Cooling,Boyle's Law,0
+Question Bank,Mechanical,What is primarily associated with the Brayton Cycle?,Gas turbines,Spark ignition engines,Compression ignition engines,Steam power plants,0
+Question Bank,Mechanical,Which principle or concept is best described by: 'Gas turbines'?,Boyle's Law,Pascal's Law,Brayton Cycle,Newton's Law of Cooling,2
+Question Bank,Mechanical,What is primarily associated with the Rankine Cycle?,Gas turbines,Spark ignition engines,Steam power plants,Compression ignition engines,2
+Question Bank,Mechanical,Which principle or concept is best described by: 'Steam power plants'?,Boyle's Law,Newton's Law of Cooling,Pascal's Law,Rankine Cycle,3
+Question Bank,Mechanical,What is primarily associated with the Carnot Cycle?,Practical engine design,Maximum theoretical efficiency,Refrigeration only,Jet propulsion,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Maximum theoretical efficiency'?,Carnot Cycle,Newton's Law of Cooling,Boyle's Law,Pascal's Law,0
+Question Bank,Mechanical,What is primarily associated with the Bernoulli's Principle?,Conservation of mass in fluids,Conservation of energy in fluids,Compressible flow,Viscous drag,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Conservation of energy in fluids'?,Pascal's Law,Boyle's Law,Newton's Law of Cooling,Bernoulli's Principle,3
+Question Bank,Mechanical,What is primarily associated with the Continuity Equation?,Compressible flow,Conservation of energy in fluids,Conservation of mass in fluids,Viscous drag,2
+Question Bank,Mechanical,Which principle or concept is best described by: 'Conservation of mass in fluids'?,Newton's Law of Cooling,Boyle's Law,Continuity Equation,Pascal's Law,2
+Question Bank,Mechanical,What is primarily associated with the Reynolds Number?,Material hardness,Subsonic vs Supersonic flow,Heat transfer rate,Laminar vs Turbulent flow,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Laminar vs Turbulent flow'?,Pascal's Law,Reynolds Number,Newton's Law of Cooling,Boyle's Law,1
+Question Bank,Mechanical,What is primarily associated with the Mach Number?,Laminar vs Turbulent flow,Subsonic vs Supersonic flow,Material hardness,Heat transfer rate,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Subsonic vs Supersonic flow'?,Newton's Law of Cooling,Mach Number,Pascal's Law,Boyle's Law,1
+Question Bank,Mechanical,What is primarily associated with the Nusselt Number?,Material hardness,Subsonic vs Supersonic flow,Laminar vs Turbulent flow,Convective heat transfer,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Convective heat transfer'?,Boyle's Law,Newton's Law of Cooling,Nusselt Number,Pascal's Law,2
+Question Bank,Mechanical,What is primarily associated with the Prandtl Number?,Laminar vs Turbulent flow,Momentum diffusivity vs Thermal diffusivity,Convective heat transfer,Subsonic vs Supersonic flow,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Momentum diffusivity vs Thermal diffusivity'?,Boyle's Law,Newton's Law of Cooling,Pascal's Law,Prandtl Number,3
+Question Bank,Mechanical,What is primarily associated with the Hooke's Law?,Heat transfer,Plastic deformation,Fluid viscosity,Elastic deformation,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Elastic deformation'?,Boyle's Law,Pascal's Law,Newton's Law of Cooling,Hooke's Law,3
+Question Bank,Mechanical,What is primarily associated with the Yield Strength?,Onset of plastic deformation,Elastic limit,Maximum stress,Breaking point,0
+Question Bank,Mechanical,Which principle or concept is best described by: 'Onset of plastic deformation'?,Yield Strength,Newton's Law of Cooling,Pascal's Law,Boyle's Law,0
+Question Bank,Mechanical,What is primarily associated with the Ultimate Tensile Strength?,Elastic limit,Maximum stress before failure,Breaking point,Onset of plastic deformation,1
+Question Bank,Mechanical,Which principle or concept is best described by: 'Maximum stress before failure'?,Ultimate Tensile Strength,Pascal's Law,Boyle's Law,Newton's Law of Cooling,0
+Question Bank,Mechanical,What is primarily associated with the Toughness?,Energy absorption before fracture,Resistance to scratching,Resistance to yielding,Ability to stretch,0
+Question Bank,Mechanical,Which principle or concept is best described by: 'Energy absorption before fracture'?,Boyle's Law,Newton's Law of Cooling,Pascal's Law,Toughness,3
+Question Bank,Mechanical,What is primarily associated with the Hardness?,Resistance to yielding,Ability to stretch,Energy absorption before fracture,Resistance to localized plastic deformation,3
+Question Bank,Mechanical,Which principle or concept is best described by: 'Resistance to localized plastic deformation'?,Pascal's Law,Hardness,Newton's Law of Cooling,Boyle's Law,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Flywheel?,Increases engine cooling,Filters engine oil,Ignites fuel,Stores rotational energy,3
+Question Bank,Mechanical,Which component is described by: 'Stores rotational energy'?,Spring,Valve,Flywheel,Piston,2
+Question Bank,Mechanical,What is the primary function or characteristic of a Camshaft?,Stores rotational energy,Ignites fuel,Operates engine valves,Filters engine oil,2
+Question Bank,Mechanical,Which component is described by: 'Operates engine valves'?,Camshaft,Piston,Spring,Valve,0
+Question Bank,Mechanical,What is the primary function or characteristic of a Crankshaft?,Filters engine oil,Converts linear to rotational motion,Stores rotational energy,Operates engine valves,1
+Question Bank,Mechanical,Which component is described by: 'Converts linear to rotational motion'?,Valve,Piston,Crankshaft,Spring,2
+Question Bank,Mechanical,What is the primary function or characteristic of a Radiator?,Converts linear to rotational motion,Operates engine valves,Dissipates excess engine heat,Stores rotational energy,2
+Question Bank,Mechanical,Which component is described by: 'Dissipates excess engine heat'?,Spring,Piston,Valve,Radiator,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Turbocharger?,Forces more air into the combustion chamber,Operates engine valves,Dissipates excess engine heat,Converts linear to rotational motion,0
+Question Bank,Mechanical,Which component is described by: 'Forces more air into the combustion chamber'?,Piston,Turbocharger,Valve,Spring,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Catalytic Converter?,Dissipates excess engine heat,Forces more air into the combustion chamber,Converts linear to rotational motion,Reduces toxic exhaust emissions,3
+Question Bank,Mechanical,Which component is described by: 'Reduces toxic exhaust emissions'?,Piston,Spring,Catalytic Converter,Valve,2
+Question Bank,Mechanical,What is the primary function or characteristic of a Differential?,Forces more air into the combustion chamber,Dissipates excess engine heat,Allows drive wheels to turn at different speeds,Reduces toxic exhaust emissions,2
+Question Bank,Mechanical,Which component is described by: 'Allows drive wheels to turn at different speeds'?,Valve,Differential,Spring,Piston,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Clutch?,Forces more air into the combustion chamber,Engages/disengages power transmission,Allows drive wheels to turn at different speeds,Reduces toxic exhaust emissions,1
+Question Bank,Mechanical,Which component is described by: 'Engages/disengages power transmission'?,Valve,Spring,Piston,Clutch,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Gearbox?,Engages/disengages power transmission,Reduces toxic exhaust emissions,Allows drive wheels to turn at different speeds,Alters speed and torque ratios,3
+Question Bank,Mechanical,Which component is described by: 'Alters speed and torque ratios'?,Piston,Valve,Spring,Gearbox,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Bearing?,Reduces friction between moving parts,Engages/disengages power transmission,Alters speed and torque ratios,Allows drive wheels to turn at different speeds,0
+Question Bank,Mechanical,Which component is described by: 'Reduces friction between moving parts'?,Valve,Bearing,Spring,Piston,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Pump?,Reduces friction between moving parts,Adds energy to a fluid to move it,Alters speed and torque ratios,Extracts energy from a fluid,1
+Question Bank,Mechanical,Which component is described by: 'Adds energy to a fluid to move it'?,Pump,Valve,Piston,Spring,0
+Question Bank,Mechanical,What is the primary function or characteristic of a Turbine?,Extracts energy from a fluid,Alters speed and torque ratios,Adds energy to a fluid to move it,Reduces friction between moving parts,0
+Question Bank,Mechanical,Which component is described by: 'Extracts energy from a fluid'?,Valve,Spring,Turbine,Piston,2
+Question Bank,Mechanical,What is the primary function or characteristic of a Compressor?,Extracts energy from a liquid,Adds energy to a liquid,Increases the pressure of a gas,Decreases the pressure of a gas,2
+Question Bank,Mechanical,Which component is described by: 'Increases the pressure of a gas'?,Piston,Spring,Compressor,Valve,2
+Question Bank,Mechanical,What is the primary function or characteristic of a Evaporator?,Rejects heat to condense a refrigerant,Absorbs heat to vaporize a refrigerant,Increases the pressure of a gas,Decreases the pressure of a gas,1
+Question Bank,Mechanical,Which component is described by: 'Absorbs heat to vaporize a refrigerant'?,Piston,Spring,Valve,Evaporator,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Condenser?,Decreases the pressure of a gas,Increases the pressure of a gas,Rejects heat to condense a refrigerant,Absorbs heat to vaporize a refrigerant,2
+Question Bank,Mechanical,Which component is described by: 'Rejects heat to condense a refrigerant'?,Valve,Condenser,Spring,Piston,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Steel?,A ceramic,An alloy of iron and carbon,A polymer,A pure element,1
+Question Bank,Mechanical,Which component is described by: 'An alloy of iron and carbon'?,Spring,Valve,Piston,Steel,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Cast Iron?,A polymer,Iron alloy with low carbon content (<2%),Iron alloy with high carbon content (>2%),A pure element,2
+Question Bank,Mechanical,Which component is described by: 'Iron alloy with high carbon content (>2%)'?,Cast Iron,Valve,Spring,Piston,0
+Question Bank,Mechanical,What is the primary function or characteristic of a Aluminum?,"Lightweight, corrosion-resistant metal",A ceramic,A polymer,"Heavy, magnetic metal",0
+Question Bank,Mechanical,"Which component is described by: 'Lightweight, corrosion-resistant metal'?",Valve,Aluminum,Piston,Spring,1
+Question Bank,Mechanical,What is the primary function or characteristic of a Titanium?,"Heavy, magnetic metal",A polymer,"Lightweight, corrosion-resistant metal","High strength-to-weight ratio, high temperature resistance",3
+Question Bank,Mechanical,"Which component is described by: 'High strength-to-weight ratio, high temperature resistance'?",Piston,Spring,Valve,Titanium,3
+Question Bank,Mechanical,What is the primary function or characteristic of a Brass?,A pure element,An alloy of copper and tin,An alloy of copper and zinc,An alloy of iron and carbon,2
+Question Bank,Mechanical,Which component is described by: 'An alloy of copper and zinc'?,Valve,Piston,Spring,Brass,3
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 40 teeth. What is the gear ratio (Driving:Driven)?,2:1,1:2,3:1,1:3,1
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 30 teeth. What is the gear ratio (Driving:Driven)?,1:1,2:1,1:1,1:2,0
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,1:3,4:1,1:4,3:1,0
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,3:1,4:1,1:3,1:4,2
+IQ Games,Mechanical,A driving gear has 25 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,1:3,3:1,2:1,1:2,3
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 40 teeth. What is the gear ratio (Driving:Driven)?,2:1,1:2,1:3,3:1,1
+IQ Games,Mechanical,A driving gear has 10 teeth and meshes with a driven gear having 30 teeth. What is the gear ratio (Driving:Driven)?,1:4,4:1,3:1,1:3,3
+IQ Games,Mechanical,A driving gear has 25 teeth and meshes with a driven gear having 40 teeth. What is the gear ratio (Driving:Driven)?,2:1,1:1,1:1,1:2,1
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 40 teeth. What is the gear ratio (Driving:Driven)?,3:1,1:3,2:1,1:2,3
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 40 teeth. What is the gear ratio (Driving:Driven)?,1:3,1:2,3:1,2:1,1
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,1:4,1:3,4:1,3:1,1
+IQ Games,Mechanical,A driving gear has 10 teeth and meshes with a driven gear having 60 teeth. What is the gear ratio (Driving:Driven)?,6:1,1:7,1:6,7:1,2
+IQ Games,Mechanical,A driving gear has 25 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,3:1,1:3,1:2,2:1,2
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 60 teeth. What is the gear ratio (Driving:Driven)?,5:1,4:1,1:4,1:5,2
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 60 teeth. What is the gear ratio (Driving:Driven)?,1:4,3:1,4:1,1:3,3
+IQ Games,Mechanical,A driving gear has 15 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,4:1,3:1,1:4,1:3,3
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,1:3,3:1,2:1,1:2,3
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 30 teeth. What is the gear ratio (Driving:Driven)?,1:1,2:1,1:2,1:1,0
+IQ Games,Mechanical,A driving gear has 20 teeth and meshes with a driven gear having 60 teeth. What is the gear ratio (Driving:Driven)?,1:3,3:1,4:1,1:4,0
+IQ Games,Mechanical,A driving gear has 10 teeth and meshes with a driven gear having 50 teeth. What is the gear ratio (Driving:Driven)?,1:5,1:6,5:1,6:1,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 4 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",5,8,4,3,2
+IQ Games,Mechanical,"A simple block and tackle pulley system has 5 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",5,10,6,4,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 5 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",10,6,4,5,3
+IQ Games,Mechanical,"A simple block and tackle pulley system has 3 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",3,2,4,6,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 5 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",6,5,4,10,1
+IQ Games,Mechanical,"A simple block and tackle pulley system has 6 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",5,6,7,12,1
+IQ Games,Mechanical,"A simple block and tackle pulley system has 2 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",2,1,4,3,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 2 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",2,4,3,1,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 3 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",6,4,3,2,2
+IQ Games,Mechanical,"A simple block and tackle pulley system has 2 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",3,2,4,1,1
+IQ Games,Mechanical,"A simple block and tackle pulley system has 5 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",4,5,6,10,1
+IQ Games,Mechanical,"A simple block and tackle pulley system has 5 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",6,5,4,10,1
+IQ Games,Mechanical,"A simple block and tackle pulley system has 3 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",4,2,6,3,3
+IQ Games,Mechanical,"A simple block and tackle pulley system has 3 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",3,6,4,2,0
+IQ Games,Mechanical,"A simple block and tackle pulley system has 2 parallel ropes supporting a downward load. Assuming 100% efficiency, what is its theoretical mechanical advantage?",3,4,2,1,2
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Fulcrum is between the effort and the load,Load is between the fulcrum and the effort,Effort is between the fulcrum and the load,There is no fulcrum,0
+IQ Games,Mechanical,"In a Class 2 lever system, which configuration is correct?",Load is between the fulcrum and the effort,Fulcrum is between the effort and the load,Effort is between the fulcrum and the load,There is no fulcrum,0
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Fulcrum is between the effort and the load,Effort is between the fulcrum and the load,Load is between the fulcrum and the effort,There is no fulcrum,0
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Fulcrum is between the effort and the load,Load is between the fulcrum and the effort,There is no fulcrum,Effort is between the fulcrum and the load,0
+IQ Games,Mechanical,"In a Class 3 lever system, which configuration is correct?",Effort is between the fulcrum and the load,Load is between the fulcrum and the effort,There is no fulcrum,Fulcrum is between the effort and the load,0
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",There is no fulcrum,Load is between the fulcrum and the effort,Fulcrum is between the effort and the load,Effort is between the fulcrum and the load,2
+IQ Games,Mechanical,"In a Class 2 lever system, which configuration is correct?",Fulcrum is between the effort and the load,Load is between the fulcrum and the effort,There is no fulcrum,Effort is between the fulcrum and the load,1
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Effort is between the fulcrum and the load,There is no fulcrum,Fulcrum is between the effort and the load,Load is between the fulcrum and the effort,2
+IQ Games,Mechanical,"In a Class 3 lever system, which configuration is correct?",There is no fulcrum,Effort is between the fulcrum and the load,Load is between the fulcrum and the effort,Fulcrum is between the effort and the load,1
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Fulcrum is between the effort and the load,Effort is between the fulcrum and the load,Load is between the fulcrum and the effort,There is no fulcrum,0
+IQ Games,Mechanical,"In a Class 3 lever system, which configuration is correct?",Load is between the fulcrum and the effort,Effort is between the fulcrum and the load,Fulcrum is between the effort and the load,There is no fulcrum,1
+IQ Games,Mechanical,"In a Class 1 lever system, which configuration is correct?",Effort is between the fulcrum and the load,Fulcrum is between the effort and the load,Load is between the fulcrum and the effort,There is no fulcrum,1
+IQ Games,Mechanical,"In a Class 3 lever system, which configuration is correct?",Load is between the fulcrum and the effort,Effort is between the fulcrum and the load,Fulcrum is between the effort and the load,There is no fulcrum,1
+IQ Games,Mechanical,"In a Class 2 lever system, which configuration is correct?",Load is between the fulcrum and the effort,There is no fulcrum,Fulcrum is between the effort and the load,Effort is between the fulcrum and the load,0
+IQ Games,Mechanical,"In a Class 3 lever system, which configuration is correct?",Load is between the fulcrum and the effort,Effort is between the fulcrum and the load,There is no fulcrum,Fulcrum is between the effort and the load,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of AutoCAD?",2D and 3D computer-aided drafting and design,Project Scheduling,Finite Element Analysis,Computational Fluid Dynamics,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of SolidWorks?",Accounting and payroll,Writing embedded C code,2D floor plan drafting only,Parametric 3D CAD and assembly modeling,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of ANSYS?",Graphic design for marketing,Finite Element Analysis (FEA) and multiphysics simulation,Database management,Supply chain tracking,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of MATLAB?",3D printing hardware control,Sheet metal fabrication,Numerical computing and algorithm development,Inventory management,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of HVAC Engineer?",Designing aircraft wings,"Designing heating, ventilation, and air conditioning systems",Writing software for microcontrollers,Managing factory floor workers,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Manufacturing Engineer?",Selling industrial equipment,Designing consumer product aesthetics,Performing structural building analysis,Optimizing production processes and assembly lines,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Quality Assurance (QA) Engineer?",Designing logo concepts,Ensuring products meet quality and safety standards,Managing the company's IT network,Procuring raw materials,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of R&D Engineer?",Executing daily sales calls,Managing the HR department,Routine maintenance of factory machines,Researching and developing new products or technologies,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Project Manager?",Welding structural steel,Writing simulation code,"Overseeing project timelines, budgets, and resources",Operating CNC machines,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Six Sigma?",A methodology for process improvement and defect reduction,A new welding technique,A type of 3D modeling software,A safety certification for cranes,0
+Career Questions,Mechanical,Which role or tool is best described as: '2D and 3D computer-aided drafting and design'?,AutoCAD,Civil Engineer,Python,Marketing Manager,0
+Career Questions,Mechanical,Which role or tool is best described as: 'Parametric 3D CAD and assembly modeling'?,Marketing Manager,Civil Engineer,Python,SolidWorks,3
+Career Questions,Mechanical,Which role or tool is best described as: 'Finite Element Analysis (FEA) and multiphysics simulation'?,Marketing Manager,Civil Engineer,Python,ANSYS,3
+Career Questions,Mechanical,Which role or tool is best described as: 'Numerical computing and algorithm development'?,Python,Civil Engineer,Marketing Manager,MATLAB,3
+Career Questions,Mechanical,"Which role or tool is best described as: 'Designing heating, ventilation, and air conditioning systems'?",Python,Marketing Manager,Civil Engineer,HVAC Engineer,3
+Career Questions,Mechanical,Which role or tool is best described as: 'Optimizing production processes and assembly lines'?,Python,Civil Engineer,Marketing Manager,Manufacturing Engineer,3
+Career Questions,Mechanical,Which role or tool is best described as: 'Ensuring products meet quality and safety standards'?,Marketing Manager,Civil Engineer,Quality Assurance (QA) Engineer,Python,2
+Career Questions,Mechanical,Which role or tool is best described as: 'Researching and developing new products or technologies'?,Python,Civil Engineer,Marketing Manager,R&D Engineer,3
+Career Questions,Mechanical,"Which role or tool is best described as: 'Overseeing project timelines, budgets, and resources'?",Project Manager,Python,Marketing Manager,Civil Engineer,0
+Career Questions,Mechanical,Which role or tool is best described as: 'A methodology for process improvement and defect reduction'?,Python,Civil Engineer,Six Sigma,Marketing Manager,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of AutoCAD?",Computational Fluid Dynamics,2D and 3D computer-aided drafting and design,Project Scheduling,Finite Element Analysis,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of SolidWorks?",Accounting and payroll,Writing embedded C code,2D floor plan drafting only,Parametric 3D CAD and assembly modeling,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of ANSYS?",Graphic design for marketing,Finite Element Analysis (FEA) and multiphysics simulation,Database management,Supply chain tracking,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of MATLAB?",3D printing hardware control,Inventory management,Sheet metal fabrication,Numerical computing and algorithm development,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of HVAC Engineer?",Managing factory floor workers,Designing aircraft wings,Writing software for microcontrollers,"Designing heating, ventilation, and air conditioning systems",3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Manufacturing Engineer?",Designing consumer product aesthetics,Selling industrial equipment,Performing structural building analysis,Optimizing production processes and assembly lines,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Quality Assurance (QA) Engineer?",Ensuring products meet quality and safety standards,Procuring raw materials,Managing the company's IT network,Designing logo concepts,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of R&D Engineer?",Executing daily sales calls,Routine maintenance of factory machines,Researching and developing new products or technologies,Managing the HR department,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Project Manager?",Welding structural steel,Operating CNC machines,Writing simulation code,"Overseeing project timelines, budgets, and resources",3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Six Sigma?",A new welding technique,A safety certification for cranes,A type of 3D modeling software,A methodology for process improvement and defect reduction,3
+Career Questions,Mechanical,Which role or tool is best described as: '2D and 3D computer-aided drafting and design'?,Python,AutoCAD,Marketing Manager,Civil Engineer,1
+Career Questions,Mechanical,Which role or tool is best described as: 'Parametric 3D CAD and assembly modeling'?,Marketing Manager,Python,SolidWorks,Civil Engineer,2
+Career Questions,Mechanical,Which role or tool is best described as: 'Finite Element Analysis (FEA) and multiphysics simulation'?,ANSYS,Marketing Manager,Python,Civil Engineer,0
+Career Questions,Mechanical,Which role or tool is best described as: 'Numerical computing and algorithm development'?,Civil Engineer,MATLAB,Python,Marketing Manager,1
+Career Questions,Mechanical,"Which role or tool is best described as: 'Designing heating, ventilation, and air conditioning systems'?",Civil Engineer,Marketing Manager,Python,HVAC Engineer,3
+Career Questions,Mechanical,Which role or tool is best described as: 'Optimizing production processes and assembly lines'?,Manufacturing Engineer,Marketing Manager,Civil Engineer,Python,0
+Career Questions,Mechanical,Which role or tool is best described as: 'Ensuring products meet quality and safety standards'?,Civil Engineer,Python,Quality Assurance (QA) Engineer,Marketing Manager,2
+Career Questions,Mechanical,Which role or tool is best described as: 'Researching and developing new products or technologies'?,Civil Engineer,Python,R&D Engineer,Marketing Manager,2
+Career Questions,Mechanical,"Which role or tool is best described as: 'Overseeing project timelines, budgets, and resources'?",Project Manager,Marketing Manager,Civil Engineer,Python,0
+Career Questions,Mechanical,Which role or tool is best described as: 'A methodology for process improvement and defect reduction'?,Six Sigma,Civil Engineer,Python,Marketing Manager,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of AutoCAD?",Finite Element Analysis,Project Scheduling,Computational Fluid Dynamics,2D and 3D computer-aided drafting and design,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of SolidWorks?",Writing embedded C code,2D floor plan drafting only,Accounting and payroll,Parametric 3D CAD and assembly modeling,3
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of ANSYS?",Graphic design for marketing,Finite Element Analysis (FEA) and multiphysics simulation,Database management,Supply chain tracking,1
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of MATLAB?",Numerical computing and algorithm development,3D printing hardware control,Sheet metal fabrication,Inventory management,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of HVAC Engineer?",Designing aircraft wings,Writing software for microcontrollers,"Designing heating, ventilation, and air conditioning systems",Managing factory floor workers,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Manufacturing Engineer?",Selling industrial equipment,Designing consumer product aesthetics,Optimizing production processes and assembly lines,Performing structural building analysis,2
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Quality Assurance (QA) Engineer?",Ensuring products meet quality and safety standards,Designing logo concepts,Managing the company's IT network,Procuring raw materials,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of R&D Engineer?",Researching and developing new products or technologies,Routine maintenance of factory machines,Managing the HR department,Executing daily sales calls,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Project Manager?","Overseeing project timelines, budgets, and resources",Writing simulation code,Operating CNC machines,Welding structural steel,0
+Career Questions,Mechanical,"In the mechanical engineering industry, what is the primary use or focus of Six Sigma?",A methodology for process improvement and defect reduction,A type of 3D modeling software,A new welding technique,A safety certification for cranes,0

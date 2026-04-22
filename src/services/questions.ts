@@ -2,11 +2,20 @@ import { supabase } from '../lib/supabase';
 import type { DbQuestion } from '../lib/database.types';
 
 export async function fetchQuestions(): Promise<DbQuestion[]> {
-  const { data, error } = await supabase
-    .from('questions')
-    .select('*');
-  if (error) throw error;
-  return data ?? [];
+  const PAGE_SIZE = 1000;
+  const all: DbQuestion[] = [];
+
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await supabase
+      .from('questions')
+      .select('*')
+      .range(from, from + PAGE_SIZE - 1);
+    if (error) throw error;
+    all.push(...(data ?? []));
+    if (!data || data.length < PAGE_SIZE) break;
+  }
+
+  return all;
 }
 
 export async function deleteAllQuestions(): Promise<void> {

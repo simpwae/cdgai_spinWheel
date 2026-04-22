@@ -1,0 +1,201 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Software Engineering,What does HTML stand for?,HyperText Markup Language,High Technology Modern Language,HyperText Modern Links,High Text Markup Language,0
+Question Bank,Software Engineering,Which symbol is used for single-line comments in Python?,//,#,/*,--,1
+Question Bank,Software Engineering,What does CPU stand for?,Central Processing Unit,Computer Personal Unit,Central Program Utility,Core Processing Unit,0
+Question Bank,Software Engineering,Which data structure follows LIFO order?,Queue,Array,Stack,Linked List,2
+Question Bank,Software Engineering,What is the binary representation of decimal 10?,1010,1100,1001,1110,0
+Question Bank,Software Engineering,Which language is primarily used for styling web pages?,HTML,JavaScript,CSS,PHP,2
+Question Bank,Software Engineering,What does OOP stand for?,Object-Oriented Programming,Open Online Processing,Ordered Object Protocol,Output Oriented Programming,0
+Question Bank,Software Engineering,Which of these is a version control system?,Docker,Git,Jira,Slack,1
+Question Bank,Software Engineering,What is the time complexity of binary search?,O(n),O(n²),O(log n),O(1),2
+Question Bank,Software Engineering,Which keyword is used to declare a variable in JavaScript?,var,int,dim,define,0
+Question Bank,Software Engineering,What does SQL stand for?,Structured Query Language,Simple Question Language,System Query Logic,Structured Question List,0
+Question Bank,Software Engineering,Which data structure uses FIFO order?,Stack,Queue,Tree,Graph,1
+Question Bank,Software Engineering,What is the default port for HTTP?,443,21,80,8080,2
+Question Bank,Software Engineering,Which operator checks both value and type in JavaScript?,==,!=,===,=,2
+Question Bank,Software Engineering,What does RAM stand for?,Read Access Memory,Random Access Memory,Rapid Application Memory,Read And Memorize,1
+Question Bank,Software Engineering,"In Python, which function prints output to the screen?",echo(),console.log(),print(),write(),2
+Question Bank,Software Engineering,What is an algorithm?,A programming language,A set of instructions to solve a problem,A type of database,A hardware component,1
+Question Bank,Software Engineering,Which of these is NOT a programming paradigm?,Object-Oriented,Functional,Procedural,Sequential Filing,3
+Question Bank,Software Engineering,What does IDE stand for?,Integrated Development Environment,Internal Debug Engine,Internet Development Extension,Integrated Debug Editor,0
+Question Bank,Software Engineering,Which HTML tag creates a hyperlink?,<link>,<href>,<a>,<url>,2
+Question Bank,Software Engineering,What is the main purpose of an operating system?,Run browsers,Manage hardware and software resources,Write code,Store files only,1
+Question Bank,Software Engineering,Which of the following is a relational database?,MongoDB,Redis,MySQL,Cassandra,2
+Question Bank,Software Engineering,What does API stand for?,Application Programming Interface,Automated Program Integration,Application Protocol Index,Applied Programming Input,0
+Question Bank,Software Engineering,Which sorting algorithm is the simplest to implement?,Quick Sort,Merge Sort,Bubble Sort,Heap Sort,2
+Question Bank,Software Engineering,What is a variable in programming?,A fixed value,A named storage location for data,A type of loop,A function,1
+Question Bank,Software Engineering,Which protocol is used to send emails?,HTTP,FTP,SMTP,SSH,2
+Question Bank,Software Engineering,What does 'localhost' refer to?,A remote server,The current machine you are working on,A DNS server,A cloud service,1
+Question Bank,Software Engineering,What is an array?,A single data value,A collection of elements of the same type,A type of function,A database table,1
+Question Bank,Software Engineering,What is the purpose of a compiler?,Run programs directly,Convert source code to machine code,Debug errors,Manage memory,1
+Question Bank,Software Engineering,Which symbol denotes a class in a UML diagram?,Circle,Diamond,Rectangle,Triangle,2
+Question Bank,Software Engineering,Which of the following is an example of open-source software?,Microsoft Office,Adobe Photoshop,Linux,Windows 10,2
+Question Bank,Software Engineering,What does 'debugging' mean in software development?,Writing new code,Finding and fixing errors in code,Compiling code,Deploying software,1
+Question Bank,Software Engineering,What is the extension of a Python file?,.java,.py,.cpp,.cs,1
+Question Bank,Software Engineering,Which command initializes a new Git repository?,git start,git init,git create,git new,1
+IQ Games,Software Engineering,"If a program runs in 4 seconds and you double its efficiency, how long does it run?",1 second,2 seconds,3 seconds,4 seconds,1
+IQ Games,Software Engineering,What is 1024 bytes called?,1 Megabyte,1 Kilobyte,1 Gigabyte,1 Terabyte,1
+IQ Games,Software Engineering,How many bits are in 1 byte?,4,8,16,32,1
+IQ Games,Software Engineering,"Which comes next: 1, 2, 4, 8, 16, ?",24,32,28,30,1
+IQ Games,Software Engineering,Code : Program :: Blueprint : ?,Building,Plan,Architect,Material,0
+IQ Games,Software Engineering,"A developer writes 50 lines of code per hour. In 6 hours, how many lines?",200,250,300,350,2
+IQ Games,Software Engineering,"If boolean True = 1, what does True + True equal?",True,False,2,1,2
+IQ Games,Software Engineering,"Which is the odd one out: Python, Java, HTML, C++?",Python,Java,HTML,C++,2
+IQ Games,Software Engineering,A bug takes 30 min to fix. How many bugs can be fixed in 3 hours?,4,5,6,7,2
+IQ Games,Software Engineering,Binary 1111 equals what decimal number?,14,15,16,13,1
+IQ Games,Software Engineering,Developer : Code :: Artist : ?,Canvas,Paint,Artwork,Studio,2
+IQ Games,Software Engineering,"If a loop runs 5 times and each iteration takes 2 seconds, total time is?",8 seconds,10 seconds,12 seconds,15 seconds,1
+IQ Games,Software Engineering,"Which number is missing: 0, 1, 1, 2, 3, 5, ?, 13",7,8,9,6,1
+IQ Games,Software Engineering,"A folder has 4 subfolders, each with 3 files. Total files = ?",10,12,14,16,1
+IQ Games,Software Engineering,Which is NOT a type of software testing?,Unit testing,Integration testing,Regression testing,Compilation testing,3
+IQ Games,Software Engineering,"If x = 5 and y = 3, what is x * y - x?",5,10,15,7,1
+IQ Games,Software Engineering,QWERTY : Keyboard :: JPEG : ?,Video,Image,Audio,Document,1
+IQ Games,Software Engineering,A team of 4 devs finishes a project in 8 weeks. How long for 8 devs (same work)?,2 weeks,4 weeks,6 weeks,8 weeks,1
+IQ Games,Software Engineering,Which symbol means NOT equal in most programming languages?,<>,!=,=/=,~=,1
+IQ Games,Software Engineering,Hexadecimal digit 'A' equals what decimal value?,9,10,11,12,1
+IQ Games,Software Engineering,"If an app has 3 screens and each has 4 buttons, total buttons = ?",10,12,14,16,1
+IQ Games,Software Engineering,"Which comes next: front-end, back-end, database, front-end, back-end, ?",Front-end,Database,Back-end,API,1
+IQ Games,Software Engineering,A server responds in 200ms. How many responses in 1 second?,3,4,5,6,2
+IQ Games,Software Engineering,Software : Bug :: Hardware : ?,Virus,Fault/Defect,Update,Code,1
+IQ Games,Software Engineering,If TRUE AND FALSE = ?,TRUE,FALSE,NULL,ERROR,1
+IQ Games,Software Engineering,A sprint is 2 weeks. How many sprints in a 6-month project?,10,11,12,13,2
+IQ Games,Software Engineering,"Which is the largest file size: 1 MB, 1 KB, 1 GB, 1 TB?",1 MB,1 KB,1 GB,1 TB,3
+IQ Games,Software Engineering,A database table has 5 columns and 10 rows. Total cells = ?,15,50,100,150,1
+IQ Games,Software Engineering,"Which pattern: 2, 6, 18, 54, ?",108,162,216,72,1
+IQ Games,Software Engineering,"If a website loads in 3s and you optimize it by 33%, new load time = ?",1 second,2 seconds,2.5 seconds,1.5 seconds,1
+IQ Games,Software Engineering,Code review : Quality :: Testing : ?,Speed,Bug detection,Deployment,Documentation,1
+IQ Games,Software Engineering,A commit is made every hour. How many commits in a 5-day (8hr/day) work week?,35,40,45,50,1
+IQ Games,Software Engineering,"Which is the odd one out: RAM, ROM, CPU, SQL?",RAM,ROM,CPU,SQL,3
+Career Questions,Software Engineering,What does a software engineer primarily do?,Design buildings,"Design, develop, and maintain software systems",Manage company finances,Install hardware,1
+Career Questions,Software Engineering,Which document describes what a software system should do?,Source code,Software Requirements Specification (SRS),Test case,User manual,1
+Career Questions,Software Engineering,What is the purpose of a code review?,Speed up deployment,Improve code quality and share knowledge,Replace testing,Assign tasks,1
+Career Questions,Software Engineering,What does 'Agile' refer to in software development?,A programming language,"An iterative, flexible development methodology",A testing tool,A version control system,1
+Career Questions,Software Engineering,Which role focuses on ensuring software meets quality standards?,Project Manager,QA Engineer,DevOps Engineer,UI Designer,1
+Career Questions,Software Engineering,What is a 'sprint' in Scrum methodology?,A final release,A short fixed-period of development work,A bug fix cycle,A design phase,1
+Career Questions,Software Engineering,Which skill is MOST important for a software engineer?,Speed typing,Problem-solving and logical thinking,Graphic design,Public speaking,1
+Career Questions,Software Engineering,What is the purpose of documentation in software engineering?,Slow down development,Help users and developers understand the system,Replace code,Impress clients,1
+Career Questions,Software Engineering,A software engineer should keep their skills updated because?,Technology evolves rapidly,Managers require it,It increases vacation days,Certification demands it,0
+Career Questions,Software Engineering,What is 'open source' software?,Software that costs money,Software whose source code is publicly available,Software with no bugs,Government software,1
+Career Questions,Software Engineering,Which meeting in Scrum happens daily?,Sprint planning,Retrospective,Daily standup,Sprint review,2
+Career Questions,Software Engineering,What does 'deployment' mean in software engineering?,Writing code,Releasing software to users/production,Testing the code,Designing the UI,1
+Career Questions,Software Engineering,Which role in a software team manages timelines and resources?,Developer,QA Engineer,Project Manager,Database Administrator,2
+Career Questions,Software Engineering,What is the purpose of version control?,Speed up coding,Track and manage code changes over time,Replace documentation,Test software,1
+Career Questions,Software Engineering,Which soft skill is essential for remote software engineers?,Physical presence,Clear written communication,Speed,Graphic design,1
+Career Questions,Software Engineering,What is a 'pull request' in software development?,Requesting server access,Proposing code changes for review before merging,Downloading code,A type of deployment,1
+Career Questions,Software Engineering,What does 'MVP' stand for in product development?,Most Valuable Player,Minimum Viable Product,Maximum Version Plan,Most Verified Process,1
+Career Questions,Software Engineering,Continuous learning in software engineering is important because?,To impress colleagues,Technology and best practices constantly change,It is legally required,It replaces experience,1
+Career Questions,Software Engineering,Which is a popular tool for project management in software teams?,Photoshop,Jira,AutoCAD,Excel only,1
+Career Questions,Software Engineering,What is 'pair programming'?,Two computers running one program,Two developers working together on the same code,Programming in two languages,A debugging technique,1
+Career Questions,Software Engineering,What does a UX designer focus on?,Writing backend code,The user's experience and interface design,Managing databases,Server configuration,1
+Career Questions,Software Engineering,A software engineer's ethics include?,Delivering on time no matter what,"Honesty, quality work, and respecting privacy",Avoiding communication,Copying others' code freely,1
+Career Questions,Software Engineering,What is technical debt?,Money owed for software licenses,Future work created by taking shortcuts now,Overdue project deadlines,Budget deficit in IT,1
+Career Questions,Software Engineering,Which platform is most used for hosting open-source code?,LinkedIn,GitHub,Twitter,Stack Overflow,1
+Career Questions,Software Engineering,What is a 'deadline' in a software project?,The last bug found,The date by which work must be completed,End of a sprint,Final testing phase,1
+Career Questions,Software Engineering,Which is an example of soft skills for software engineers?,Writing algorithms,Teamwork and communication,Using a compiler,Database design,1
+Career Questions,Software Engineering,Networking in the software industry means?,Setting up routers,Building professional relationships,Writing network code,Configuring firewalls,1
+Career Questions,Software Engineering,What is the purpose of a software portfolio?,Store personal files,Showcase your projects and skills to employers,Track bug reports,Manage team tasks,1
+Career Questions,Software Engineering,Which certification is well-known for cloud computing?,PMP,AWS Certified,IELTS,CCNA only,1
+Career Questions,Software Engineering,What is 'freelancing' in software engineering?,Working at a single company,Working independently for multiple clients,A type of internship,A management role,1
+Career Questions,Software Engineering,Which interview question tests algorithmic thinking?,Tell me about yourself,Reverse a linked list,What is your salary expectation?,Describe your team experience,1
+Career Questions,Software Engineering,What does 'remote work' offer software engineers?,Less pay,Flexibility of location,No team collaboration,Only local projects,1
+Career Questions,Software Engineering,A good software engineering resume should highlight?,Hobbies only,"Technical skills, projects, and achievements",References only,Salary history,1
+Question Bank,Software Engineering,Which design pattern ensures only one instance of a class exists?,Factory,Observer,Singleton,Decorator,2
+Question Bank,Software Engineering,What is the time complexity of QuickSort in the average case?,O(n),O(n log n),O(n²),O(log n),1
+Question Bank,Software Engineering,"In REST APIs, which HTTP method is used to update a resource partially?",PUT,POST,PATCH,DELETE,2
+Question Bank,Software Engineering,What does SOLID stand for in object-oriented design? (First letter),Single Responsibility Principle,Simple Object Language Interface Design,Structured Object Linked Interface,System Oriented Logical Interface Design,0
+Question Bank,Software Engineering,Which normal form eliminates transitive dependencies in a database?,1NF,2NF,3NF,BCNF,2
+Question Bank,Software Engineering,What is a race condition in concurrent programming?,A performance benchmark,Two threads accessing shared data simultaneously causing inconsistency,A type of sorting algorithm,A memory leak pattern,1
+Question Bank,Software Engineering,What does 'idempotent' mean for an HTTP method?,It returns JSON,Calling it multiple times gives the same result,It requires authentication,It always creates new resources,1
+Question Bank,Software Engineering,Which data structure is best for implementing a priority queue?,Stack,Linked List,Heap,Array,2
+Question Bank,Software Engineering,What is the difference between '==' and '.equals()' in Java?,No difference,'==' compares references; '.equals()' compares content,'.equals()' compares references; '==' compares content,Both compare content,1
+Question Bank,Software Engineering,Which algorithm is used in Dijkstra's shortest path?,Divide and conquer,Dynamic programming,Greedy algorithm,Backtracking,2
+Question Bank,Software Engineering,What does ACID stand for in database transactions?,"Atomicity, Consistency, Isolation, Durability",Automated Consistent Integrated Data,Asynchronous Concurrent Indexed Database,Accurate Committed Indexed Design,0
+Question Bank,Software Engineering,Which HTTP status code indicates 'resource not found'?,200,301,404,500,2
+Question Bank,Software Engineering,What is dependency injection?,A type of bug,Providing dependencies to a class from outside rather than creating them internally,A database technique,A testing method only,1
+Question Bank,Software Engineering,What is the difference between TCP and UDP?,TCP is faster; UDP is reliable,TCP is reliable with error checking; UDP is faster but unreliable,They are the same,UDP guarantees delivery,1
+Question Bank,Software Engineering,Which Git command merges a branch into the current branch?,git pull,git push,git merge,git clone,2
+Question Bank,Software Engineering,What is Big O notation used for?,Measuring code length,Describing algorithm time/space complexity,Counting bugs,Naming variables,1
+Question Bank,Software Engineering,What is polymorphism in OOP?,An object having multiple parents,The ability of different objects to respond to the same interface differently,A type of inheritance,A memory management technique,1
+Question Bank,Software Engineering,Which design pattern separates the construction of a complex object from its representation?,Singleton,Builder,Adapter,Facade,1
+Question Bank,Software Engineering,What does 'eventual consistency' mean in distributed systems?,Data is always immediately consistent,All nodes will eventually have the same data given no new updates,Data is never consistent,Only one node holds true data,1
+Question Bank,Software Engineering,Which testing type verifies the entire system against requirements?,Unit testing,Integration testing,System testing,Smoke testing,2
+Question Bank,Software Engineering,What is a foreign key in a relational database?,Primary identifier of a table,A key that links to the primary key of another table,An encrypted key,An index key,1
+Question Bank,Software Engineering,"In Agile, what is a 'user story'?",A bug report,A short description of a feature from the user's perspective,A test case,A deployment log,1
+Question Bank,Software Engineering,Which JavaScript feature allows asynchronous operations?,Callbacks and Promises/async-await,For loops,Switch statements,Variable declarations,0
+Question Bank,Software Engineering,What is the purpose of indexing in a database?,Increase storage,Speed up data retrieval,Enforce constraints,Encrypt data,1
+Question Bank,Software Engineering,"Which architectural pattern separates an application into Model, View, and Controller?",SOA,Microservices,MVC,Serverless,2
+Question Bank,Software Engineering,What is 'memoization' in dynamic programming?,A note-taking technique,Caching results of expensive function calls to avoid recomputation,A sorting method,A graph traversal,1
+Question Bank,Software Engineering,Which principle states that software should be open for extension but closed for modification?,Single Responsibility,Liskov Substitution,Open/Closed Principle,Interface Segregation,2
+IQ Games,Software Engineering,A binary tree has 7 nodes at maximum. How many levels does it have?,2,3,4,5,1
+IQ Games,Software Engineering,"If f(n) = 2f(n-1) and f(1) = 1, what is f(5)?",8,16,32,64,1
+IQ Games,Software Engineering,"A developer estimates 3 hours per feature. For 8 features with 20% buffer time added, total hours = ?",24,26,28.8,30,2
+IQ Games,Software Engineering,Which is the output: x=10; x += 5; x *= 2; print(x)?,25,30,20,35,1
+IQ Games,Software Engineering,A REST API gets 100 requests/min. After optimization it handles 250 requests/min. % improvement = ?,100%,150%,250%,50%,1
+IQ Games,Software Engineering,"How many unique passwords can be made with 3 characters from {A, B, C} without repetition?",6,9,12,27,0
+IQ Games,Software Engineering,"If a recursive function calls itself 4 times and each call spawns 2 more, level 3 has how many calls?",4,8,16,32,1
+IQ Games,Software Engineering,Complete the analogy: Compile error : Syntax :: Runtime error : ?,Logic bug,Execution fault,Memory,Variable,1
+IQ Games,Software Engineering,A database query takes 8 seconds. Adding an index reduces time by 75%. New time = ?,1 second,2 seconds,3 seconds,4 seconds,1
+IQ Games,Software Engineering,"Which is missing in the sequence: GET, POST, PUT, ?, DELETE",PATCH,FETCH,SEND,UPDATE,0
+IQ Games,Software Engineering,"If a server has 99.9% uptime, how many hours of downtime in a year (365 days)?",~8.76 hrs,~87.6 hrs,~0.876 hrs,~17.5 hrs,0
+IQ Games,Software Engineering,"Code runs in O(n²). If n doubles from 10 to 20, runtime multiplies by?",2,4,8,16,1
+IQ Games,Software Engineering,"A web app has 3 pages, each with 5 components, each with 4 functions. Total functions = ?",40,60,80,100,1
+IQ Games,Software Engineering,Which evaluates to TRUE: (5 > 3) AND (2 < 1)?,TRUE,FALSE,NULL,ERROR,1
+IQ Games,Software Engineering,A sprint has 40 story points. Team velocity is 8 points/day. Sprint completes in?,4 days,5 days,6 days,8 days,1
+IQ Games,Software Engineering,Binary 1010 + 0101 = ?,1100,1111,10000,1110,1
+IQ Games,Software Engineering,"If app version goes 1.0 → 1.1 → 1.2 ... → 2.0, how many minor versions in v1.x (0 to 9)?",9,10,11,12,1
+IQ Games,Software Engineering,A hash table has 10 slots and 7 items. Load factor = ?,0.5,0.7,0.8,0.9,1
+IQ Games,Software Engineering,Complete: Class : Object :: Blueprint : ?,House,Plan,Architect,Material,0
+IQ Games,Software Engineering,A CI/CD pipeline has 5 stages each taking 3 minutes. Total pipeline time = ?,10 min,12 min,15 min,20 min,2
+IQ Games,Software Engineering,"If TRUE OR FALSE = TRUE, then FALSE OR FALSE = ?",TRUE,FALSE,NULL,Undefined,1
+IQ Games,Software Engineering,"A microservice architecture has 6 services, each calling 2 others. Total inter-service calls possible = ?",6,12,30,36,1
+IQ Games,Software Engineering,O(1) : Constant :: O(n!) : ?,Linear,Quadratic,Factorial,Exponential,2
+IQ Games,Software Engineering,Merge sort splits array of 16 elements. How many levels of splitting?,2,4,8,16,1
+IQ Games,Software Engineering,"A dev team has 5 members. If each pair must review each other's code, how many review pairs?",8,10,12,15,1
+IQ Games,Software Engineering,Which logical operation results in 1 only when both inputs are 1?,OR,NOT,AND,XOR,2
+IQ Games,Software Engineering,A program uses 200MB RAM. After refactoring it uses 25% less. New usage = ?,100 MB,150 MB,175 MB,125 MB,1
+Career Questions,Software Engineering,A client keeps changing requirements mid-sprint. Best approach is?,Refuse all changes,Accept all changes immediately,Use change management process and assess impact,Ignore the client,2
+Career Questions,Software Engineering,You find a critical security vulnerability in production code. First action?,Fix it quietly,Tell your manager and follow incident response procedure,Ignore it if not your module,Post about it online,1
+Career Questions,Software Engineering,Which Agile role is responsible for maximizing product value?,Scrum Master,Product Owner,Developer,QA Engineer,1
+Career Questions,Software Engineering,"When estimating project timelines, a software engineer should?",Always give the shortest estimate,Provide realistic estimates with buffer for unknowns,Never give estimates,Let the manager decide,1
+Career Questions,Software Engineering,What is 'imposter syndrome' common in software engineering?,A cybersecurity attack,Feeling unqualified despite competence,A management style,A coding error type,1
+Career Questions,Software Engineering,Which practice improves software security from the start?,Security as an afterthought,Shift-left security (security built into development process),Only penetration testing,Hiring a security team after launch,1
+Career Questions,Software Engineering,"A team member consistently misses deadlines. As a lead, best approach is?",Publicly criticize them,Have a private constructive discussion to understand root cause,Assign all their work to others,Escalate immediately without discussion,1
+Career Questions,Software Engineering,What is 'scope creep' in software projects?,A testing phase,Uncontrolled expansion of project requirements,A deployment strategy,A refactoring technique,1
+Career Questions,Software Engineering,Which interview preparation is most effective for software engineers?,Memorizing answers,"Practicing data structures, algorithms, and system design",Only studying theory,Focusing only on one language,1
+Career Questions,Software Engineering,DevOps culture emphasizes?,Developers and operations working in silos,Collaboration between development and operations teams,Only automation,Faster hardware,1
+Career Questions,Software Engineering,A startup offers lower salary but equity. This is relevant to?,Health benefits,Long-term financial planning and risk assessment,Vacation policy,Job location,1
+Career Questions,Software Engineering,What is 'knowledge transfer' in a software team?,Transferring files,Sharing expertise so others can take over responsibilities,Migrating databases,Changing project managers,1
+Career Questions,Software Engineering,Which factor most affects software engineer productivity?,Office location,"Clear requirements, good tooling, and minimal interruptions",Number of meetings,Company size,1
+Career Questions,Software Engineering,Open source contribution helps a software engineer by?,Reducing work hours,"Building portfolio, skills, and professional network",Replacing full-time job,Avoiding learning,1
+Career Questions,Software Engineering,What does 'on-call' duty mean for a software engineer?,Extra work shift,Being available to respond to production incidents,An optional overtime,A management role,1
+Career Questions,Software Engineering,"When joining a new software team, you should first?",Rewrite all existing code,"Understand the codebase, processes, and team dynamics",Immediately propose changes,Work in isolation,1
+Career Questions,Software Engineering,Which is most important in software architecture decisions?,Using the newest technology,"Balancing scalability, maintainability, and team expertise",Personal preferences,Following trends,1
+Career Questions,Software Engineering,Burnout prevention for software engineers includes?,Working longer hours,"Regular breaks, boundaries, and sustainable pace",Avoiding all meetings,Working remotely only,1
+Career Questions,Software Engineering,A software engineer disagrees with the architect's design. Best action is?,Implement it anyway silently,Raise concerns respectfully with technical reasoning,Refuse to work,Go above the architect,1
+Career Questions,Software Engineering,What is 'mentorship' in software engineering career growth?,A formal certification,Guidance from experienced professionals to accelerate learning,A type of code review,A management responsibility only,1
+Career Questions,Software Engineering,Which is an example of a non-technical skill critical in software engineering?,Writing algorithms,Stakeholder communication and expectation management,Using a debugger,Writing unit tests,1
+Career Questions,Software Engineering,What does 'work-life balance' mean for a software engineer?,Working 24/7,Maintaining boundaries between professional and personal time,Taking more sick days,Working only from home,1
+Career Questions,Software Engineering,System design interviews test?,Syntax knowledge,Ability to design scalable and reliable large-scale systems,Speed of coding,Personal background,1
+Career Questions,Software Engineering,Which is the best approach to handle legacy code?,Delete and rewrite everything,"Understand it, test it, then refactor incrementally",Avoid touching it,Blame previous developers,1
+Career Questions,Software Engineering,A software engineer's value to a company is best demonstrated by?,Hours worked,Impact delivered and problems solved,Number of commits,Meeting attendance,1
+Career Questions,Software Engineering,Which habit most distinguishes senior from junior software engineers?,Coding speed,Systems thinking and understanding trade-offs,Knowing more languages,Working longer hours,1
+Question Bank,Software Engineering,"In the CAP theorem, which two properties can a distributed system guarantee simultaneously during a network partition?",Consistency and Availability,Consistency and Partition Tolerance OR Availability and Partition Tolerance,All three simultaneously,None — all must be sacrificed,1
+Question Bank,Software Engineering,"Which concurrency issue occurs when Thread A holds Lock 1 and waits for Lock 2, while Thread B holds Lock 2 and waits for Lock 1?",Race condition,Starvation,Deadlock,Livelock,2
+Question Bank,Software Engineering,What is the space complexity of merge sort?,O(1),O(log n),O(n),O(n log n),2
+Question Bank,Software Engineering,"In a B-tree of order m, the maximum number of keys in a node is?",m,m-1,m+1,2m,1
+Question Bank,Software Engineering,Which consistency model guarantees that all reads return the most recent write?,Eventual consistency,Causal consistency,Linearizability (strong consistency),Read-your-writes consistency,2
+Question Bank,Software Engineering,"What is the output of: list = [1,2,3]; list2 = list; list2.append(4); print(list)?","[1,2,3]","[1,2,3,4]",Error,"[4,1,2,3]",1
+Question Bank,Software Engineering,Which design pattern is used when you need to decouple an abstraction from its implementation so both can vary independently?,Adapter,Bridge,Composite,Proxy,1
+IQ Games,Software Engineering,"A system processes requests in O(n log n). If n=1000 takes 10ms, approximately how long for n=1,000,000?","~10,000 ms","~20,000 ms",~10 ms,~200 ms,1
+IQ Games,Software Engineering,"In a graph with 6 nodes, what is the maximum number of edges in a simple undirected graph?",12,15,18,30,1
+IQ Games,Software Engineering,"A database table has 1 million rows. A query without index scans all rows in 5s. With an index (O(log n) lookup), approximate time?",~0.0001s,~0.001s,~0.1s,~1s,0
+IQ Games,Software Engineering,"Which recurrence relation describes merge sort? T(n) = 2T(n/2) + O(n). By Master Theorem, solution is?",O(n),O(n log n),O(n²),O(log n),1
+IQ Games,Software Engineering,"A microservices system has 10 services. If each service can fail independently with probability 0.01, probability ALL are running = ?",0.90,0.904,0.99,0.801,1
+IQ Games,Software Engineering,"You have a knapsack of capacity 10. Items: (value=6,weight=4), (value=4,weight=3), (value=5,weight=3). Maximum value achievable?",10,11,13,15,1
+IQ Games,Software Engineering,"In consistent hashing with 4 nodes on a ring, if one node is removed, what fraction of keys need to be remapped on average?",1/4,1/3,1/2,All keys,0
+Career Questions,Software Engineering,"A software engineer discovers that their company's product is collecting user data without consent, violating GDPR. Ethically and legally, what should they do?",Fix the code silently,"Document the issue, report internally, and if unresolved escalate to legal/regulatory authorities",Ignore it — not their responsibility,Only fix if asked by management,1
+Career Questions,Software Engineering,You are leading a team where two senior engineers have a strong technical disagreement that is blocking a deadline. Best leadership action?,Side with the more senior engineer,"Facilitate a structured technical discussion, evaluate trade-offs, and make a decisive call with justification",Delay the deadline indefinitely,Escalate to upper management only,1
+Career Questions,Software Engineering,Which architectural decision trade-off is most critical when designing a high-frequency trading system?,Maintainability over latency,"Latency and throughput over all else, including some maintainability",Scalability over consistency,Availability over consistency and latency,1
+Career Questions,Software Engineering,A company asks you to implement a feature that enables mass surveillance of users without their knowledge. Your professional obligation is?,Implement it — you are paid to code,Refuse on ethical grounds and escalate to ethics board or external authority if needed,Implement but add hidden logs,Do it and inform users through hidden settings,1
+Career Questions,Software Engineering,Which software engineering principle underlies 'you aren't gonna need it' (YAGNI)?,DRY,SOLID,"Lean/Agile — build only what is currently needed, avoid speculative features",Waterfall planning,2
+Career Questions,Software Engineering,A critical production system is down. You identify a quick fix that carries 20% risk of data corruption vs. a safe fix that takes 3 hours. How do you decide?,Always choose the quick fix,Always wait 3 hours,"Assess blast radius, involve stakeholders, and choose based on risk-benefit with full transparency",Fix it yourself without telling anyone,2

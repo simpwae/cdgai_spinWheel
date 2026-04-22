@@ -1,4 +1,0 @@
-﻿category,department,text,option1,option2,option3,option4,correct_answer_index
-Question Bank,Software Engineering,What does SOLID stand for in software design?,Single responsibility Open/closed Liskov substitution Interface segregation Dependency inversion,Scalable Object-oriented Layered Interface Driven,Structured Object Linking Interface Design,Simple Open Linked Interface Driven,0
-Question Bank,Software Engineering,Which methodology uses sprints and daily standups?,Agile / Scrum,Waterfall,Spiral,V-Model,0
-Career Questions,Software Engineering,What is the purpose of unit testing?,Verify individual components work correctly,Test the entire system end-to-end,Check UI designs,Validate database schemas,0

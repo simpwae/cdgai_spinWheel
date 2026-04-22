@@ -1,0 +1,201 @@
+category,department,text,option1,option2,option3,option4,correct_answer_index
+Question Bank,Pharmacy,What does OTC stand for in pharmacy?,Over The Counter,Over Total Cost,Only Tested Compound,Oral Treatment Course,0
+Question Bank,Pharmacy,Which organ is primarily responsible for drug metabolism?,Kidney,Liver,Lung,Heart,1
+Question Bank,Pharmacy,What does the abbreviation 'bid' mean on a prescription?,Once daily,Twice daily,Three times daily,Four times daily,1
+Question Bank,Pharmacy,Which route of drug administration has the fastest onset of action?,Oral,Sublingual,Intravenous,Intramuscular,2
+Question Bank,Pharmacy,What is the brand name of paracetamol in most countries?,Brufen,Tylenol/Panadol,Aspirin,Ibuprofen,1
+Question Bank,Pharmacy,Which vitamin is also known as ascorbic acid?,Vitamin A,Vitamin B12,Vitamin C,Vitamin D,2
+Question Bank,Pharmacy,What does 'Rx' symbol on a prescription mean?,Recommended,Take/Prescription required,Refill,Restricted,1
+Question Bank,Pharmacy,Which class of drugs reduces fever?,Antibiotics,Antipyretics,Antihistamines,Antacids,1
+Question Bank,Pharmacy,What is the normal adult dose of paracetamol per dose?,100 mg,250 mg,500-1000 mg,2000 mg,2
+Question Bank,Pharmacy,Which organ primarily excretes drugs from the body?,Liver,Skin,Kidney,Lung,2
+Question Bank,Pharmacy,What does 'tds' mean on a prescription?,Twice daily,Three times daily,Four times daily,Once daily,1
+Question Bank,Pharmacy,Aspirin belongs to which drug class?,Opioid,NSAID,Antibiotic,Antifungal,1
+Question Bank,Pharmacy,What is the antidote for paracetamol overdose?,Naloxone,N-acetylcysteine,Flumazenil,Atropine,1
+Question Bank,Pharmacy,Which type of drug requires a prescription to be dispensed?,OTC drug,Prescription-only medicine (POM),Herbal supplement,Vitamin tablet,1
+Question Bank,Pharmacy,What does 'stat' mean in a medication order?,Slowly,Immediately/at once,Stop after 3 days,Standard dose,1
+Question Bank,Pharmacy,Which route delivers medication directly into the skin layers?,Intravenous,Intramuscular,Intradermal,Subcutaneous,2
+Question Bank,Pharmacy,What is bioavailability?,Speed of drug excretion,Fraction of drug that reaches systemic circulation unchanged,Drug toxicity level,Drug solubility in water,1
+Question Bank,Pharmacy,Penicillin is an example of which drug class?,Antifungal,Antiviral,Antibiotic,Antiparasitic,2
+Question Bank,Pharmacy,Which part of a tablet coating protects the drug from stomach acid?,Film coat,Sugar coat,Enteric coat,Color coat,2
+Question Bank,Pharmacy,What does 'qid' mean on a prescription?,Once daily,Twice daily,Three times daily,Four times daily,3
+Question Bank,Pharmacy,Which drug is a common antihistamine for allergies?,Amoxicillin,Cetirizine,Metformin,Omeprazole,1
+Question Bank,Pharmacy,What is the half-life of a drug?,Time for drug to be fully excreted,Time for drug concentration to reduce by half,Time to reach peak effect,Time of drug absorption,1
+Question Bank,Pharmacy,Which type of insulin has the fastest onset?,Glargine,NPH,Regular insulin,Rapid-acting (lispro/aspart),3
+Question Bank,Pharmacy,What does 'PRN' mean in prescriptions?,Per Regular Norm,As needed,Per Registered Nurse,Post Recovery Note,1
+Question Bank,Pharmacy,Which vitamin deficiency causes rickets?,Vitamin A,Vitamin B12,Vitamin C,Vitamin D,3
+Question Bank,Pharmacy,Metformin is used to treat which condition?,Hypertension,Type 2 diabetes,Asthma,Depression,1
+Question Bank,Pharmacy,What is the purpose of a drug expiry date?,Marketing requirement,Guarantee of safety and potency up to that date,Legal formality,Packaging regulation,1
+Question Bank,Pharmacy,Which type of formulation releases drug slowly over time?,Immediate release,Sustained/Extended release,Effervescent,Dispersible,1
+Question Bank,Pharmacy,What does 'sublingual' administration mean?,Swallowing whole,Under the tongue,Into the vein,On the skin,1
+Question Bank,Pharmacy,Salbutamol (albuterol) is used to treat which condition?,Diabetes,Asthma,Hypertension,Infection,1
+Question Bank,Pharmacy,Which class of drug lowers blood pressure by blocking beta receptors?,ACE inhibitors,Diuretics,Beta-blockers,Calcium channel blockers,2
+Question Bank,Pharmacy,What is a placebo?,An active drug,An inactive substance used as a control,A drug overdose,A herbal medicine,1
+Question Bank,Pharmacy,Which drug is the gold standard treatment for H. pylori infection?,Single antibiotic,Triple therapy (PPI + two antibiotics),Antacid only,Antifungal,1
+Question Bank,Pharmacy,What is the primary action of diuretics?,Lower blood sugar,Increase urine output,Reduce inflammation,Kill bacteria,1
+IQ Games,Pharmacy,A pharmacist has 500 tablets and dispenses 125 per day. How many days until stock runs out?,3,4,5,6,1
+IQ Games,Pharmacy,"If a drug costs Rs.200 for 10 tablets, what is the cost per tablet?",Rs.10,Rs.15,Rs.20,Rs.25,2
+IQ Games,Pharmacy,A patient takes 2 tablets twice daily. How many tablets are needed for 7 days?,14,21,28,35,2
+IQ Games,Pharmacy,"Which does NOT belong: antibiotic, antifungal, antiviral, antipyretic?",Antibiotic,Antifungal,Antiviral,Antipyretic,3
+IQ Games,Pharmacy,"If a syrup contains 250 mg/5 mL, how many mL contain 500 mg?",5 mL,10 mL,15 mL,20 mL,1
+IQ Games,Pharmacy,A patient must take medication every 6 hours starting at 6 AM. Next dose after 12 PM is at?,4 PM,6 PM,8 PM,2 PM,1
+IQ Games,Pharmacy,Pharmacist : Dispensing :: Doctor : ?,Prescribing,Dispensing,Nursing,Lab work,0
+IQ Games,Pharmacy,"Which is the odd one out: capsule, tablet, injection, prescription?",Capsule,Tablet,Injection,Prescription,3
+IQ Games,Pharmacy,A 100 mL solution contains 10 g of drug. Concentration in % w/v = ?,5%,10%,15%,20%,1
+IQ Games,Pharmacy,"If a drug has a half-life of 6 hours, after 24 hours how many half-lives have passed?",2,3,4,5,2
+IQ Games,Pharmacy,A patient takes 500 mg three times daily. Total daily dose = ?,1000 mg,1250 mg,1500 mg,2000 mg,2
+IQ Games,Pharmacy,"Which is largest volume: 1L, 500 mL, 250 mL, 2000 mL?",1L,500 mL,250 mL,2000 mL,3
+IQ Games,Pharmacy,Drug : Pharmacist :: Disease : ?,Hospital,Doctor,Patient,Nurse,1
+IQ Games,Pharmacy,"If 30 tablets cost Rs.150, how much do 50 tablets cost?",Rs.200,Rs.250,Rs.300,Rs.350,1
+IQ Games,Pharmacy,A cream tube contains 30 g. Patient uses 2 g daily. How many days will it last?,10,12,15,20,2
+IQ Games,Pharmacy,"Which number is next: 100 mg, 200 mg, 400 mg, ?",600 mg,800 mg,1000 mg,500 mg,1
+IQ Games,Pharmacy,"If 1 teaspoon = 5 mL, how many mL in 3 teaspoons?",10 mL,15 mL,20 mL,25 mL,1
+IQ Games,Pharmacy,A pharmacist works 8-hour shifts. How many hours in a 6-day work week?,40,44,48,56,2
+IQ Games,Pharmacy,"Which does NOT describe a tablet: coated, scored, capsule, chewable?",Coated,Scored,Capsule,Chewable,2
+IQ Games,Pharmacy,"Patient A takes 1 tablet daily, Patient B takes 2. After 10 days, combined tablets taken?",25,30,35,40,1
+IQ Games,Pharmacy,Dispensing 50 prescriptions in 5 hours = how many per hour?,5,8,10,12,2
+IQ Games,Pharmacy,A solution has 5% glucose. How many grams in 200 mL?,5 g,8 g,10 g,15 g,2
+IQ Games,Pharmacy,"Which comes next: tablet, capsule, syrup, tablet, capsule, ?",Tablet,Capsule,Syrup,Injection,2
+IQ Games,Pharmacy,"If 1 mg = 1000 mcg, how many mcg in 0.5 mg?",250 mcg,500 mcg,750 mcg,1000 mcg,1
+IQ Games,Pharmacy,"A prescription has 3 items, each dispensed 5 times monthly. Monthly dispensing total?",10,12,15,20,2
+IQ Games,Pharmacy,"Which is NOT a solid dosage form: tablet, capsule, syrup, powder?",Tablet,Capsule,Syrup,Powder,2
+IQ Games,Pharmacy,"If a patient misses a dose at 8 AM and remembers at 10 AM, they should?",Skip the missed dose,Take it at 10 AM if next dose is not close,Double the next dose,Take two doses at once,1
+IQ Games,Pharmacy,A vial contains 10 mL of 50 mg/mL solution. Total drug in vial = ?,200 mg,300 mg,400 mg,500 mg,3
+IQ Games,Pharmacy,Which weighs more: 1 kg of tablets or 1 kg of capsules?,Tablets,Capsules,Both equal,Cannot compare,2
+IQ Games,Pharmacy,"A patient needs 14 days of antibiotics, 1 tablet twice daily. Total tablets to dispense?",14,21,28,35,2
+IQ Games,Pharmacy,Drug storage at 2-8°C means store in?,Freezer,Refrigerator,Room temperature,Dark cupboard,1
+IQ Games,Pharmacy,Complete the analogy: Antibiotic : Infection :: Antihypertensive : ?,Diabetes,High blood pressure,Asthma,Allergy,1
+IQ Games,Pharmacy,A pharmacist checks 20 prescriptions per hour. How many in a 7.5-hour shift?,120,140,150,160,2
+Career Questions,Pharmacy,What is the primary role of a pharmacist?,Diagnosing diseases,Dispensing medications and counseling patients,Performing surgery,Ordering lab tests,1
+Career Questions,Pharmacy,What does patient counseling in pharmacy include?,Only handing over medicine,"Explaining drug use, side effects, and storage to patients",Diagnosing conditions,Writing prescriptions,1
+Career Questions,Pharmacy,Which document authorizes a pharmacist to dispense a prescription drug?,Patient's ID,Valid prescription from a licensed prescriber,Hospital invoice,Drug advertisement,1
+Career Questions,Pharmacy,What is pharmaceutical care?,Selling medicines,A patient-centered practice ensuring optimal drug therapy outcomes,Drug manufacturing,Clinical research only,1
+Career Questions,Pharmacy,Which professional quality is most important for a pharmacist?,Speed,Accuracy and attention to detail,Salesmanship,Physical strength,1
+Career Questions,Pharmacy,What does 'drug interaction' mean?,A drug side effect,When two or more drugs affect each other's activity,Drug allergic reaction,A drug overdose,1
+Career Questions,Pharmacy,What is the purpose of a patient medication record?,Administrative filing,Track patient's medications to prevent errors and interactions,Insurance billing only,Marketing data,1
+Career Questions,Pharmacy,Pharmacists must keep patient information as?,Public knowledge,Strictly confidential,Shareable with all staff,Posted in pharmacy,1
+Career Questions,Pharmacy,Which ethical principle guides pharmacists to act in the patient's best interest?,Non-maleficence,Autonomy,Beneficence,Justice,2
+Career Questions,Pharmacy,What is 'generic substitution' in pharmacy practice?,Replacing brand drug with cheaper generic equivalent when appropriate,Giving any substitute drug,Changing the dose,Dispensing without prescription,0
+Career Questions,Pharmacy,Continuing professional development (CPD) for pharmacists is important because?,It is just a formality,Pharmacy knowledge and guidelines regularly update,It guarantees salary increase,It is only for new graduates,1
+Career Questions,Pharmacy,A pharmacist who notices a prescription error should?,Dispense it anyway,Contact the prescriber to clarify before dispensing,Dispense and inform the patient later,Refuse without explanation,1
+Career Questions,Pharmacy,What is the role of a hospital pharmacist?,Only counting tablets,Providing clinical pharmacy services and working with medical teams,Only compounding,Managing hospital finances,1
+Career Questions,Pharmacy,Which is an example of evidence-based pharmacy practice?,Using old textbooks,Applying current research to clinical drug decisions,Following tradition,Guessing drug doses,1
+Career Questions,Pharmacy,What does 'adverse drug reaction' (ADR) mean?,Intended drug effect,Harmful unintended response to a drug at normal doses,Drug interaction,Drug overdose,1
+Career Questions,Pharmacy,Which regulatory body oversees drug approvals in Pakistan?,MOH,DRAP (Drug Regulatory Authority of Pakistan),WHO,PMA,1
+Career Questions,Pharmacy,What is a 'controlled substance'?,Any prescription drug,Drug with high abuse potential regulated under special laws,An expired drug,A herbal medicine,1
+Career Questions,Pharmacy,The pharmacy profession requires which minimum qualification in Pakistan?,Diploma,Pharm.D degree,MBBS,MSc,1
+Career Questions,Pharmacy,What is the purpose of drug labeling?,Decoration,Provide essential information for safe and correct use,Legal requirement only,Marketing,1
+Career Questions,Pharmacy,Which skill helps pharmacists detect prescription forgery?,Fast dispensing,Knowledge of prescription requirements and observation,Memorizing drugs,Customer service,1
+Career Questions,Pharmacy,A community pharmacist's first responsibility when a patient presents symptoms is?,Sell OTC medicine immediately,Assess if referral to doctor is needed or OTC advice is appropriate,Diagnose the patient,Take their blood pressure,1
+Career Questions,Pharmacy,What does 'pharmacovigilance' mean?,Drug manufacturing,Monitoring drug safety after market release,Drug pricing,Prescription management,1
+Career Questions,Pharmacy,Which is the correct storage condition for most vaccines?,Room temperature,2-8°C refrigerated (cold chain),Frozen (-20°C),Sunlight exposure,1
+Career Questions,Pharmacy,What is drug abuse?,Taking prescribed medication,Using drugs for non-medical purposes or beyond prescribed amounts,Allergy to a drug,Drug interaction,1
+Career Questions,Pharmacy,A pharmacist's scope of practice includes?,Diagnosing diseases,"Dispensing, counseling, medication review, and clinical services",Performing surgeries,Ordering scans,1
+Career Questions,Pharmacy,What is the purpose of a formulary in a hospital?,Patient records,Approved list of drugs used within the institution,Nursing schedule,Admin directory,1
+Career Questions,Pharmacy,Which is the pharmacist's role in chronic disease management?,One-time advice,"Ongoing medication review, adherence support, and monitoring",Lab testing,Dietary planning only,1
+Career Questions,Pharmacy,What is 'medication adherence'?,Taking double doses,Taking medication as prescribed by the healthcare provider,Self-medicating,Taking medicine occasionally,1
+Career Questions,Pharmacy,Which professional skill is unique to clinical pharmacists?,Compounding,Medication therapy management and clinical recommendations,Accounting,Lab analysis,1
+Career Questions,Pharmacy,What is the primary purpose of a drug monograph?,Advertising,Comprehensive reference information about a drug,Insurance documentation,Patient personal record,1
+Career Questions,Pharmacy,Pharmacy ethics requires informed consent for?,Routine dispensing,Participation in research or providing sensitive health services,All OTC sales,Vaccination only,1
+Career Questions,Pharmacy,Which is NOT a community pharmacy service?,Dispensing prescriptions,Patient counseling,Performing surgical procedures,Health screening,2
+Career Questions,Pharmacy,What is 'polypharmacy' and its risk?,Using one drug for many conditions,Use of multiple medications increasing risk of interactions and errors,A type of drug class,Compounding multiple drugs,1
+Question Bank,Pharmacy,Which pharmacokinetic parameter describes the volume of plasma cleared of drug per unit time?,Volume of distribution,Clearance,Half-life,Bioavailability,1
+Question Bank,Pharmacy,What is the mechanism of action of proton pump inhibitors (PPIs)?,Block H2 receptors,Irreversibly inhibit H+/K+ ATPase pump in gastric parietal cells,Neutralize stomach acid,Block acetylcholine receptors,1
+Question Bank,Pharmacy,Which drug class is contraindicated in pregnancy due to teratogenicity?,Penicillins,Tetracyclines,Antacids,Antihistamines (first gen),1
+Question Bank,Pharmacy,What is the first-pass effect?,Drug absorption in the intestine,Extensive drug metabolism in the liver before reaching systemic circulation,Drug distribution to tissues,Renal drug excretion,1
+Question Bank,Pharmacy,Warfarin's anticoagulant effect is monitored by which lab test?,aPTT,INR/PT,CBC,Serum creatinine,1
+Question Bank,Pharmacy,Which antibiotics inhibit cell wall synthesis?,Aminoglycosides,Fluoroquinolones,Penicillins and cephalosporins,Macrolides,2
+Question Bank,Pharmacy,What is the mechanism of ACE inhibitors in hypertension?,Block beta receptors,Block calcium channels,Inhibit conversion of angiotensin I to angiotensin II,Increase urine output,2
+Question Bank,Pharmacy,Which drug interaction occurs when two CNS depressants are combined?,Antagonism,Additive or synergistic CNS depression,Enzyme induction,Receptor upregulation,1
+Question Bank,Pharmacy,Narrow therapeutic index drugs require careful monitoring because?,They are expensive,Small changes in dose cause significant toxicity or loss of effect,They taste bad,They require refrigeration,1
+Question Bank,Pharmacy,Which parameter determines how often a drug should be dosed?,Bioavailability,Volume of distribution,Half-life,Protein binding,2
+Question Bank,Pharmacy,What is the mechanism of action of statins?,Inhibit cyclooxygenase,Inhibit HMG-CoA reductase reducing cholesterol synthesis,Block beta receptors,Increase bile acid excretion,1
+Question Bank,Pharmacy,Methotrexate works by inhibiting which enzyme?,COX-2,Dihydrofolate reductase,Thymidine kinase,Topoisomerase,1
+Question Bank,Pharmacy,Which drug is a selective serotonin reuptake inhibitor (SSRI)?,Amitriptyline,Diazepam,Fluoxetine,Haloperidol,2
+Question Bank,Pharmacy,What causes antibiotic resistance?,Giving high doses,"Overuse, underuse, and incomplete courses allowing resistant strains to survive",Taking antibiotics with food,Storing antibiotics incorrectly,1
+Question Bank,Pharmacy,Which enzyme system is primarily responsible for drug metabolism in the liver?,MAO,Cytochrome P450 (CYP450),Alcohol dehydrogenase,Xanthine oxidase,1
+Question Bank,Pharmacy,What is the difference between drug tolerance and drug dependence?,No difference,Tolerance = reduced effect with same dose; dependence = physiological/psychological need for drug,Tolerance = addiction; dependence = allergy,Tolerance = overdose risk; dependence = withdrawal only,1
+Question Bank,Pharmacy,Which drug is used as an antidote for opioid overdose?,Flumazenil,Atropine,Naloxone,N-acetylcysteine,2
+Question Bank,Pharmacy,Aminoglycosides are nephrotoxic. Which monitoring is essential?,Liver function tests,Renal function and drug serum levels,Cardiac monitoring,Blood glucose,1
+Question Bank,Pharmacy,What is the mechanism of action of beta-2 agonists in asthma?,Block histamine receptors,Relax bronchial smooth muscle by activating beta-2 receptors,Reduce airway inflammation,Dry secretions,1
+Question Bank,Pharmacy,Which drug class inhibits platelet aggregation by blocking P2Y12 receptors?,Warfarin,Aspirin,Clopidogrel,Heparin,2
+Question Bank,Pharmacy,What is a loading dose and why is it used?,Maintenance dose only,Large initial dose to rapidly achieve therapeutic levels,Small dose to test tolerance,Final dose before stopping therapy,1
+Question Bank,Pharmacy,Which antiepileptic drug induces CYP450 enzymes causing multiple drug interactions?,Valproate,Levetiracetam,Carbamazepine,Ethosuximide,2
+Question Bank,Pharmacy,What is the therapeutic use of digoxin?,Antibiotic,Heart failure and atrial fibrillation rate control,Antifungal,Antihypertensive,1
+Question Bank,Pharmacy,Which type of drug antagonism involves two drugs competing for the same receptor?,Non-competitive antagonism,Competitive antagonism,Chemical antagonism,Physiological antagonism,1
+Question Bank,Pharmacy,Loop diuretics like furosemide act on which part of the nephron?,Proximal convoluted tubule,Descending loop of Henle,Ascending loop of Henle,Collecting duct,2
+Question Bank,Pharmacy,What is the significance of plasma protein binding of drugs?,Increases drug elimination,Bound drug is pharmacologically inactive; only free drug is active,Increases drug toxicity,Enhances absorption,1
+Question Bank,Pharmacy,Which vaccine schedule component ensures long-term immunity through immunological memory?,Primary dose only,Booster doses,Single dose for all vaccines,Oral route only,1
+IQ Games,Pharmacy,"A drug has a half-life of 8 hours. Starting with 320 mg, how much remains after 32 hours?",10 mg,20 mg,40 mg,80 mg,1
+IQ Games,Pharmacy,A vial contains 500 mg/10 mL. Doctor orders 750 mg IV. Volume to draw = ?,10 mL,12 mL,15 mL,20 mL,2
+IQ Games,Pharmacy,"If drug clearance is 5 L/hr and volume of distribution is 50 L, half-life = ?",5 hrs,6.93 hrs,10 hrs,14 hrs,1
+IQ Games,Pharmacy,A syrup is 125 mg/5 mL. Prescribed dose is 375 mg. Volume to give = ?,10 mL,12 mL,15 mL,20 mL,2
+IQ Games,Pharmacy,"Which is the odd one out: paracetamol, ibuprofen, morphine, aspirin?",Paracetamol,Ibuprofen,Morphine,Aspirin,2
+IQ Games,Pharmacy,A 70 kg patient requires 5 mg/kg of drug X. Total dose = ?,250 mg,300 mg,350 mg,400 mg,2
+IQ Games,Pharmacy,How many 250 mg capsules are needed to give a 1 g dose?,2,3,4,5,2
+IQ Games,Pharmacy,An IV infusion runs at 42 mL/hr. Volume infused in 8 hours = ?,316 mL,336 mL,356 mL,376 mL,1
+IQ Games,Pharmacy,Drug A : Antibiotic :: Drug B : Anti-hypertensive :: Drug C could be : ?,Anti-fungal,Antibiotic,Vaccine,Vitamin,0
+IQ Games,Pharmacy,A 200 mL solution has 2 g dissolved. Concentration in mg/mL = ?,5 mg/mL,8 mg/mL,10 mg/mL,15 mg/mL,2
+IQ Games,Pharmacy,Patient needs 0.25 mg digoxin. Available: 0.125 mg tablets. How many tablets?,1,2,3,4,1
+IQ Games,Pharmacy,Which comes next in drug development: Discovery → Pre-clinical → Phase I → Phase II → ?,Market launch,Phase III,Regulatory review,Phase IV,1
+IQ Games,Pharmacy,A pharmacist compounds 12 creams per hour. How many in a 7.5-hour shift?,80,85,90,95,2
+IQ Games,Pharmacy,"If AUC (area under curve) doubles when dose doubles, the drug shows?",Non-linear kinetics,Linear (first-order) kinetics,Zero-order kinetics,Saturation kinetics,1
+IQ Games,Pharmacy,Complete: Agonist : Activates receptor :: Antagonist : ?,Activates receptor strongly,Blocks receptor without activating it,Destroys receptor,Creates new receptors,1
+IQ Games,Pharmacy,A tablet contains 5% w/w of active ingredient. A 500 mg tablet contains how many mg of active ingredient?,10 mg,15 mg,25 mg,50 mg,2
+IQ Games,Pharmacy,CYP450 inhibitor + narrow TI drug = ?,Reduced drug levels,Increased drug levels and potential toxicity,No change,Faster elimination,1
+IQ Games,Pharmacy,"If 1 mL of injection contains 40 mg, how many mL for 100 mg?",2 mL,2.5 mL,3 mL,3.5 mL,1
+IQ Games,Pharmacy,"A controlled drug register must record: in, out, balance. If stock was 50, 10 dispensed and 20 received, balance = ?",50,55,60,65,2
+IQ Games,Pharmacy,Which pattern is correct for antibiotic stewardship: short course → long course → ?,No course,"Targeted course (right drug, right dose, right duration)",Double course,Self-medication,1
+IQ Games,Pharmacy,A patient weighs 60 lbs. Convert to kg (1 kg = 2.2 lbs). Weight in kg ≈ ?,22 kg,25 kg,27 kg,30 kg,2
+IQ Games,Pharmacy,"Which is NOT a pharmacokinetic parameter: absorption, distribution, metabolism, elimination, efficacy?",Absorption,Distribution,Metabolism,Efficacy,3
+IQ Games,Pharmacy,"An ointment base is 90% and active drug is 10%. For 50 g ointment, active drug = ?",3 g,4 g,5 g,6 g,2
+IQ Games,Pharmacy,"Drug X has oral bioavailability of 50%. To get 100 mg systemic effect, oral dose needed = ?",100 mg,150 mg,200 mg,250 mg,2
+IQ Games,Pharmacy,"If loading dose = Vd × Cp (target), and Vd = 40L and Cp = 2 mg/L, loading dose = ?",60 mg,80 mg,100 mg,120 mg,1
+IQ Games,Pharmacy,"Serial dilution: Start with 1000 mg/mL, dilute 1:10 three times. Final concentration = ?",1 mg/mL,0.1 mg/mL,10 mg/mL,0.01 mg/mL,0
+IQ Games,Pharmacy,Which analogy is correct: Pharmacokinetics : what body does to drug :: Pharmacodynamics : ?,What drug costs,What drug does to the body,How drug is manufactured,How drug is stored,1
+Career Questions,Pharmacy,A patient refuses to take their prescribed antihypertensive. Ethically the pharmacist should?,Force compliance,"Respect autonomy, counsel on risks, and document refusal",Report to authorities,Dispense without counseling,1
+Career Questions,Pharmacy,Which advanced pharmacy role involves direct patient care in clinical settings?,Dispensary pharmacist,Clinical pharmacist,Compounding pharmacist,Regulatory pharmacist,1
+Career Questions,Pharmacy,"When a pharmacist identifies a drug-drug interaction in a prescription, best action is?",Dispense and warn patient,"Contact prescriber, suggest alternative, document intervention",Refuse dispensing without explanation,Dispense partial prescription,1
+Career Questions,Pharmacy,What is the purpose of medication reconciliation in hospitals?,Speed up discharge,Accurately list all patient medications to prevent discrepancies,Replace prescriptions,Reduce drug costs,1
+Career Questions,Pharmacy,A pharmaceutical company representative offers a pharmacist gifts to promote their product. This is?,Acceptable practice,An ethical conflict of interest to be refused,Standard industry practice,Only acceptable for OTC products,1
+Career Questions,Pharmacy,What is 'rational drug use' according to WHO?,Using expensive drugs,"Patients receive appropriate drugs, doses, duration at lowest cost with accurate information",Using traditional medicine,Prescribing maximum doses,1
+Career Questions,Pharmacy,Which competency distinguishes a PharmD-trained pharmacist?,Compounding only,Clinical decision-making and patient-centered pharmaceutical care,Drug dispensing only,Drug regulation,1
+Career Questions,Pharmacy,A newly qualified pharmacist feels pressured to dispense a controlled substance without proper documentation. They should?,Comply to avoid conflict,Refuse and follow legal requirements regardless of pressure,Dispense and document later,Ask a colleague to do it,1
+Career Questions,Pharmacy,What is 'therapeutic drug monitoring' (TDM) used for?,Tracking sales,Measuring drug serum levels to optimize dosing and minimize toxicity,Marketing research,Patient satisfaction surveys,1
+Career Questions,Pharmacy,Drug information services provided by pharmacists help?,Only doctors,All healthcare professionals and patients make evidence-based drug decisions,Insurance companies only,Regulatory agencies only,1
+Career Questions,Pharmacy,What is 'good pharmacy practice' (GPP)?,Maximum profit generation,Standards ensuring pharmacists deliver quality services meeting patients' needs,Minimal documentation,Fast dispensing,1
+Career Questions,Pharmacy,Which interpersonal skill is most critical when counseling elderly patients?,Speed,"Patience, clear simple language, and confirming understanding",Technical jargon,Written instructions only,1
+Career Questions,Pharmacy,A pharmacist in a rural community notices high rates of antibiotic self-medication. Best response?,Ignore it,Conduct community education on antibiotic resistance and proper use,Report only to authorities,Increase antibiotic stock,1
+Career Questions,Pharmacy,What is 'medication error' and a pharmacist's role in prevention?,Expected outcome; no role,Any preventable event causing inappropriate medication use; pharmacists prevent through verification and counseling,Legal liability only; avoid involvement,A doctor's responsibility only,1
+Career Questions,Pharmacy,Which pharmacy specialty focuses on preparing individualized medications?,Industrial pharmacy,Compounding pharmacy,Regulatory pharmacy,Community pharmacy,1
+Career Questions,Pharmacy,What is the significance of post-marketing surveillance for pharmacists?,Increases drug sales,Identifies ADRs and safety issues not detected in clinical trials,Replaces clinical trials,Used for marketing,1
+Career Questions,Pharmacy,A pharmacist working in drug regulation ensures?,Fast drug approvals only,"Drug safety, efficacy, and quality standards are met before and after market authorization",Drug manufacturing only,Hospital pharmacy services,1
+Career Questions,Pharmacy,What does 'pharmaceutical industry' pharmacist role include?,Only dispensing,"Drug development, quality control, regulatory affairs, and pharmacovigilance",Community pharmacy,Clinical trials only,1
+Career Questions,Pharmacy,Interprofessional collaboration for a pharmacist means?,Working alone,"Working with doctors, nurses, and other HCPs for optimal patient outcomes",Only consulting other pharmacists,Avoiding clinical decisions,1
+Career Questions,Pharmacy,Which WHO program do pharmacists support to improve global access to essential medicines?,Trade agreements,Essential Medicines List and rational prescribing programs,Drug marketing programs,Insurance schemes,1
+Career Questions,Pharmacy,What is 'health literacy' and its importance in pharmacy?,Academic education level,Patient's ability to understand health information; impacts medication adherence and safety,Pharmacist's knowledge level,Drug information database,1
+Career Questions,Pharmacy,A pharmacist notices patterns suggesting a patient is overusing opioid prescriptions. Best action?,Dispense without concern,"Consult with the prescriber, assess for substance use disorder, and offer support resources",Refuse all future prescriptions,Report to police immediately,1
+Career Questions,Pharmacy,What is the role of a pharmacist in vaccination programs?,No role,"Administering vaccines, counseling, and managing cold chain in authorized settings",Only storing vaccines,Only ordering vaccines,1
+Career Questions,Pharmacy,Which is a key performance indicator (KPI) for a pharmacy?,Number of staff,"Prescription accuracy rate, patient wait time, and patient satisfaction",Profit margin only,Number of products stocked,1
+Career Questions,Pharmacy,What does 'pharmaceutical care plan' include?,Drug pricing,"Patient-specific goals, drug therapy recommendations, monitoring parameters, and follow-up",Administrative records,Stock management,1
+Career Questions,Pharmacy,Professional integrity for a pharmacist means?,Following only profitable practices,"Honest, ethical conduct even when no one is watching, putting patient safety first",Fast service delivery,Meeting sales targets,1
+Question Bank,Pharmacy,A patient on warfarin starts taking rifampicin. What happens to warfarin effect and why?,Increased effect; rifampicin inhibits CYP2C9,Decreased effect; rifampicin induces CYP2C9 increasing warfarin metabolism,No change; different metabolic pathways,Increased effect; rifampicin displaces warfarin from protein binding,1
+Question Bank,Pharmacy,Which pharmacodynamic model best describes receptor occupancy theory where effect is proportional to fraction of receptors occupied?,Michaelis-Menten kinetics,Clark's occupation theory (Emax model),Rate theory,Induced fit theory,1
+Question Bank,Pharmacy,"In zero-order kinetics, which statement is TRUE?",Half-life is constant,Drug elimination rate is constant regardless of concentration,Doubling dose halves half-life,AUC is proportional to dose,1
+Question Bank,Pharmacy,"A patient with renal failure has creatinine clearance of 20 mL/min (normal 100 mL/min). For a renally excreted drug with normal dose 500 mg every 8 hours, the adjusted dose interval using the fraction method is approximately?",Every 8 hours,Every 24 hours,Every 40 hours,Every 16 hours,2
+Question Bank,Pharmacy,Which mechanism explains why co-administration of probenecid increases penicillin serum levels?,Probenecid inhibits penicillin renal tubular secretion,Probenecid enhances penicillin absorption,Probenecid inhibits CYP450 metabolism of penicillin,Probenecid displaces penicillin from protein binding,0
+Question Bank,Pharmacy,Serotonin syndrome caused by combining SSRIs with MAOIs presents with which classic triad?,"Sedation, hypothermia, bradycardia","Neuromuscular abnormalities, altered mental status, autonomic instability","Respiratory depression, miosis, coma","Hypertension, tachycardia, fever alone",1
+Question Bank,Pharmacy,Which statement correctly describes the difference between pharmacological antagonism types: competitive vs. irreversible (non-competitive)?,Both can be overcome by increasing agonist dose,Competitive antagonism is surmountable by increasing agonist; irreversible shifts Emax down and cannot be overcome,Irreversible antagonism shifts dose-response curve left,Competitive antagonism permanently reduces Emax,1
+IQ Games,Pharmacy,"A drug follows first-order kinetics with t½ = 6h. After IV bolus of 200 mg, serum level at 24h = ? (Cp = C0 × (0.5)^(t/t½))",6.25 mg,12.5 mg,25 mg,3.125 mg,1
+IQ Games,Pharmacy,"Phenytoin shows Michaelis-Menten (zero-order) kinetics at high doses. If doubling dose from 300 to 600 mg causes level to jump from 15 to 40 mg/L (not double), this demonstrates?",Linear pharmacokinetics,Saturation of metabolic enzymes causing disproportionate rise,Enhanced absorption,Protein binding displacement,1
+IQ Games,Pharmacy,A pharmacist must prepare 500 mL of 0.9% NaCl from 23.4% NaCl stock. Volume of stock needed = ?,(0.9 × 500)/23.4 = ~19.2 mL,"(23.4 × 500)/0.9 = ~13,000 mL",9 mL,46 mL,0
+IQ Games,Pharmacy,"Drug X has Vd = 200L, Cl = 40 L/hr. At steady state with 200 mg/hr infusion, Css = Infusion rate/Cl = ?",2 mg/L,5 mg/L,8 mg/L,10 mg/L,1
+IQ Games,Pharmacy,A patient develops torsades de pointes. Which drug combination most likely caused it?,Penicillin + amoxicillin,Metronidazole + erythromycin (both prolong QT interval),Paracetamol + ibuprofen,Metformin + insulin,1
+IQ Games,Pharmacy,"Using Henderson-Hasselbalch: pKa of aspirin = 3.5. At gastric pH 1.5, ratio of unionized/ionized = 10^(pKa-pH) = 10^2 = 100. This means?",Aspirin is mostly ionized in stomach,100 parts unionized for every 1 ionized — aspirin is mostly un-ionized and well absorbed in stomach,Equal ionization,Cannot be determined,1
+IQ Games,Pharmacy,"A child weighs 22 kg. Using Clark's formula (child dose = adult dose × weight/70), if adult dose is 500 mg, child dose ≈ ?",100 mg,157 mg,200 mg,220 mg,1
+Career Questions,Pharmacy,"A pharmacist discovers that a commonly dispensed drug batch has been recalled due to contamination, but management instructs them to continue dispensing to avoid financial loss. The pharmacist's legal and ethical obligation is?",Follow management to avoid conflict,"Immediately quarantine the batch, notify patients, and report to DRAP regardless of management pressure",Dispense remaining stock only,Wait for official written notice,1
+Career Questions,Pharmacy,Which pharmacoeconomic analysis compares interventions with different outcomes by converting outcomes to a common unit (quality-adjusted life years)?,Cost-minimization analysis,Cost-benefit analysis,Cost-effectiveness analysis,Cost-utility analysis,3
+Career Questions,Pharmacy,"A clinical pharmacist identifies that a patient's HbA1c has not improved despite metformin therapy. Applying the pharmacist prescribing competency framework, the most appropriate action is?",Continue same therapy,"Conduct comprehensive medication review, assess adherence, and recommend therapy intensification with prescriber",Reduce metformin dose,Switch to insulin immediately,1
+Career Questions,Pharmacy,"Under DRAP regulations in Pakistan, which offense carries the strictest penalty for a pharmacist?",Minor labeling error,Manufacturing/selling counterfeit or substandard medicines that cause patient harm,Late license renewal,Minor record-keeping error,1
+Career Questions,Pharmacy,"A pharmaceutical company funds a pharmacist's research. According to research ethics and conflict of interest guidelines, the pharmacist must?",Keep funding source private,Declare the conflict of interest in all publications and ensure research integrity is maintained,Refuse publication,Promote company products in findings,1
+Career Questions,Pharmacy,"In a resource-limited hospital setting, two critically ill patients need the same last unit of a life-saving drug. Which ethical framework best guides this allocation decision?",Give to the patient who arrived first,"Apply utilitarian and equity principles: assess clinical benefit, prognosis, and fair process with ethics committee involvement",Give to the younger patient,Let the doctors decide alone without a framework,1
