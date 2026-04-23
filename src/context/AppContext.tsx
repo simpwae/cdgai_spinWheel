@@ -1,25 +1,68 @@
-import React, { useMemo, useState, useEffect, useCallback, useRef, createContext, useContext } from 'react';
-import { supabase } from '../lib/supabase';
-import type { DbStudent, DbActiveSession, DbAward } from '../lib/database.types';
-import { fetchStudents, fetchStudentByStudentId, fetchStudentById, insertStudent, updateStudent as updateStudentDb, deleteAllStudents } from '../services/students';
-import { fetchSession, setCurrentStudentId, setSpinResultAndClearStudent as setSpinResultAndClearStudentDb, clearSpinResult as clearSpinResultDb, resetSession } from '../services/session';
-import { fetchQuestions } from '../services/questions';
-import { fetchSegments } from '../services/segments';
-import { fetchAwards as fetchAwardsDb, insertAward as insertAwardDb, deleteAward as deleteAwardDb, claimRandomAward } from '../services/awards';
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  createContext,
+  useContext,
+} from "react";
+import { supabase } from "../lib/supabase";
+import type {
+  DbStudent,
+  DbActiveSession,
+  DbAward,
+} from "../lib/database.types";
+import {
+  fetchStudents,
+  fetchStudentByStudentId,
+  fetchStudentById,
+  insertStudent,
+  updateStudent as updateStudentDb,
+  deleteAllStudents,
+} from "../services/students";
+import {
+  fetchSession,
+  setCurrentStudentId,
+  setSpinResultAndClearStudent as setSpinResultAndClearStudentDb,
+  clearSpinResult as clearSpinResultDb,
+  resetSession,
+} from "../services/session";
+import { fetchQuestions } from "../services/questions";
+import { fetchSegments } from "../services/segments";
+import {
+  fetchAwards as fetchAwardsDb,
+  insertAward as insertAwardDb,
+  deleteAward as deleteAwardDb,
+  claimRandomAward,
+} from "../services/awards";
 
 // --- Faculty / Department constants ---
 
 export const FACULTY_DEPARTMENTS = {
-  'Faculty of Engineering': ['Civil', 'Mechanical', 'Electrical', 'Architecture'] as const,
-  'Faculty of Life Sciences': ['Pharmacy', 'Bioscience', 'Allied Health Sciences', 'Nursing'] as const,
-  'Faculty of Computing and Management Sciences': ['Management of Science', 'Basic Science & Humanities', 'Computer Sciences', 'Software Engineering'] as const,
+  "Faculty of Engineering": [
+    "Civil",
+    "Mechanical",
+    "Electrical",
+    "Architecture",
+  ] as const,
+  "Faculty of Life Sciences": [
+    "Pharmacy",
+    "Bioscience",
+    "Allied Health Sciences",
+    "Nursing",
+  ] as const,
+  "Faculty of Computing and Management Sciences": [
+    "Management of Science",
+    "Basic Science & Humanities",
+    "Computer Sciences",
+    "Software Engineering",
+  ] as const,
 } as const;
 
 export type Faculty = keyof typeof FACULTY_DEPARTMENTS;
 
-export type Department =
-  | typeof FACULTY_DEPARTMENTS[Faculty][number]
-  | '';
+export type Department = (typeof FACULTY_DEPARTMENTS)[Faculty][number] | "";
 
 export interface Award {
   id: string;
@@ -38,7 +81,7 @@ export interface Student {
   score: number;
   spinsUsed: number;
   maxSpins: number;
-  status: 'active' | 'locked' | 'banned';
+  status: "active" | "locked" | "banned";
   spinHistory: string[];
   rewardClaimed?: boolean;
   awardedPrize?: string | null;
@@ -72,7 +115,7 @@ interface AppContextType {
     email: string,
     phone: string,
     faculty: string,
-    department: Department
+    department: Department,
   ) => Promise<{
     success: boolean;
     error?: string;
@@ -86,12 +129,16 @@ interface AppContextType {
   submitAdminScore: (
     studentId: string,
     score: number,
-    feedback?: string
+    feedback?: string,
   ) => void;
-  banStudent: (studentId: string) => void;
-  unbanStudent: (studentId: string) => void;
+  banStudent: (studentId: string) => Promise<void>;
+  unbanStudent: (studentId: string) => Promise<void>;
   editTries: (studentId: string, newMaxSpins: number) => void;
-  lastSpinResult: { segmentId: string; segmentName: string; timestamp: number } | null;
+  lastSpinResult: {
+    segmentId: string;
+    segmentName: string;
+    timestamp: number;
+  } | null;
   clearSpinResult: () => void;
   addAward: (name: string, quantity: number) => Promise<void>;
   removeAward: (id: string) => Promise<void>;
@@ -106,15 +153,15 @@ function dbStudentToStudent(row: DbStudent): Student {
   return {
     id: row.id,
     name: row.name,
-    email: row.email || '',
-    phone: row.phone || '',
-    faculty: row.faculty || '',
-    department: (row.department || '') as Department,
+    email: row.email || "",
+    phone: row.phone || "",
+    faculty: row.faculty || "",
+    department: (row.department || "") as Department,
     studentId: row.student_id,
     score: row.score,
     spinsUsed: row.spins_used,
     maxSpins: row.max_spins,
-    status: row.status as Student['status'],
+    status: row.status as Student["status"],
     spinHistory: row.spin_history ?? [],
     rewardClaimed: row.reward_claimed,
     awardedPrize: row.awarded_prize ?? null,
@@ -134,9 +181,13 @@ function dbAwardToAward(row: DbAward): Award {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [students, setStudents] = useState<Student[]>([]);
-  const [currentStudent, setCurrentStudentState] = useState<Student | null>(null);
+  const [currentStudent, setCurrentStudentState] = useState<Student | null>(
+    null,
+  );
   const [segments, setSegments] = useState<Segment[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [awards, setAwards] = useState<Award[]>([]);
@@ -154,15 +205,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const load = async () => {
       try {
-        const [dbStudents, dbSegments, dbQuestions, dbSession, dbAwards] = await Promise.all([
-          fetchStudents(),
-          fetchSegments(),
-          fetchQuestions(),
-          fetchSession(),
-          fetchAwardsDb(),
-        ]);
+        const [dbStudents, dbSegments, dbQuestions, dbSession, dbAwards] =
+          await Promise.all([
+            fetchStudents(),
+            fetchSegments(),
+            fetchQuestions(),
+            fetchSession(),
+            fetchAwardsDb(),
+          ]);
         setStudents(dbStudents.map(dbStudentToStudent));
-        setSegments(dbSegments.map((s) => ({ id: s.id, name: s.name, color: s.color })));
+        setSegments(
+          dbSegments.map((s) => ({ id: s.id, name: s.name, color: s.color })),
+        );
         setQuestions(
           dbQuestions.map((q) => ({
             id: q.id,
@@ -171,12 +225,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             text: q.text,
             options: q.options,
             correctAnswerIndex: q.correct_answer_index,
-          }))
+          })),
         );
         setAwards(dbAwards.map(dbAwardToAward));
         // Restore current student from session
         if (dbSession.current_student_id) {
-          const match = dbStudents.find((s) => s.id === dbSession.current_student_id);
+          const match = dbStudents.find(
+            (s) => s.id === dbSession.current_student_id,
+          );
           if (match) setCurrentStudentState(dbStudentToStudent(match));
         }
         // Restore pending spin result
@@ -184,7 +240,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           lastProcessedSpinTs.current = dbSession.last_spin_timestamp;
         }
       } catch (err) {
-        console.error('Failed to load initial data from Supabase:', err);
+        console.error("Failed to load initial data from Supabase:", err);
       }
     };
     load();
@@ -193,46 +249,79 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // --- Realtime subscription: students table ---
   useEffect(() => {
     const channel = supabase
-      .channel('students-realtime')
+      .channel("students-realtime")
       .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'students' },
+        "postgres_changes",
+        { event: "*", schema: "public", table: "students" },
         (payload) => {
-          if (payload.eventType === 'INSERT') {
+          if (payload.eventType === "INSERT") {
             const newStudent = dbStudentToStudent(payload.new as DbStudent);
             setStudents((prev) => {
               if (prev.some((s) => s.id === newStudent.id)) return prev;
               return [...prev, newStudent];
             });
-          } else if (payload.eventType === 'UPDATE') {
+          } else if (payload.eventType === "UPDATE") {
             const updated = dbStudentToStudent(payload.new as DbStudent);
             setStudents((prev) =>
-              prev.map((s) => (s.id === updated.id ? updated : s))
+              prev.map((s) => (s.id === updated.id ? updated : s)),
             );
             // Also update currentStudent if it matches
             setCurrentStudentState((prev) =>
-              prev && prev.id === updated.id ? updated : prev
+              prev && prev.id === updated.id ? updated : prev,
             );
-          } else if (payload.eventType === 'DELETE') {
+          } else if (payload.eventType === "DELETE") {
             const oldId = (payload.old as { id: string }).id;
             setStudents((prev) => prev.filter((s) => s.id !== oldId));
             setCurrentStudentState((prev) =>
-              prev && prev.id === oldId ? null : prev
+              prev && prev.id === oldId ? null : prev,
             );
           }
-        }
+        },
       )
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  // --- Realtime subscription: awards table ---
+  useEffect(() => {
+    const channel = supabase
+      .channel("awards-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "awards" },
+        (payload) => {
+          if (payload.eventType === "INSERT") {
+            const newAward = dbAwardToAward(payload.new as DbAward);
+            setAwards((prev) => {
+              if (prev.some((a) => a.id === newAward.id)) return prev;
+              return [...prev, newAward];
+            });
+          } else if (payload.eventType === "UPDATE") {
+            const updated = dbAwardToAward(payload.new as DbAward);
+            setAwards((prev) =>
+              prev.map((a) => (a.id === updated.id ? updated : a)),
+            );
+          } else if (payload.eventType === "DELETE") {
+            const oldId = (payload.old as { id: string }).id;
+            setAwards((prev) => prev.filter((a) => a.id !== oldId));
+          }
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   // --- Realtime subscription: active_session table ---
   useEffect(() => {
     const channel = supabase
-      .channel('session-realtime')
+      .channel("session-realtime")
       .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'active_session' },
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "active_session" },
         (payload) => {
           const session = payload.new as DbActiveSession;
 
@@ -245,21 +334,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           // Update currentStudent
           if (session.current_student_id) {
             setStudents((prev) => {
-              const match = prev.find((s) => s.id === session.current_student_id);
+              const match = prev.find(
+                (s) => s.id === session.current_student_id,
+              );
               if (match) {
                 setCurrentStudentState(match);
               } else {
                 // Student not yet in local state (INSERT event may not have arrived) — fetch from DB
-                fetchStudentById(session.current_student_id!).then((dbStudent) => {
-                  if (dbStudent) {
-                    const student = dbStudentToStudent(dbStudent);
-                    setStudents((p) => {
-                      if (p.some((s) => s.id === student.id)) return p;
-                      return [...p, student];
-                    });
-                    setCurrentStudentState(student);
-                  }
-                }).catch(console.error);
+                fetchStudentById(session.current_student_id!)
+                  .then((dbStudent) => {
+                    if (dbStudent) {
+                      const student = dbStudentToStudent(dbStudent);
+                      setStudents((p) => {
+                        if (p.some((s) => s.id === student.id)) return p;
+                        return [...p, student];
+                      });
+                      setCurrentStudentState(student);
+                    }
+                  })
+                  .catch(console.error);
               }
               return prev;
             });
@@ -282,14 +375,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             lastProcessedSpinTs.current = session.last_spin_timestamp;
             setLastSpinResult({
               segmentId: session.last_spin_segment_id,
-              segmentName: session.last_spin_segment_name || '',
+              segmentName: session.last_spin_segment_name || "",
               timestamp: session.last_spin_timestamp,
             });
           }
-        }
+        },
       )
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const leaderboard = useMemo(() => {
@@ -298,120 +393,136 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // --- Context methods (write to Supabase, realtime updates local state) ---
 
-  const registerStudent = useCallback(async (
-    name: string,
-    studentId: string,
-    email: string,
-    phone: string,
-    faculty: string,
-    department: Department
-  ): Promise<{ success: boolean; error?: string; student?: Student }> => {
-    try {
-      const existing = await fetchStudentByStudentId(studentId);
-      if (existing) {
-        const student = dbStudentToStudent(existing);
-        if (existing.name.toLowerCase() !== name.toLowerCase()) {
-          return { success: false, error: 'name_mismatch' };
-        }
-        if (existing.spins_used >= existing.max_spins) {
+  const registerStudent = useCallback(
+    async (
+      name: string,
+      studentId: string,
+      email: string,
+      phone: string,
+      faculty: string,
+      department: Department,
+    ): Promise<{ success: boolean; error?: string; student?: Student }> => {
+      try {
+        const existing = await fetchStudentByStudentId(studentId);
+        if (existing) {
+          const student = dbStudentToStudent(existing);
+          if (existing.name.toLowerCase() !== name.toLowerCase()) {
+            return { success: false, error: "name_mismatch" };
+          }
+          if (existing.spins_used >= existing.max_spins) {
+            await setCurrentStudentId(existing.id);
+            setCurrentStudentState(student);
+            return { success: false, error: "max_spins", student };
+          }
           await setCurrentStudentId(existing.id);
           setCurrentStudentState(student);
-          return { success: false, error: 'max_spins', student };
+          return { success: true, student };
         }
-        await setCurrentStudentId(existing.id);
+        // New student
+        const dbRow = await insertStudent({
+          name,
+          student_id: studentId,
+          email,
+          phone,
+          faculty,
+          department,
+          score: 0,
+          spins_used: 0,
+          max_spins: maxTriesDefault,
+          status: "active",
+          spin_history: [],
+          reward_claimed: false,
+          awarded_prize: null,
+          pending_score: null,
+          pending_feedback: null,
+        });
+        const student = dbStudentToStudent(dbRow);
+        await setCurrentStudentId(dbRow.id);
         setCurrentStudentState(student);
+        // Optimistically add to local list (realtime will also fire)
+        setStudents((prev) => {
+          if (prev.some((s) => s.id === student.id)) return prev;
+          return [...prev, student];
+        });
         return { success: true, student };
+      } catch (err) {
+        console.error("registerStudent error:", err);
+        return { success: false, error: "server_error" };
       }
-      // New student
-      const dbRow = await insertStudent({
-        name,
-        student_id: studentId,
-        email,
-        phone,
-        faculty,
-        department,
-        score: 0,
-        spins_used: 0,
-        max_spins: maxTriesDefault,
-        status: 'active',
-        spin_history: [],
-        reward_claimed: false,
-        awarded_prize: null,
-        pending_score: null,
-        pending_feedback: null,
-      });
-      const student = dbStudentToStudent(dbRow);
-      await setCurrentStudentId(dbRow.id);
-      setCurrentStudentState(student);
-      // Optimistically add to local list (realtime will also fire)
-      setStudents((prev) => {
-        if (prev.some((s) => s.id === student.id)) return prev;
-        return [...prev, student];
-      });
-      return { success: true, student };
-    } catch (err) {
-      console.error('registerStudent error:', err);
-      return { success: false, error: 'server_error' };
-    }
-  }, [maxTriesDefault]);
+    },
+    [maxTriesDefault],
+  );
 
   const setCurrentStudent = useCallback((student: Student | null) => {
     setCurrentStudentState(student);
     setCurrentStudentId(student?.id ?? null).catch(console.error);
   }, []);
 
-  const recordSpin = useCallback((studentId: string, segmentId: string, points: number) => {
-    // Find the student to compute new values
-    setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
-      if (!target) return prev;
+  const recordSpin = useCallback(
+    (studentId: string, segmentId: string, points: number) => {
+      // Find the student to compute new values
+      setStudents((prev) => {
+        const target = prev.find(
+          (s) => s.id === studentId || s.studentId === studentId,
+        );
+        if (!target) return prev;
 
-      const newSpinsUsed = target.spinsUsed + 1;
-      const newStatus = newSpinsUsed >= target.maxSpins ? 'locked' : target.status;
-      const segName = segments.find((seg) => seg.id === segmentId)?.name || '';
+        const newSpinsUsed = target.spinsUsed + 1;
+        const newStatus =
+          newSpinsUsed >= target.maxSpins ? "locked" : target.status;
+        const segName =
+          segments.find((seg) => seg.id === segmentId)?.name || "";
 
-      // Fire async DB updates (don't block UI)
-      updateStudentDb(target.id, {
-        score: target.score + points,
-        spins_used: newSpinsUsed,
-        status: newStatus,
-        spin_history: [...target.spinHistory, segmentId],
-        reward_claimed: false,
-        pending_score: null,
-        pending_feedback: null,
-      }).catch(console.error);
+        // Fire async DB updates (don't block UI)
+        updateStudentDb(target.id, {
+          score: target.score + points,
+          spins_used: newSpinsUsed,
+          status: newStatus,
+          spin_history: [...target.spinHistory, segmentId],
+          reward_claimed: false,
+          pending_score: null,
+          pending_feedback: null,
+        }).catch(console.error);
 
-      // Single atomic update: sets spin result AND clears current_student_id together
-      // Prevents the race where two separate updates cause stale currentStudent via realtime
-      setSpinResultAndClearStudentDb(segmentId, segName).catch(console.error);
+        // Single atomic update: sets spin result AND clears current_student_id together
+        // Prevents the race where two separate updates cause stale currentStudent via realtime
+        setSpinResultAndClearStudentDb(segmentId, segName).catch(console.error);
 
-      // Optimistic local update (do NOT touch currentStudentState here — cleared below)
-      const updated: Student = {
-        ...target,
-        score: target.score + points,
-        spinsUsed: newSpinsUsed,
-        status: newStatus as Student['status'],
-        spinHistory: [...target.spinHistory, segmentId],
-        rewardClaimed: false,
-        pendingScore: undefined,
-        pendingFeedback: undefined,
-      };
-      return prev.map((s) => (s.id === target.id ? updated : s));
-    });
-    // Clear current student outside the setStudents updater to avoid nested-setState ordering issues
-    setCurrentStudentState(null);
-  }, [segments]);
+        // Optimistic local update (do NOT touch currentStudentState here — cleared below)
+        const updated: Student = {
+          ...target,
+          score: target.score + points,
+          spinsUsed: newSpinsUsed,
+          status: newStatus as Student["status"],
+          spinHistory: [...target.spinHistory, segmentId],
+          rewardClaimed: false,
+          pendingScore: undefined,
+          pendingFeedback: undefined,
+        };
+        return prev.map((s) => (s.id === target.id ? updated : s));
+      });
+      // currentStudent is cleared by the realtime event from setSpinResultAndClearStudentDb,
+      // which atomically clears current_student_id + sets spin result in one DB write.
+      // We do NOT clear it locally so ResultFreebee and other result screens still have
+      // access to the student object when they first mount.
+    },
+    [segments],
+  );
 
   const updateScore = useCallback((studentId: string, points: number) => {
     setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
+      const target = prev.find(
+        (s) => s.id === studentId || s.studentId === studentId,
+      );
       if (!target) return prev;
 
-      updateStudentDb(target.id, { score: target.score + points }).catch(console.error);
+      updateStudentDb(target.id, { score: target.score + points }).catch(
+        console.error,
+      );
 
       const updated = { ...target, score: target.score + points };
       setCurrentStudentState((curr) =>
-        curr && curr.id === target.id ? updated : curr
+        curr && curr.id === target.id ? updated : curr,
       );
       return prev.map((s) => (s.id === target.id ? updated : s));
     });
@@ -419,42 +530,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const markRewardClaimed = useCallback((studentId: string) => {
     setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
+      const target = prev.find(
+        (s) => s.id === studentId || s.studentId === studentId,
+      );
       if (!target) return prev;
 
       updateStudentDb(target.id, { reward_claimed: true }).catch(console.error);
 
       const updated = { ...target, rewardClaimed: true };
       setCurrentStudentState((curr) =>
-        curr && curr.id === target.id ? updated : curr
+        curr && curr.id === target.id ? updated : curr,
       );
       return prev.map((s) => (s.id === target.id ? updated : s));
     });
   }, []);
 
-  const submitAdminScore = useCallback((studentId: string, score: number, feedback?: string) => {
-    setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
-      if (!target) return prev;
+  const submitAdminScore = useCallback(
+    (studentId: string, score: number, feedback?: string) => {
+      setStudents((prev) => {
+        const target = prev.find(
+          (s) => s.id === studentId || s.studentId === studentId,
+        );
+        if (!target) return prev;
 
-      updateStudentDb(target.id, {
-        score: target.score + score,
-        pending_score: score,
-        pending_feedback: feedback ?? null,
-      }).catch(console.error);
+        updateStudentDb(target.id, {
+          score: target.score + score,
+          pending_score: score,
+          pending_feedback: feedback ?? null,
+        }).catch(console.error);
 
-      const updated: Student = {
-        ...target,
-        score: target.score + score,
-        pendingScore: score,
-        pendingFeedback: feedback,
-      };
-      setCurrentStudentState((curr) =>
-        curr && curr.id === target.id ? updated : curr
-      );
-      return prev.map((s) => (s.id === target.id ? updated : s));
-    });
-  }, []);
+        const updated: Student = {
+          ...target,
+          score: target.score + score,
+          pendingScore: score,
+          pendingFeedback: feedback,
+        };
+        setCurrentStudentState((curr) =>
+          curr && curr.id === target.id ? updated : curr,
+        );
+        return prev.map((s) => (s.id === target.id ? updated : s));
+      });
+    },
+    [],
+  );
 
   const resetLeaderboard = useCallback(() => {
     setStudents([]);
@@ -466,7 +584,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         await resetSession();
         await deleteAllStudents();
       } catch (err) {
-        console.error('resetLeaderboard error:', err);
+        console.error("resetLeaderboard error:", err);
       }
     })();
   }, []);
@@ -476,46 +594,66 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     clearSpinResultDb().catch(console.error);
   }, []);
 
-  const banStudent = useCallback((studentId: string) => {
-    setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
-      if (!target) return prev;
+  const banStudent = useCallback(
+    async (studentId: string): Promise<void> => {
+      const target = students.find(
+        (s) => s.id === studentId || s.studentId === studentId,
+      );
+      if (!target) return;
+      await updateStudentDb(target.id, { status: "banned" });
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.id === target.id ? { ...s, status: "banned" as const } : s,
+        ),
+      );
+    },
+    [students],
+  );
 
-      updateStudentDb(target.id, { status: 'banned' }).catch(console.error);
-
-      const updated = { ...target, status: 'banned' as const };
-      return prev.map((s) => (s.id === target.id ? updated : s));
-    });
-  }, []);
-
-  const unbanStudent = useCallback((studentId: string) => {
-    setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
-      if (!target) return prev;
-
-      const newStatus = target.spinsUsed >= target.maxSpins ? 'locked' : 'active';
-      updateStudentDb(target.id, { status: newStatus }).catch(console.error);
-
-      const updated = { ...target, status: newStatus as Student['status'] };
-      return prev.map((s) => (s.id === target.id ? updated : s));
-    });
-  }, []);
+  const unbanStudent = useCallback(
+    async (studentId: string): Promise<void> => {
+      const target = students.find(
+        (s) => s.id === studentId || s.studentId === studentId,
+      );
+      if (!target) return;
+      const newStatus =
+        target.spinsUsed >= target.maxSpins ? "locked" : "active";
+      await updateStudentDb(target.id, { status: newStatus });
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.id === target.id
+            ? { ...s, status: newStatus as Student["status"] }
+            : s,
+        ),
+      );
+    },
+    [students],
+  );
 
   const editTries = useCallback((studentId: string, newMaxSpins: number) => {
     setStudents((prev) => {
-      const target = prev.find((s) => s.id === studentId || s.studentId === studentId);
+      const target = prev.find(
+        (s) => s.id === studentId || s.studentId === studentId,
+      );
       if (!target) return prev;
 
       const newStatus =
-        target.status === 'banned'
-          ? 'banned'
+        target.status === "banned"
+          ? "banned"
           : target.spinsUsed >= newMaxSpins
-            ? 'locked'
-            : 'active';
+            ? "locked"
+            : "active";
 
-      updateStudentDb(target.id, { max_spins: newMaxSpins, status: newStatus }).catch(console.error);
+      updateStudentDb(target.id, {
+        max_spins: newMaxSpins,
+        status: newStatus,
+      }).catch(console.error);
 
-      const updated = { ...target, maxSpins: newMaxSpins, status: newStatus as Student['status'] };
+      const updated = {
+        ...target,
+        maxSpins: newMaxSpins,
+        status: newStatus as Student["status"],
+      };
       return prev.map((s) => (s.id === target.id ? updated : s));
     });
   }, []);
@@ -532,29 +670,37 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setAwards((prev) => prev.filter((a) => a.id !== id));
   }, []);
 
-  const claimAward = useCallback(async (studentId: string): Promise<string | null> => {
-    const prizeName = await claimRandomAward(studentId);
-    if (prizeName) {
-      // Update local student state with the awarded prize
-      setStudents((prev) =>
-        prev.map((s) =>
-          s.id === studentId ? { ...s, awardedPrize: prizeName } : s
-        )
-      );
-      setCurrentStudentState((prev) =>
-        prev && prev.id === studentId ? { ...prev, awardedPrize: prizeName } : prev
-      );
-      // Decrement local award count
-      setAwards((prev) =>
-        prev.map((a) =>
-          a.name === prizeName
-            ? { ...a, remainingQuantity: Math.max(0, a.remainingQuantity - 1) }
-            : a
-        )
-      );
-    }
-    return prizeName;
-  }, []);
+  const claimAward = useCallback(
+    async (studentId: string): Promise<string | null> => {
+      const prizeName = await claimRandomAward(studentId);
+      if (prizeName) {
+        // Update local student state with the awarded prize
+        setStudents((prev) =>
+          prev.map((s) =>
+            s.id === studentId ? { ...s, awardedPrize: prizeName } : s,
+          ),
+        );
+        setCurrentStudentState((prev) =>
+          prev && prev.id === studentId
+            ? { ...prev, awardedPrize: prizeName }
+            : prev,
+        );
+        // Decrement local award count
+        setAwards((prev) =>
+          prev.map((a) =>
+            a.name === prizeName
+              ? {
+                  ...a,
+                  remainingQuantity: Math.max(0, a.remainingQuantity - 1),
+                }
+              : a,
+          ),
+        );
+      }
+      return prizeName;
+    },
+    [],
+  );
 
   const refreshQuestions = useCallback(async () => {
     const dbQuestions = await fetchQuestions();
@@ -566,7 +712,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         text: q.text,
         options: q.options,
         correctAnswerIndex: q.correct_answer_index,
-      }))
+      })),
     );
   }, []);
 
@@ -602,7 +748,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         claimAward,
         refreshQuestions,
         refreshAwards,
-      }}>
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
@@ -611,7 +758,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
-    throw new Error('useAppContext must be used within an AppProvider');
+    throw new Error("useAppContext must be used within an AppProvider");
   }
   return context;
 };
