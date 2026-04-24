@@ -11,7 +11,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   segmentName,
   onComplete
 }) => {
-  const { questions, currentStudent, updateScore, claimAward } = useAppContext();
+  const { questions, currentStudent, claimAward } = useAppContext();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -20,48 +20,50 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   const claimAttempted = useRef(false);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
-  // Find a relevant question
+  // Find a relevant question — deterministic selection based on category + student type
   const question = useMemo(() => {
     // Filter by category (segment name)
     let available = questions.filter((q) => q.category === segmentName);
-    // Always try to match the student's department first (across all categories)
-    if (currentStudent?.department) {
+    if (currentStudent?.isGuest) {
+      // Guests always get generic (department-null) questions only
+      const generic = available.filter((q) => !q.department);
+      if (generic.length > 0) available = generic;
+      // else keep full category pool as last resort
+    } else if (currentStudent?.department) {
+      // CECOS students: prefer dept-specific questions
       const deptQuestions = available.filter(
         (q) => q.department === currentStudent.department
       );
       if (deptQuestions.length > 0) {
         available = deptQuestions;
-      }
-      // If no dept-specific questions exist for this category, fall back to
-      // questions with no department set (generic/general questions)
-      else {
+      } else {
+        // Fall back to generic questions for this category
         const generic = available.filter((q) => !q.department);
         if (generic.length > 0) available = generic;
-        // else keep the full category pool as last resort
       }
     }
-    // Pick a random one from the filtered pool
-    return available.length > 0 ?
-    available[Math.floor(Math.random() * available.length)] :
-    null;
+    // Deterministically pick first (non-random) so each student in a queue
+    // gets the same question for their dept — shuffled on import
+    return available.length > 0 ? available[0] : null;
   }, [questions, segmentName, currentStudent]);
   // Handle auto-transition after result is shown
   useEffect(() => {
     if (showResult) {
+      // When prize is claimed give the user 7s to read the popup; otherwise 4s
+      const delay = awardState === 'claimed' ? 7000 : 4000;
       const timer = setTimeout(() => {
         onCompleteRef.current();
-      }, 4000);
+      }, delay);
       return () => clearTimeout(timer);
     }
-  }, [showResult]);
+  }, [showResult, awardState]);
   const handleSelect = (index: number) => {
     if (selectedOption !== null || isTimeUp || showResult) return;
     setSelectedOption(index);
     setShowResult(true);
     if (question && index === question.correctAnswerIndex) {
       if (currentStudent) {
-        updateScore(currentStudent.id, 10); // 10 points for correct answer
-        // Claim a random award for correct answer
+        // Claim a random award for correct answer (one prize per student)
         if (!claimAttempted.current && !currentStudent.awardedPrize) {
           claimAttempted.current = true;
           setAwardState('claiming');
@@ -186,7 +188,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
             isCorrect ?
             <div className="flex flex-col items-center space-y-3">
                   <h2 className="text-2xl sm:text-4xl font-black text-green-400">
-                    Correct! +10 pts
+                    Correct! 🎉
                   </h2>
                   {awardState === 'claimed' && awardName && (
                     <motion.div

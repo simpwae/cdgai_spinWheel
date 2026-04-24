@@ -9,7 +9,7 @@ import {
   AlertTriangle } from
 'lucide-react';
 export const StudentsTab: React.FC = () => {
-  const { students, banStudent, unbanStudent, editTries, submitAdminScore } =
+  const { students, banStudent, unbanStudent, editTries } =
   useAppContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState<'All' | 'Active' | 'Locked' | 'Banned'>(
@@ -18,9 +18,6 @@ export const StudentsTab: React.FC = () => {
   // Modal states
   const [editingTries, setEditingTries] = useState<Student | null>(null);
   const [newTries, setNewTries] = useState(3);
-  const [scoringStudent, setScoringStudent] = useState<Student | null>(null);
-  const [manualScore, setManualScore] = useState(5);
-  const [manualFeedback, setManualFeedback] = useState('');
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const filteredStudents = students.filter((s) => {
     const matchesSearch =
@@ -42,14 +39,6 @@ export const StudentsTab: React.FC = () => {
     if (editingTries) {
       editTries(editingTries.id, newTries);
       setEditingTries(null);
-    }
-  };
-  const handleSaveScore = () => {
-    if (scoringStudent) {
-      submitAdminScore(scoringStudent.id, manualScore, manualFeedback);
-      setScoringStudent(null);
-      setManualFeedback('');
-      setManualScore(5);
     }
   };
   const handleBanToggle = async (student: Student) => {
@@ -118,7 +107,6 @@ export const StudentsTab: React.FC = () => {
                 <th className="p-4">Email</th>
                 <th className="p-4">Phone</th>
                 <th className="p-4">Department</th>
-                <th className="p-4 text-center">Score</th>
                 <th className="p-4 text-center">Spins</th>
                 <th className="p-4">Status</th>
                 <th className="p-4 text-right">Actions</th>
@@ -128,7 +116,7 @@ export const StudentsTab: React.FC = () => {
               {filteredStudents.length === 0 ?
               <tr>
                   <td
-                  colSpan={9}
+                  colSpan={7}
                   className="p-8 text-center text-gray-400 font-medium">
                   
                     No students found matching your criteria.
@@ -155,9 +143,6 @@ export const StudentsTab: React.FC = () => {
                     <td className="p-4 text-sm text-gray-600">
                       {student.department || '-'}
                     </td>
-                    <td className="p-4 text-center font-bold text-gray-900">
-                      {student.score}
-                    </td>
                     <td className="p-4 text-center text-sm text-gray-600">
                       {student.spinsUsed} / {student.maxSpins}
                     </td>
@@ -179,14 +164,6 @@ export const StudentsTab: React.FC = () => {
                     title="Edit Tries">
                     
                         <Edit2 size={16} />
-                      </button>
-                      <button
-                    onClick={() => setScoringStudent(student)}
-                    className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
-                    aria-label={`Add manual score for ${student.name}`}
-                    title="Add Manual Score">
-                    
-                        <CheckCircle size={16} />
                       </button>
                       <button
                     onClick={() => handleBanToggle(student)}
@@ -249,72 +226,6 @@ export const StudentsTab: React.FC = () => {
         </div>
       }
 
-      {/* Manual Score Modal */}
-      {scoringStudent &&
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Add Manual Score
-            </h3>
-            <p className="text-sm text-gray-500 mb-6">
-              For{' '}
-              <span className="font-bold text-gray-900">
-                {scoringStudent.name}
-              </span>{' '}
-              (Pitch / Resume)
-            </p>
-
-            <div className="mb-6">
-              <label htmlFor="manual-score" className="block text-sm font-bold text-gray-700 mb-2">
-                Score (0-10)
-              </label>
-              <div className="flex items-center space-x-4">
-                <input
-                id="manual-score"
-                type="range"
-                min="0"
-                max="10"
-                value={manualScore}
-                onChange={(e) => setManualScore(parseInt(e.target.value))}
-                className="flex-1 accent-cdgai-accent" />
-              
-                <span className="text-2xl font-black text-cdgai-accent w-8 text-center">
-                  {manualScore}
-                </span>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <label htmlFor="manual-feedback" className="block text-sm font-bold text-gray-700 mb-2">
-                Feedback (Optional)
-              </label>
-              <textarea
-              id="manual-feedback"
-              value={manualFeedback}
-              onChange={(e) => setManualFeedback(e.target.value)}
-              placeholder="Great presentation skills..."
-              maxLength={500}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent resize-none h-24">
-            </textarea>
-            </div>
-
-            <div className="flex justify-end space-x-3">
-              <button
-              onClick={() => setScoringStudent(null)}
-              className="px-4 py-2 rounded-lg font-bold text-gray-600 hover:bg-gray-100 transition-colors">
-              
-                Cancel
-              </button>
-              <button
-              onClick={handleSaveScore}
-              className="px-4 py-2 rounded-lg font-bold bg-cdgai-accent text-white hover:bg-blue-700 transition-colors">
-              
-                Submit Score
-              </button>
-            </div>
-          </div>
-        </div>
-      }
     </div>);
 
 };

@@ -196,3 +196,14 @@ $$;
 -- ============================================
 ALTER TABLE students ADD COLUMN IF NOT EXISTS email text NOT NULL DEFAULT '';
 ALTER TABLE students ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '';
+
+-- ============================================
+-- Migration: Add guest extra fields
+-- ============================================
+ALTER TABLE students ADD COLUMN IF NOT EXISTS is_guest boolean NOT NULL DEFAULT false;
+ALTER TABLE students ADD COLUMN IF NOT EXISTS guest_type text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS semester text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS position text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS organization text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS field_of_interest text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS follow_status text NOT NULL DEFAULT '';

@@ -946,7 +946,7 @@ export const SettingsTab: React.FC = () => {
             onClick={() => setShowResetConfirm(true)}
             className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors">
             
-              Reset Leaderboard
+              Reset All Students
             </button> :
 
           <div className="bg-white p-4 rounded-lg border border-red-200 inline-block">

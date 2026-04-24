@@ -4,14 +4,13 @@ import {
   FileSpreadsheet,
   Users,
   Activity,
-  Trophy,
   Download,
   CheckCircle } from
 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const ExportTab: React.FC = () => {
-  const { students, segments, leaderboard } = useAppContext();
+  const { students, segments } = useAppContext();
   const [exporting, setExporting] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -24,7 +23,12 @@ export const ExportTab: React.FC = () => {
       Phone: s.phone || '',
       Faculty: s.faculty || '',
       Department: s.department || '',
-      Score: s.score,
+      'Guest Type': s.guestType || '',
+      Semester: s.semester || '',
+      Position: s.position || '',
+      Organization: s.organization || '',
+      'Field of Interest': s.fieldOfInterest || '',
+      'Follow Status': s.followStatus || '',
       'Spins Used': s.spinsUsed,
       'Max Spins': s.maxSpins,
       Status: s.status,
@@ -75,14 +79,11 @@ export const ExportTab: React.FC = () => {
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildParticipantsSheet()), 'Participants');
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildSpinLogSheet()), 'Spin Log');
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildLeaderboardSheet()), 'Leaderboard');
         XLSX.writeFile(wb, 'session-full-export.xlsx');
       } else if (type === 'participants') {
         downloadSheet(buildParticipantsSheet(), 'participants.xlsx', 'Participants');
       } else if (type === 'spins') {
         downloadSheet(buildSpinLogSheet(), 'spin-log.xlsx', 'Spin Log');
-      } else if (type === 'leaderboard') {
-        downloadSheet(buildLeaderboardSheet(), 'leaderboard.xlsx', 'Leaderboard');
       }
       setExporting(null);
       setSuccess(type);
@@ -106,30 +107,23 @@ export const ExportTab: React.FC = () => {
   {
     id: 'full',
     title: 'Full Session Export',
-    description: 'All 3 sheets combined into one .xlsx file.',
+    description: 'All sheets combined into one .xlsx file.',
     icon: <FileSpreadsheet size={32} className="text-blue-600" />,
     bg: 'bg-blue-50',
   },
   {
     id: 'participants',
     title: 'Participants Only',
-    description: 'Student details: name, ID, email, department, score, status.',
+    description: 'Student details: name, ID, email, department, guest info, status.',
     icon: <Users size={32} className="text-green-600" />,
     bg: 'bg-green-50',
   },
   {
-    id: 'spins',
-    title: 'Spin Log',
-    description: 'Detailed log of every spin and segment result per student.',
-    icon: <Activity size={32} className="text-purple-600" />,
-    bg: 'bg-purple-50',
-  },
-  {
-    id: 'leaderboard',
-    title: 'Leaderboard Snapshot',
-    description: 'Current rankings and scores sorted by points.',
-    icon: <Trophy size={32} className="text-yellow-600" />,
-    bg: 'bg-yellow-50',
+  id: 'spins',
+  title: 'Spin Log',
+  description: 'Detailed log of every spin and segment result per student.',
+  icon: <Activity size={32} className="text-purple-600" />,
+  bg: 'bg-purple-50',
   }];
 
   return (
