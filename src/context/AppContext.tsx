@@ -88,8 +88,14 @@ export interface Student {
   spinHistory: string[];
   rewardClaimed?: boolean;
   awardedPrize?: string | null;
-  pendingScore?: number;
-  pendingFeedback?: string;
+  // Guest extra fields
+  isGuest: boolean;
+  guestType: string;       // 'student' | 'faculty' | 'other'
+  semester: string;
+  position: string;
+  organization: string;
+  fieldOfInterest: string;
+  followStatus: string;    // 'already_followed' | 'just_followed'
 }
 export interface Segment {
   id: string;
@@ -136,11 +142,6 @@ interface AppContextType {
   ) => void;
   resetSessionData: () => void;
   markRewardClaimed: (studentId: string) => void;
-  submitAdminScore: (
-    studentId: string,
-    score: number,
-    feedback?: string,
-  ) => void;
   banStudent: (studentId: string) => Promise<void>;
   unbanStudent: (studentId: string) => Promise<void>;
   editTries: (studentId: string, newMaxSpins: number) => void;
@@ -179,8 +180,13 @@ function dbStudentToStudent(row: DbStudent): Student {
     spinHistory: row.spin_history ?? [],
     rewardClaimed: row.reward_claimed,
     awardedPrize: row.awarded_prize ?? null,
-    pendingScore: row.pending_score ?? undefined,
-    pendingFeedback: row.pending_feedback ?? undefined,
+    isGuest: row.is_guest ?? false,
+    guestType: row.guest_type ?? "",
+    semester: row.semester ?? "",
+    position: row.position ?? "",
+    organization: row.organization ?? "",
+    fieldOfInterest: row.field_of_interest ?? "",
+    followStatus: row.follow_status ?? "",
   };
 }
 
@@ -507,6 +513,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           awarded_prize: null,
           pending_score: null,
           pending_feedback: null,
+          is_guest: guestExtra?.isGuest ?? false,
+          guest_type: guestExtra?.guestType ?? "",
+          semester: guestExtra?.semester ?? "",
+          position: guestExtra?.position ?? "",
+          organization: guestExtra?.organization ?? "",
+          field_of_interest: guestExtra?.fieldOfInterest ?? "",
+          follow_status: guestExtra?.followStatus ?? "",
         });
         const student = dbStudentToStudent(dbRow);
         // Add to local array BEFORE setCurrentStudentId so the session realtime
@@ -532,7 +545,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const recordSpin = useCallback(
-    (studentId: string, segmentId: string, points: number) => {
+    (studentId: string, segmentId: string) => {
       // Find the student to compute new values
       setStudents((prev) => {
         const target = prev.find(
@@ -548,7 +561,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
         // Fire async DB updates (don't block UI)
         updateStudentDb(target.id, {
-          score: target.score + points,
           spins_used: newSpinsUsed,
           status: newStatus,
           spin_history: [...target.spinHistory, segmentId],
@@ -558,26 +570,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         }).catch(console.error);
 
         // Single atomic update: sets spin result AND clears current_student_id together
-        // Prevents the race where two separate updates cause stale currentStudent via realtime
         setSpinResultAndClearStudentDb(segmentId, segName).catch(console.error);
 
-        // Optimistic local update (do NOT touch currentStudentState here — cleared below)
+        // Optimistic local update
         const updated: Student = {
           ...target,
-          score: target.score + points,
           spinsUsed: newSpinsUsed,
           status: newStatus as Student["status"],
           spinHistory: [...target.spinHistory, segmentId],
           rewardClaimed: false,
-          pendingScore: undefined,
-          pendingFeedback: undefined,
         };
         return prev.map((s) => (s.id === target.id ? updated : s));
       });
-      // currentStudent is cleared by the realtime event from setSpinResultAndClearStudentDb,
-      // which atomically clears current_student_id + sets spin result in one DB write.
-      // We do NOT clear it locally so ResultFreebee and other result screens still have
-      // access to the student object when they first mount.
     },
     [segments],
   );
@@ -852,7 +856,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         recordQuestionResult,
         resetSessionData,
         markRewardClaimed,
-        submitAdminScore,
         banStudent,
         unbanStudent,
         editTries,

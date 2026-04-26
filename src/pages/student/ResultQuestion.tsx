@@ -173,9 +173,11 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   // Handle auto-transition after result is shown
   useEffect(() => {
     if (showResult) {
+      // When prize is claimed give the user 7s to read the popup; otherwise 4s
+      const delay = awardState === 'claimed' ? 7000 : 4000;
       const timer = setTimeout(() => {
         onCompleteRef.current();
-      }, 4000);
+      }, delay);
       return () => clearTimeout(timer);
     }
   }, [showResult]);

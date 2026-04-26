@@ -12,17 +12,9 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
   return (
     <div className="min-h-screen w-full bg-cdgai-dark flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden">
       <motion.div
-        initial={{
-          scale: 0.9,
-          opacity: 0
-        }}
-        animate={{
-          scale: 1,
-          opacity: 1
-        }}
-        transition={{
-          duration: 0.5
-        }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
         className="max-w-md w-full flex flex-col items-center text-center">
         
         <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-8 border border-white/20">
@@ -39,25 +31,17 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
 
         {currentStudent &&
         <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-8 mb-6 sm:mb-10 backdrop-blur-sm">
-            <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/10">
-              <div className="text-left">
-                <div className="text-xl sm:text-2xl font-bold text-white mb-1 truncate">
-                  {currentStudent.name}
-                </div>
-                <div className="text-sm font-mono text-gray-400 truncate">
-                  {currentStudent.studentId}
-                </div>
+            <div className="text-left">
+              <div className="text-xl sm:text-2xl font-bold text-white mb-1 truncate">
+                {currentStudent.name}
               </div>
             </div>
-
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-medium text-gray-300">
-                Total Score
-              </span>
-              <span className="text-3xl sm:text-4xl font-black text-white">
-                {currentStudent.score}
-              </span>
-            </div>
+            {currentStudent.awardedPrize && (
+              <div className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
+                <span className="text-gray-300 font-medium">Prize Won</span>
+                <span className="text-cdgai-accent font-black">{currentStudent.awardedPrize} 🎁</span>
+              </div>
+            )}
           </div>
         }
 
