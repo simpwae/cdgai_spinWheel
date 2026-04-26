@@ -17,14 +17,14 @@ export interface DbStudent {
   pending_score: number | null;
   pending_feedback: string | null;
   created_at: string;
-  // Guest extra fields
-  is_guest: boolean;
-  guest_type: string;       // 'student' | 'faculty' | 'other'
-  semester: string;
-  position: string;
-  organization: string;
-  field_of_interest: string;
-  follow_status: string;    // 'already_followed' | 'just_followed'
+  // Guest extra fields (optional — added via ALTER TABLE migration)
+  is_guest?: boolean;
+  guest_type?: string; // 'student' | 'faculty' | 'other'
+  semester?: string;
+  position?: string;
+  organization?: string;
+  field_of_interest?: string;
+  follow_status?: string; // 'already_followed' | 'just_followed'
 }
 
 export interface DbSegment {

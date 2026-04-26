@@ -32,6 +32,14 @@ CREATE TABLE students (
   awarded_prize text,
   pending_score integer,
   pending_feedback text,
+  -- Guest tracking columns (added v2)
+  is_guest boolean NOT NULL DEFAULT false,
+  guest_type text NOT NULL DEFAULT '',
+  semester text NOT NULL DEFAULT '',
+  position text NOT NULL DEFAULT '',
+  organization text NOT NULL DEFAULT '',
+  field_of_interest text NOT NULL DEFAULT '',
+  follow_status text NOT NULL DEFAULT '',
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -213,3 +221,11 @@ $$;
 ALTER TABLE students ADD COLUMN IF NOT EXISTS email text NOT NULL DEFAULT '';
 ALTER TABLE students ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '';
 ALTER TABLE students ADD COLUMN IF NOT EXISTS participant_type text NOT NULL DEFAULT 'student';
+-- Guest tracking columns (v2 — safe to run on existing deployment)
+ALTER TABLE students ADD COLUMN IF NOT EXISTS is_guest boolean NOT NULL DEFAULT false;
+ALTER TABLE students ADD COLUMN IF NOT EXISTS guest_type text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS semester text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS position text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS organization text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS field_of_interest text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS follow_status text NOT NULL DEFAULT '';

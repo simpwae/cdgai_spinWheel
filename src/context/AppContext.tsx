@@ -88,14 +88,16 @@ export interface Student {
   spinHistory: string[];
   rewardClaimed?: boolean;
   awardedPrize?: string | null;
+  pendingScore?: number | null;
+  pendingFeedback?: string | null;
   // Guest extra fields
   isGuest: boolean;
-  guestType: string;       // 'student' | 'faculty' | 'other'
+  guestType: string; // 'student' | 'faculty' | 'other'
   semester: string;
   position: string;
   organization: string;
   fieldOfInterest: string;
-  followStatus: string;    // 'already_followed' | 'just_followed'
+  followStatus: string; // 'already_followed' | 'just_followed'
 }
 export interface Segment {
   id: string;
@@ -159,6 +161,11 @@ interface AppContextType {
   updateMaxTriesDefault: (value: number) => Promise<void>;
   updateRewardPoints: (value: number) => Promise<void>;
   updateEventName: (value: string) => Promise<void>;
+  submitAdminScore: (
+    studentId: string,
+    score: number,
+    feedback?: string,
+  ) => void;
 }
 
 // --- Helpers to convert between DB rows and app models ---
@@ -180,6 +187,8 @@ function dbStudentToStudent(row: DbStudent): Student {
     spinHistory: row.spin_history ?? [],
     rewardClaimed: row.reward_claimed,
     awardedPrize: row.awarded_prize ?? null,
+    pendingScore: row.pending_score ?? null,
+    pendingFeedback: row.pending_feedback ?? null,
     isGuest: row.is_guest ?? false,
     guestType: row.guest_type ?? "",
     semester: row.semester ?? "",
@@ -513,13 +522,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           awarded_prize: null,
           pending_score: null,
           pending_feedback: null,
-          is_guest: guestExtra?.isGuest ?? false,
-          guest_type: guestExtra?.guestType ?? "",
-          semester: guestExtra?.semester ?? "",
-          position: guestExtra?.position ?? "",
-          organization: guestExtra?.organization ?? "",
-          field_of_interest: guestExtra?.fieldOfInterest ?? "",
-          follow_status: guestExtra?.followStatus ?? "",
         });
         const student = dbStudentToStudent(dbRow);
         // Add to local array BEFORE setCurrentStudentId so the session realtime
@@ -869,6 +871,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         updateMaxTriesDefault,
         updateRewardPoints,
         updateEventName,
+        submitAdminScore,
       }}
     >
       {children}
