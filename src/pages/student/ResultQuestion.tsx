@@ -173,14 +173,14 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   // Handle auto-transition after result is shown
   useEffect(() => {
     if (showResult) {
-      // When prize is claimed give the user 7s to read the popup; otherwise 4s
-      const delay = awardState === 'claimed' ? 7000 : 4000;
+      // When a prize was just awarded give the user 7s to read the popup; otherwise 4s
+      const delay = prizeState === "new-award" ? 7000 : 4000;
       const timer = setTimeout(() => {
         onCompleteRef.current();
       }, delay);
       return () => clearTimeout(timer);
     }
-  }, [showResult]);
+  }, [showResult, prizeState]);
 
   const handleSelect = (index: number) => {
     if (selectedOption !== null || isTimeUp || showResult) return;
