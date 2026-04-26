@@ -1,20 +1,50 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SkipForward } from "lucide-react";
+import { SkipForward, Gift } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 import { CountdownTimer } from "../../components/CountdownTimer";
 interface ResultPitchProps {
   onComplete: () => void;
 }
 export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
-  const { currentStudent } = useAppContext();
+  const { currentStudent, claimAward } = useAppContext();
   const [isTimeUp, setIsTimeUp] = useState(false);
+  const [prizeState, setPrizeState] = useState<'idle' | 'checking' | 'new-award' | 'already-awarded' | 'no-awards'>('checking');
+  const [prizeName, setPrizeName] = useState<string | null>(null);
+  const claimAttempted = useRef(false);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
   const pendingScore = currentStudent?.pendingScore;
   const hasScore = pendingScore !== undefined;
+
+  // Auto-claim prize on mount
+  useEffect(() => {
+    if (!currentStudent || claimAttempted.current) return;
+    claimAttempted.current = true;
+
+    if (currentStudent.awardedPrize) {
+      setPrizeName(currentStudent.awardedPrize);
+      setPrizeState('already-awarded');
+      return;
+    }
+
+    const timeout = setTimeout(() => setPrizeState('no-awards'), 12000);
+    claimAward(currentStudent.id).then((result) => {
+      clearTimeout(timeout);
+      if (result?.awardName) {
+        setPrizeName(result.awardName);
+        setPrizeState(result.alreadyAwarded ? 'already-awarded' : 'new-award');
+      } else {
+        setPrizeState('no-awards');
+      }
+    }).catch(() => {
+      clearTimeout(timeout);
+      setPrizeState('no-awards');
+    });
+    return () => clearTimeout(timeout);
+  }, [currentStudent, claimAward]);
 
   // Auto-transition 5 seconds after a judge score arrives
   useEffect(() => {
@@ -148,7 +178,7 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                 onClick={() => onCompleteRef.current()}
                 className="px-6 sm:px-8 py-2 sm:py-3 rounded-full border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white font-bold text-sm sm:text-base transition-all active:scale-95"
               >
-                Go to Leaderboard →
+                Go Home →
               </button>
             </motion.div>
           ) : (
@@ -203,6 +233,26 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Prize Widget */}
+        {prizeState === 'checking' && (
+          <div className="mt-6 flex items-center space-x-2 text-white/50 text-sm">
+            <div className="w-4 h-4 border-2 border-white/50 border-t-transparent rounded-full animate-spin" />
+            <span>Checking your prize...</span>
+          </div>
+        )}
+        {prizeState === 'new-award' && prizeName && (
+          <div className="mt-6 flex items-center space-x-2 text-yellow-300 text-lg font-bold">
+            <Gift size={20} />
+            <span>You've won: {prizeName}!</span>
+          </div>
+        )}
+        {prizeState === 'already-awarded' && prizeName && (
+          <div className="mt-6 flex items-center space-x-2 text-white/60 text-sm">
+            <Gift size={16} />
+            <span>Your prize: {prizeName}</span>
+          </div>
+        )}
       </motion.div>
     </div>
   );

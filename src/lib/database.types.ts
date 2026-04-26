@@ -6,10 +6,11 @@ export interface DbStudent {
   phone: string;
   faculty: string;
   department: string;
+  participant_type: string;
   score: number;
   spins_used: number;
   max_spins: number;
-  status: 'active' | 'locked' | 'banned';
+  status: "active" | "locked" | "banned";
   spin_history: string[];
   reward_claimed: boolean;
   awarded_prize: string | null;
@@ -45,6 +46,7 @@ export interface DbActiveSession {
 export interface DbSettings {
   id: string;
   max_tries_default: number;
+  reward_points: number;
   event_name: string;
 }
 

@@ -3,12 +3,12 @@ import type { DbActiveSession } from '../lib/database.types';
 
 const SESSION_ID = 'singleton';
 
-export async function fetchSession(): Promise<DbActiveSession> {
+export async function fetchSession(): Promise<DbActiveSession | null> {
   const { data, error } = await supabase
     .from('active_session')
     .select('*')
     .eq('id', SESSION_ID)
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return data;
 }

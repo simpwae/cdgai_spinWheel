@@ -58,3 +58,22 @@ export async function deleteAllStudents(): Promise<void> {
     .neq('id', '00000000-0000-0000-0000-000000000000'); // delete all rows
   if (error) throw error;
 }
+
+export async function fetchStudentByNameFacultyDept(
+  name: string,
+  faculty: string,
+  department: string
+): Promise<DbStudent | null> {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*')
+    .ilike('name', name.trim())
+    .eq('faculty', faculty)
+    .eq('department', department)
+    .maybeSingle();
+  if (error) {
+    console.error('fetchStudentByNameFacultyDept error:', error);
+    return null;
+  }
+  return data;
+}

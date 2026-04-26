@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, useLocation } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
-import { StudentApp } from './pages/student/StudentApp';
-import { AdminPanel } from './pages/admin/AdminPanel';
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { AppProvider } from "./context/AppContext";
+import { StudentApp } from "./pages/student/StudentApp";
+import { AdminPanel } from "./pages/admin/AdminPanel";
 const AppContent = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const isAdmin = queryParams.get('mode') === 'admin';
+  const isAdmin = queryParams.get("mode") === "admin";
   if (isAdmin) {
     return <AdminPanel />;
   }
@@ -14,9 +14,9 @@ const AppContent = () => {
 export function App() {
   return (
     <AppProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppContent />
       </Router>
-    </AppProvider>);
-
+    </AppProvider>
+  );
 }

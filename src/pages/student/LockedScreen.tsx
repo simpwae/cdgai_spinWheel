@@ -3,15 +3,12 @@ import { motion } from 'framer-motion';
 import { Lock } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 interface LockedScreenProps {
-  onSeeLeaderboard: () => void;
+  onComplete: () => void;
 }
 export const LockedScreen: React.FC<LockedScreenProps> = ({
-  onSeeLeaderboard
+  onComplete
 }) => {
-  const { currentStudent, leaderboard } = useAppContext();
-  const rank = currentStudent ?
-  leaderboard.findIndex((s) => s.id === currentStudent.id) + 1 :
-  0;
+  const { currentStudent } = useAppContext();
   return (
     <div className="min-h-screen w-full bg-cdgai-dark flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden">
       <motion.div
@@ -37,7 +34,7 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
         </h1>
 
         <p className="text-gray-400 text-base sm:text-lg mb-8 sm:mb-10">
-          Check your final score below. See you at the top of the leaderboard!
+          Check your final score below.
         </p>
 
         {currentStudent &&
@@ -49,14 +46,6 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
                 </div>
                 <div className="text-sm font-mono text-gray-400 truncate">
                   {currentStudent.studentId}
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-sm uppercase tracking-wider text-gray-500 font-bold mb-1">
-                  Rank
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-cdgai-accent flex items-center justify-end">
-                  #{rank}
                 </div>
               </div>
             </div>
@@ -73,10 +62,10 @@ export const LockedScreen: React.FC<LockedScreenProps> = ({
         }
 
         <button
-          onClick={onSeeLeaderboard}
+          onClick={onComplete}
           className="w-full bg-white text-cdgai-dark font-bold text-lg sm:text-xl py-3 sm:py-4 rounded-xl shadow-lg hover:bg-gray-100 transition-colors mb-6">
           
-          See Leaderboard
+          Return to Home
         </button>
 
         <p className="text-sm text-gray-500 font-medium">

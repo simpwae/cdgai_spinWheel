@@ -1,4 +1,4 @@
-Category,Department,Question,Option 0,Option 1,Option 2,Option 3,Answer
+﻿category,department,text,option1,option2,option3,option4,correct_answer_index
 Question Bank,Bioscience,Q1: Cell Biology: What happens if Na+/K+ ATPase is inhibited in animal cells?,No effect on osmotic balance,Cell swelling due to osmotic imbalance,Immediate DNA damage,Cell shrinkage due to ion loss,1
 IQ Games,Bioscience,Q2: Genetics: A mutation in the promoter region of a gene most likely affects:,Protein folding,mRNA splicing,Transcription initiation,Translation termination,2
 Career Questions,Bioscience,"Q3: Biochemistry: If Km increases while Vmax remains constant, it indicates:",Lower enzyme affinity,Substrate depletion,Higher enzyme affinity,Enzyme denaturation,0

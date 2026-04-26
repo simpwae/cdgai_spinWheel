@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAppContext, Student } from "../../context/AppContext";
 import {
   Users,
@@ -10,9 +10,16 @@ import {
   CheckCircle,
 } from "lucide-react";
 export const DashboardTab: React.FC = () => {
-  const { students, currentStudent, segments, recordSpin, submitAdminScore } =
-    useAppContext();
+  const {
+    students,
+    currentStudent,
+    segments,
+    recordSpin,
+    submitAdminScore,
+    rewardPoints,
+  } = useAppContext();
   const [isSpinning, setIsSpinning] = useState(false);
+  const spinningRef = useRef(false);
 
   // Pitch scoring state — set when the admin registers a "Pitch & Communicate" spin
   const [pitchStudent, setPitchStudent] = useState<Student | null>(null);
@@ -28,7 +35,8 @@ export const DashboardTab: React.FC = () => {
 
   const activeStudents = students.filter((s) => s.status === "active").length;
   const totalQuestionsAnswered = students.reduce(
-    (acc, s) => acc + s.spinHistory.filter((h) => h.includes("q")).length,
+    (acc, s) =>
+      acc + s.spinHistory.filter((h) => ["s3", "s4", "s6"].includes(h)).length,
     0,
   );
   const topScore =
@@ -38,13 +46,18 @@ export const DashboardTab: React.FC = () => {
     if (
       !currentStudent ||
       currentStudent.spinsUsed >= currentStudent.maxSpins ||
-      isSpinning
+      spinningRef.current
     )
       return;
+    spinningRef.current = true;
     setIsSpinning(true);
-    const points = segmentId === "s2" ? 5 : 0;
+    const points = segmentId === "s2" ? rewardPoints : 0;
     recordSpin(currentStudent.id, segmentId, points);
-    setIsSpinning(false);
+    // Reset after 3 s — the realtime event will clear currentStudent before this
+    setTimeout(() => {
+      spinningRef.current = false;
+      setIsSpinning(false);
+    }, 3000);
     // If pitch segment, capture the student so admin can score below
     if (segmentId === "s5") {
       setPitchStudent(currentStudent);
@@ -193,6 +206,28 @@ export const DashboardTab: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {currentStudent.spinHistory.length > 0 && (
+                  <div>
+                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      Spin History
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {currentStudent.spinHistory.map((segId, i) => {
+                        const seg = segments.find((s) => s.id === segId);
+                        return (
+                          <span
+                            key={i}
+                            className="px-2 py-0.5 rounded text-xs font-bold text-white"
+                            style={{ backgroundColor: seg?.color ?? "#6B7280" }}
+                          >
+                            {seg?.name ?? segId}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex-1 bg-gray-50 p-6 rounded-xl border border-gray-200 w-full">

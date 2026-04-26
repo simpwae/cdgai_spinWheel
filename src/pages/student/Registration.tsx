@@ -36,7 +36,7 @@ export const Registration: React.FC<RegistrationProps> = ({
     };
     setErrors(newErrors);
     if (newErrors.name || newErrors.studentId || newErrors.faculty || newErrors.department) return;
-    const result = await registerStudent(name, studentId, '', '', faculty, department);
+    const result = await registerStudent(name, studentId, '', '', faculty, department, 'student');
     if (!result.success) {
       if (result.error === 'name_mismatch') {
         setWarning(

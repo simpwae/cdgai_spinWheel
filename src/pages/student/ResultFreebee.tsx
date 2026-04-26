@@ -42,11 +42,11 @@ export const ResultFreebee: React.FC<ResultFreebeeProps> = ({ onComplete }) => {
     }, 12000);
 
     claimAward(currentStudent.id)
-      .then((prize) => {
+      .then((result) => {
         clearTimeout(timeout);
-        if (prize) {
-          setAwardState("new-award");
-          setAwardName(prize);
+        if (result?.awardName) {
+          setAwardState(result.alreadyAwarded ? "already-awarded" : "new-award");
+          setAwardName(result.awardName);
         } else {
           setAwardState("no-awards");
         }

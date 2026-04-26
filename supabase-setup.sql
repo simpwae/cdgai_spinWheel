@@ -1,10 +1,20 @@
 -- ============================================
 -- CDGAI Career Fair — Supabase Database Setup
--- Run this in the Supabase SQL Editor
+-- Run this ONCE in the Supabase SQL Editor.
+-- It drops all existing tables and recreates them clean.
+-- After running, go to Admin → Settings → Import Bundled Questions.
 -- ============================================
 
+-- Drop everything first (clean slate)
+DROP TABLE IF EXISTS active_session CASCADE;
+DROP TABLE IF EXISTS awards CASCADE;
+DROP TABLE IF EXISTS questions CASCADE;
+DROP TABLE IF EXISTS segments CASCADE;
+DROP TABLE IF EXISTS settings CASCADE;
+DROP TABLE IF EXISTS students CASCADE;
+
 -- 1. Students table
-CREATE TABLE IF NOT EXISTS students (
+CREATE TABLE students (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   student_id text UNIQUE NOT NULL,
@@ -12,6 +22,7 @@ CREATE TABLE IF NOT EXISTS students (
   phone text NOT NULL DEFAULT '',
   faculty text NOT NULL DEFAULT '',
   department text NOT NULL DEFAULT '',
+  participant_type text NOT NULL DEFAULT 'student',
   score integer NOT NULL DEFAULT 0,
   spins_used integer NOT NULL DEFAULT 0,
   max_spins integer NOT NULL DEFAULT 3,
@@ -25,7 +36,7 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 -- 1b. Awards table
-CREATE TABLE IF NOT EXISTS awards (
+CREATE TABLE awards (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   total_quantity integer NOT NULL DEFAULT 0,
@@ -34,14 +45,14 @@ CREATE TABLE IF NOT EXISTS awards (
 );
 
 -- 2. Segments table
-CREATE TABLE IF NOT EXISTS segments (
+CREATE TABLE segments (
   id text PRIMARY KEY,
   name text NOT NULL,
   color text NOT NULL
 );
 
 -- 3. Questions table
-CREATE TABLE IF NOT EXISTS questions (
+CREATE TABLE questions (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   category text NOT NULL,
   department text,
@@ -51,7 +62,7 @@ CREATE TABLE IF NOT EXISTS questions (
 );
 
 -- 4. Active session (singleton row for current student + spin result)
-CREATE TABLE IF NOT EXISTS active_session (
+CREATE TABLE active_session (
   id text PRIMARY KEY DEFAULT 'singleton',
   current_student_id uuid REFERENCES students(id) ON DELETE SET NULL,
   last_spin_segment_id text,
@@ -61,9 +72,10 @@ CREATE TABLE IF NOT EXISTS active_session (
 );
 
 -- 5. Settings (singleton row)
-CREATE TABLE IF NOT EXISTS settings (
+CREATE TABLE settings (
   id text PRIMARY KEY DEFAULT 'singleton',
   max_tries_default integer NOT NULL DEFAULT 3,
+  reward_points integer NOT NULL DEFAULT 5,
   event_name text NOT NULL DEFAULT 'CDGAI Career Fair 2025'
 );
 
@@ -81,17 +93,6 @@ INSERT INTO segments (id, name, color) VALUES
   ('s6', 'Career Questions', '#2563EB'),
   ('s7', 'Résumé Review', '#16A34A')
 ON CONFLICT (id) DO NOTHING;
-
--- Questions (4 starter questions)
-INSERT INTO questions (category, department, text, options, correct_answer_index) VALUES
-  ('Question Bank', 'Computer Science', 'What does "HTTP" stand for?',
-    ARRAY['HyperText Transfer Protocol', 'HyperText Transmission Protocol', 'Hyperlink Transfer Technology', 'HyperText Time Protocol'], 0),
-  ('Question Bank', 'Architecture', 'Who designed the Guggenheim Museum in New York?',
-    ARRAY['Frank Gehry', 'Frank Lloyd Wright', 'Le Corbusier', 'Zaha Hadid'], 1),
-  ('IQ Games', NULL, 'If you rearrange the letters "CIFAIC", you would have the name of a(n):',
-    ARRAY['City', 'Animal', 'Ocean', 'River'], 2),
-  ('Career Questions', NULL, 'What is the most important section of a resume for a fresh graduate?',
-    ARRAY['Hobbies', 'References', 'Education & Projects', 'Objective Statement'], 2);
 
 -- Active session singleton
 INSERT INTO active_session (id) VALUES ('singleton')
@@ -125,6 +126,7 @@ CREATE POLICY "anon_segments_select" ON segments FOR SELECT TO anon USING (true)
 -- Questions: full access for anon (needed for import)
 CREATE POLICY "anon_questions_select" ON questions FOR SELECT TO anon USING (true);
 CREATE POLICY "anon_questions_insert" ON questions FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "anon_questions_update" ON questions FOR UPDATE TO anon USING (true) WITH CHECK (true);
 CREATE POLICY "anon_questions_delete" ON questions FOR DELETE TO anon USING (true);
 
 -- Active session: full access for anon
@@ -133,6 +135,8 @@ CREATE POLICY "anon_session_update" ON active_session FOR UPDATE TO anon USING (
 
 -- Settings: read-only for anon
 CREATE POLICY "anon_settings_select" ON settings FOR SELECT TO anon USING (true);
+CREATE POLICY "anon_settings_insert" ON settings FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "anon_settings_update" ON settings FOR UPDATE TO anon USING (true);
 
 -- Awards: full access for anon
 CREATE POLICY "anon_awards_select" ON awards FOR SELECT TO anon USING (true);
@@ -146,10 +150,22 @@ CREATE POLICY "anon_awards_delete" ON awards FOR DELETE TO anon USING (true);
 
 -- Enable realtime for students and active_session tables
 -- (In Supabase Dashboard: Database > Replication > enable these tables)
--- Or via SQL:
-ALTER PUBLICATION supabase_realtime ADD TABLE students;
-ALTER PUBLICATION supabase_realtime ADD TABLE active_session;
-ALTER PUBLICATION supabase_realtime ADD TABLE awards;
+-- Or via SQL (skip if already added — use DO block to avoid duplicate errors):
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE students;
+  EXCEPTION WHEN duplicate_object THEN NULL;
+  END;
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE active_session;
+  EXCEPTION WHEN duplicate_object THEN NULL;
+  END;
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE awards;
+  EXCEPTION WHEN duplicate_object THEN NULL;
+  END;
+END $$;
 
 -- ============================================
 -- RPC: Atomically claim a random available award
@@ -192,7 +208,8 @@ END;
 $$;
 
 -- ============================================
--- Migration: Add email column (run if table already exists)
+-- Migration: Add columns (run if table already exists)
 -- ============================================
 ALTER TABLE students ADD COLUMN IF NOT EXISTS email text NOT NULL DEFAULT '';
 ALTER TABLE students ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '';
+ALTER TABLE students ADD COLUMN IF NOT EXISTS participant_type text NOT NULL DEFAULT 'student';

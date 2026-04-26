@@ -1,18 +1,48 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileText } from "lucide-react";
+import { FileText, Gift } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 interface ResultResumeProps {
   onComplete: () => void;
 }
 export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
-  const { currentStudent } = useAppContext();
+  const { currentStudent, claimAward } = useAppContext();
+  const [prizeState, setPrizeState] = useState<'idle' | 'checking' | 'new-award' | 'already-awarded' | 'no-awards'>('checking');
+  const [prizeName, setPrizeName] = useState<string | null>(null);
+  const claimAttempted = useRef(false);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
   const pendingScore = currentStudent?.pendingScore;
   const hasScore = pendingScore !== undefined;
+
+  // Auto-claim prize on mount
+  useEffect(() => {
+    if (!currentStudent || claimAttempted.current) return;
+    claimAttempted.current = true;
+
+    if (currentStudent.awardedPrize) {
+      setPrizeName(currentStudent.awardedPrize);
+      setPrizeState('already-awarded');
+      return;
+    }
+
+    const timeout = setTimeout(() => setPrizeState('no-awards'), 12000);
+    claimAward(currentStudent.id).then((result) => {
+      clearTimeout(timeout);
+      if (result?.awardName) {
+        setPrizeName(result.awardName);
+        setPrizeState(result.alreadyAwarded ? 'already-awarded' : 'new-award');
+      } else {
+        setPrizeState('no-awards');
+      }
+    }).catch(() => {
+      clearTimeout(timeout);
+      setPrizeState('no-awards');
+    });
+    return () => clearTimeout(timeout);
+  }, [currentStudent, claimAward]);
 
   // Auto-transition after score is received
   useEffect(() => {
@@ -189,6 +219,26 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Prize Widget */}
+        {prizeState === 'checking' && (
+          <div className="mt-6 flex items-center space-x-2 text-white/50 text-sm">
+            <div className="w-4 h-4 border-2 border-white/50 border-t-transparent rounded-full animate-spin" />
+            <span>Checking your prize...</span>
+          </div>
+        )}
+        {prizeState === 'new-award' && prizeName && (
+          <div className="mt-6 flex items-center space-x-2 text-yellow-300 text-lg font-bold">
+            <Gift size={20} />
+            <span>You've won: {prizeName}!</span>
+          </div>
+        )}
+        {prizeState === 'already-awarded' && prizeName && (
+          <div className="mt-6 flex items-center space-x-2 text-white/60 text-sm">
+            <Gift size={16} />
+            <span>Your prize: {prizeName}</span>
+          </div>
+        )}
       </motion.div>
     </div>
   );
