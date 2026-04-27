@@ -536,6 +536,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           faculty,
           department,
           participant_type: registrationType,
+          ...(registrationType === "others"
+            ? { guest_type: guestSubType, is_guest: true }
+            : {}),
           score: 0,
           spins_used: 0,
           max_spins: maxTriesDefault,

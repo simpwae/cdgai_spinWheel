@@ -125,7 +125,7 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
       mappedDepartment = position.trim(); // e.g. "Lecturer"
     } else {
       mappedFaculty = fieldOfInterest; // e.g. "Pharmacy" — from dropdown, exact match
-      mappedDepartment = organization.trim() || "N/A";
+      mappedDepartment = organization.trim() || "";
     }
 
     setIsSubmitting(true);

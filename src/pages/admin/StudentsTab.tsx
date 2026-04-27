@@ -14,7 +14,6 @@ type TypeFilter = 'All Types' | 'Students' | 'Faculty' | 'Others';
 const deriveParticipantType = (s: Student): string => {
   if (s.participantType === 'faculty' || s.studentId.startsWith('FAC-')) return 'Faculty';
   if (s.participantType === 'student') return 'CECOS Student';
-  if (s.participantType === 'others' && s.guestType === 'student') return 'Guest Student';
   return 'Guest';
 };
 
@@ -130,7 +129,7 @@ export const StudentsTab: React.FC = () => {
                 <th className="p-4">Type</th>
                 <th className="p-4">Email</th>
                 <th className="p-4">Follow Status</th>
-                <th className="p-4">Department</th>
+                <th className="p-4">Details</th>
                 <th className="p-4 text-center">Spins</th>
                 <th className="p-4">Status</th>
                 <th className="p-4 text-right">Actions</th>
@@ -162,7 +161,6 @@ export const StudentsTab: React.FC = () => {
                     <span className={`px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap ${
                       pType === 'Faculty' ? 'bg-purple-100 text-purple-700' :
                       pType === 'CECOS Student' ? 'bg-blue-100 text-blue-700' :
-                      pType === 'Guest Student' ? 'bg-teal-100 text-teal-700' :
                       'bg-orange-100 text-orange-700'
                     }`}>
                       {pType}
@@ -175,7 +173,7 @@ export const StudentsTab: React.FC = () => {
                     {formatFollowStatus(participant.phone)}
                   </td>
                   <td className="p-4 text-sm text-gray-600">
-                    {participant.department || '—'}
+                    {pType === 'Faculty' ? (participant.faculty || '—') : (participant.department || '—')}
                   </td>
                   <td className="p-4 text-center text-sm text-gray-600">
                     {participant.spinsUsed} / {participant.maxSpins}

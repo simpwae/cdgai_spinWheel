@@ -190,9 +190,8 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
     if (currentStudent) {
       // Always record category + correct/wrong to DB
       recordQuestionResult(currentStudent.id, segmentName, correct);
-      if (correct) {
-        tryClaimAward(); // only claim prize on correct answer
-      }
+      // Attempt prize regardless of correct/wrong (consistent with all other result screens)
+      tryClaimAward();
     }
   };
 
@@ -203,6 +202,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
       // Time up = wrong; record to DB
       if (currentStudent) {
         recordQuestionResult(currentStudent.id, segmentName, false);
+        tryClaimAward();
       }
     }
   };
@@ -309,7 +309,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
                 </h2>
               ) : isCorrect ? (
                 <h2 className="text-2xl sm:text-4xl font-black text-green-400">
-                  Correct! +10 pts
+                  Correct! 🎉
                 </h2>
               ) : (
                 <h2 className="text-2xl sm:text-4xl font-black text-red-400">
