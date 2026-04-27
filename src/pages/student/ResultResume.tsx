@@ -9,6 +9,7 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
   const { currentStudent, claimAward } = useAppContext();
   const [prizeState, setPrizeState] = useState<'idle' | 'checking' | 'new-award' | 'already-awarded' | 'no-awards'>('checking');
   const [prizeName, setPrizeName] = useState<string | null>(null);
+  const [reviewing, setReviewing] = useState(true);
   const claimAttempted = useRef(false);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
@@ -50,34 +51,34 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  // When reviewing ends, claim prize
+  // When reviewing ends, claim prize if not already done
   useEffect(() => {
     if (reviewing) return;
     if (!claimAttempted.current && currentStudent && !currentStudent.awardedPrize) {
       claimAttempted.current = true;
-      setAwardState('claiming');
-      claimAward(currentStudent.id).then((prize) => {
-        if (prize) {
-          setAwardState('claimed');
-          setAwardName(prize);
+      setPrizeState('checking');
+      claimAward(currentStudent.id).then((result) => {
+        if (result?.awardName) {
+          setPrizeName(result.awardName);
+          setPrizeState(result.alreadyAwarded ? 'already-awarded' : 'new-award');
         } else {
-          setAwardState('none');
+          setPrizeState('no-awards');
         }
-      }).catch(() => setAwardState('none'));
+      }).catch(() => setPrizeState('no-awards'));
     } else if (!claimAttempted.current) {
       claimAttempted.current = true;
-      setAwardState('none');
+      setPrizeState('no-awards');
     }
   }, [reviewing, currentStudent, claimAward]);
 
   // Auto-proceed after done: 7s if prize, 4s otherwise
   useEffect(() => {
     if (reviewing) return;
-    if (awardState === 'idle' || awardState === 'claiming') return;
-    const delay = awardState === 'claimed' ? 7000 : 4000;
+    if (prizeState === 'idle' || prizeState === 'checking') return;
+    const delay = prizeState === 'new-award' ? 7000 : 4000;
     const timer = setTimeout(() => onCompleteRef.current(), delay);
     return () => clearTimeout(timer);
-  }, [reviewing, awardState]);
+  }, [reviewing, prizeState]);
 
   return (
     <div className="min-h-screen w-full bg-[#16A34A] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
@@ -134,13 +135,13 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
               <p className="text-lg sm:text-2xl font-medium opacity-90">
                 Great initiative bringing your résumé!
               </p>
-              {awardState === 'claiming' && (
+              {prizeState === 'checking' && (
                 <div className="flex items-center space-x-3 bg-white/20 px-6 py-3 rounded-full">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span className="font-bold">Checking for prize…</span>
                 </div>
               )}
-              {awardState === 'claimed' && awardName && (
+              {prizeState === 'new-award' && prizeName && (
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -149,7 +150,7 @@ export const ResultResume: React.FC<ResultResumeProps> = ({ onComplete }) => {
                 >
                   <Gift size={28} className="text-yellow-300 shrink-0" />
                   <span className="text-xl sm:text-3xl font-black text-yellow-300">
-                    You won: {awardName}! 🎁
+                    You won: {prizeName}! 🎁
                   </span>
                 </motion.div>
               )}

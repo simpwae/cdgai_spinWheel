@@ -20,6 +20,7 @@ import {
   updateStudent as updateStudentDb,
   deleteAllStudents,
   fetchStudentByNameFacultyDept,
+  fetchStudentByEmail,
 } from "../services/students";
 import {
   fetchSession,
@@ -129,6 +130,7 @@ interface AppContextType {
     faculty: string,
     department: Department,
     registrationType: "student" | "faculty" | "others",
+    guestSubType?: "student" | "faculty" | "other",
   ) => Promise<{
     success: boolean;
     error?: string;
@@ -415,6 +417,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // leaderboard removed — no longer displayed in UI
 
+  // --- ID generation helpers ---
+  const generateId = (prefix: "FAC" | "STD" | "GST"): string => {
+    const num = Math.floor(100000 + Math.random() * 900000);
+    return `${prefix}-${num}`;
+  };
+
   // --- Context methods (write to Supabase, realtime updates local state) ---
 
   const registerStudent = useCallback(
@@ -426,6 +434,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       faculty: string,
       department: Department,
       registrationType: "student" | "faculty" | "others" = "student",
+      guestSubType: "student" | "faculty" | "other" = "other",
     ): Promise<{ success: boolean; error?: string; student?: Student }> => {
       try {
         // Faculty mode: look up by name + faculty + department
@@ -447,7 +456,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
             return { success: true, student };
           }
           // No match — create new faculty record with auto-generated student_id
-          const facStudentId = "FAC-" + Date.now();
+          const facStudentId = generateId("FAC");
           const dbRow = await insertStudent({
             name,
             student_id: facStudentId,
@@ -476,8 +485,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           return { success: true, student };
         }
 
-        // Student and Others modes: look up by studentId (University ID or email)
-        const existing = await fetchStudentByStudentId(studentId);
+        // Student (CECOS) mode: look up by studentId (University ID)
+        // Others / guest-student mode: look up by email first
+        let existing = null;
+        if (registrationType === "others") {
+          existing = await fetchStudentByEmail(email);
+        } else {
+          existing = await fetchStudentByStudentId(studentId);
+        }
         if (existing) {
           if (existing.name.toLowerCase() !== name.toLowerCase()) {
             return { success: false, error: "name_mismatch" };
@@ -504,10 +519,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           setCurrentStudentState(student);
           return { success: true, student };
         }
+        // New participant — generate proper prefixed ID for guests
+        let finalStudentId = studentId;
+        if (registrationType === "others") {
+          finalStudentId =
+            guestSubType === "student"
+              ? generateId("STD")
+              : generateId("GST");
+        }
         // New student / others
         const dbRow = await insertStudent({
           name,
-          student_id: studentId,
+          student_id: finalStudentId,
           email,
           phone,
           faculty,

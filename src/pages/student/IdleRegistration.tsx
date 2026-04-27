@@ -70,6 +70,7 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
   const [warning, setWarning] = useState("");
 
   const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  const isValidName = (val: string) => /^[a-zA-Z\s]+$/.test(val.trim());
 
   const handleGuestTypeChange = (type: GuestType) => {
     setGuestType(type);
@@ -83,11 +84,18 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
     setWarning("");
 
     const emailTrimmed = guestEmail.trim();
+    const nameTrimmed = guestName.trim();
     const newErrors: Record<string, boolean> = {
-      guestName: !guestName.trim(),
+      guestName: !nameTrimmed || !isValidName(nameTrimmed),
       guestEmail: !emailTrimmed || !isValidEmail(emailTrimmed),
       followStatus: !followStatus,
     };
+
+    if (!nameTrimmed) {
+      // required but not invalid-chars
+    } else if (!isValidName(nameTrimmed)) {
+      setWarning("Name must contain only letters and spaces.");
+    }
 
     if (guestType === "student") {
       newErrors.semester = !semester;
@@ -123,12 +131,13 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
     setIsSubmitting(true);
     const result = await registerStudent(
       guestName.trim(),
-      emailTrimmed, // used as studentId for guests (unique key)
+      emailTrimmed, // used as studentId for guests (unique key — will be replaced by STD/GST prefix for new entries)
       emailTrimmed, // email
       followStatus, // stored in `phone` column
       mappedFaculty, // stored in `faculty` column → source for questionDept
       mappedDepartment as Department,
       guestType === "faculty" ? "faculty" : "others",
+      guestType, // passed so AppContext can generate STD- or GST- prefix
     );
     setIsSubmitting(false);
     if (!result.success) {
@@ -253,14 +262,14 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
                     type="text"
                     value={guestName}
                     onChange={(e) => {
-                      setGuestName(e.target.value);
+                      setGuestName(e.target.value.replace(/[^a-zA-Z\s]/g, ''));
                       setErrors((p) => ({ ...p, guestName: false }));
                     }}
                     placeholder="Your full name"
                     autoComplete="name"
                     className={fieldCls("guestName")}
                   />
-                  {errors.guestName && errMsg()}
+                  {errors.guestName && errMsg("Name must contain only letters and spaces")}
                 </div>
 
                 {guestType === "student" && (

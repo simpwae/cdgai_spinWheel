@@ -44,35 +44,14 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
     return () => clearTimeout(timeout);
   }, [currentStudent, claimAward]);
 
-  // Auto-transition 5 seconds after a judge score arrives
+  // Auto-transition after time up: 7s if prize claimed, otherwise 3s
   useEffect(() => {
     if (!isTimeUp) return;
-    // Claim prize if not already done
-    if (!claimAttempted.current && currentStudent && !currentStudent.awardedPrize) {
-      claimAttempted.current = true;
-      setAwardState('claiming');
-      claimAward(currentStudent.id).then((prize) => {
-        if (prize) {
-          setAwardState('claimed');
-          setAwardName(prize);
-        } else {
-          setAwardState('none');
-        }
-      }).catch(() => setAwardState('none'));
-    } else if (!claimAttempted.current) {
-      claimAttempted.current = true;
-      setAwardState('none');
-    }
-  }, [isTimeUp, currentStudent, claimAward]);
-
-  // Auto-proceed after time up: 7s if prize claimed, 3s otherwise
-  useEffect(() => {
-    if (!isTimeUp) return;
-    if (awardState === 'idle' || awardState === 'claiming') return; // wait for claim to settle
-    const delay = awardState === 'claimed' ? 7000 : 3000;
+    if (prizeState === 'idle' || prizeState === 'checking') return;
+    const delay = prizeState === 'new-award' ? 7000 : 3000;
     const timer = setTimeout(() => onCompleteRef.current(), delay);
     return () => clearTimeout(timer);
-  }, [isTimeUp, awardState]);
+  }, [isTimeUp, prizeState]);
 
   return (
     <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
@@ -118,7 +97,7 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                 <span>Done Pitching</span>
               </button>
             </motion.div>
-          ) : !hasScore ? (
+          ) : !(currentStudent?.pendingScore !== null && currentStudent?.pendingScore !== undefined) ? (
             <motion.div
               key="waiting"
               initial={{
@@ -169,13 +148,13 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
               <p className="text-lg sm:text-2xl font-medium opacity-90">
                 Great pitch! You gave it your best.
               </p>
-              {awardState === 'claiming' && (
+              {prizeState === 'checking' && (
                 <div className="flex items-center space-x-3 bg-white/20 px-6 py-3 rounded-full">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span className="font-bold">Checking for prize…</span>
                 </div>
               )}
-              {awardState === 'claimed' && awardName && (
+              {prizeState === 'new-award' && prizeName && (
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -183,7 +162,7 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                   className="flex items-center space-x-3 bg-white/20 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 rounded-2xl border border-white/30">
                   <Gift size={28} className="text-yellow-300 shrink-0" />
                   <span className="text-xl sm:text-3xl font-black text-yellow-300">
-                    You won: {awardName}! 🎁
+                    You won: {prizeName}! 🎁
                   </span>
                 </motion.div>
               )}

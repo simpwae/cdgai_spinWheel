@@ -12,7 +12,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   segmentName,
   onComplete,
 }) => {
-  const { currentStudent, updateScore, claimAward, recordQuestionResult } =
+  const { currentStudent, claimAward, recordQuestionResult } =
     useAppContext();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isTimeUp, setIsTimeUp] = useState(false);
@@ -191,7 +191,6 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
       // Always record category + correct/wrong to DB
       recordQuestionResult(currentStudent.id, segmentName, correct);
       if (correct) {
-        updateScore(currentStudent.id, 10); // 10 points for correct answer
         tryClaimAward(); // only claim prize on correct answer
       }
     }

@@ -22,7 +22,7 @@ export const AdminPanel: React.FC = () => {
   },
   {
     id: 'students',
-    label: 'Students',
+    label: 'Participants',
     icon: <Users size={20} />
   },
   {

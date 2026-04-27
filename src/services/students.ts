@@ -77,3 +77,16 @@ export async function fetchStudentByNameFacultyDept(
   }
   return data;
 }
+
+export async function fetchStudentByEmail(email: string): Promise<DbStudent | null> {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*')
+    .eq('email', email.trim().toLowerCase())
+    .maybeSingle();
+  if (error) {
+    console.error('fetchStudentByEmail error:', error);
+    return null;
+  }
+  return data;
+}

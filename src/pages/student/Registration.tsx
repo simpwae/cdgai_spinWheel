@@ -25,16 +25,22 @@ export const Registration: React.FC<RegistrationProps> = ({
 
   const availableDepartments = faculty ? FACULTY_DEPARTMENTS[faculty] : [];
 
+  const isValidName = (val: string) => /^[a-zA-Z\s]+$/.test(val.trim());
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setWarning('');
     const newErrors = {
-      name: !name.trim(),
+      name: !name.trim() || !isValidName(name),
       studentId: !studentId.trim(),
       faculty: !faculty,
       department: !department
     };
     setErrors(newErrors);
+    if (newErrors.name) {
+      if (!name.trim()) setWarning('');
+      else if (!isValidName(name)) setWarning('Name must contain only letters and spaces.');
+    }
     if (newErrors.name || newErrors.studentId || newErrors.faculty || newErrors.department) return;
     const result = await registerStudent(name, studentId, '', '', faculty, department, 'student');
     if (!result.success) {
@@ -120,7 +126,8 @@ export const Registration: React.FC<RegistrationProps> = ({
               type="text"
               value={name}
               onChange={(e) => {
-                setName(e.target.value);
+                const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                setName(val);
                 setErrors((p) => ({
                   ...p,
                   name: false
@@ -132,7 +139,7 @@ export const Registration: React.FC<RegistrationProps> = ({
             
             {errors.name &&
             <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
-                This field is required
+                Name must contain only letters and spaces
               </p>
             }
           </div>

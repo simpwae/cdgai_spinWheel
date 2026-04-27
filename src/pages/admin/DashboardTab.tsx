@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useAppContext, Student } from "../../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import {
   Users,
   Activity,
@@ -16,6 +16,21 @@ export const DashboardTab: React.FC = () => {
   } = useAppContext();
   const [isSpinning, setIsSpinning] = useState(false);
   const spinningRef = useRef(false);
+
+  // Pitch scoring state
+  const [pitchStudent, setPitchStudent] = useState<typeof currentStudent>(null);
+  const [pitchScore, setPitchScore] = useState(5);
+  const [pitchFeedback, setPitchFeedback] = useState("");
+  const [pitchSubmitted, setPitchSubmitted] = useState(false);
+
+  // Resume scoring state
+  const [resumeStudent, setResumeStudent] = useState<typeof currentStudent>(null);
+  const [resumeScore, setResumeScore] = useState(5);
+  const [resumeFeedback, setResumeFeedback] = useState("");
+  const [resumeSubmitted, setResumeSubmitted] = useState(false);
+
+  // suppress unused-var warnings for submit handlers (used by future UI)
+  void pitchSubmitted; void resumeSubmitted;
 
   const activeStudents = students.filter((s) => s.status === "active").length;
   const totalQuestionsAnswered = students.reduce(
@@ -61,6 +76,7 @@ export const DashboardTab: React.FC = () => {
     submitAdminScore(pitchStudent.id, pitchScore, pitchFeedback || undefined);
     setPitchSubmitted(true);
   };
+  void handlePitchSubmit;
 
   const handleResumeSubmit = () => {
     if (!resumeStudent) return;
@@ -71,6 +87,7 @@ export const DashboardTab: React.FC = () => {
     );
     setResumeSubmitted(true);
   };
+  void handleResumeSubmit;
   return (
     <div className="space-y-6">
       {/* Stats Row */}
@@ -80,8 +97,8 @@ export const DashboardTab: React.FC = () => {
             <Users size={24} />
           </div>
           <div>
-            <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
-              Total Students
+            <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
+              Total Participants
             </div>
             <div className="text-2xl font-black text-gray-900">
               {students.length}
@@ -93,7 +110,7 @@ export const DashboardTab: React.FC = () => {
             <Activity size={24} />
           </div>
           <div>
-            <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
+            <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
               Active Now
             </div>
             <div className="text-2xl font-black text-gray-900">
@@ -106,7 +123,7 @@ export const DashboardTab: React.FC = () => {
             <HelpCircle size={24} />
           </div>
           <div>
-            <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
+            <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
               Questions Answered
             </div>
             <div className="text-2xl font-black text-gray-900">
@@ -119,7 +136,7 @@ export const DashboardTab: React.FC = () => {
       {/* Current Student Card */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-900">Current Student</h2>
+          <h2 className="text-xl font-bold text-gray-900">Current Participant</h2>
           {currentStudent && (
             <span
               className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${currentStudent.spinsUsed >= currentStudent.maxSpins ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}
@@ -145,15 +162,18 @@ export const DashboardTab: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
-                      Student ID
+                    <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
+                      Participant ID
                     </div>
-                    <div className="text-lg font-medium text-gray-700">
+                    <div className="text-lg font-medium text-gray-700 flex items-center gap-2">
                       {currentStudent.studentId}
+                      <span className="px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-600">
+                        {currentStudent.participantType === 'faculty' ? 'Faculty' : currentStudent.participantType === 'student' ? 'CECOS Student' : currentStudent.guestType === 'student' ? 'Guest Student' : 'Guest'}
+                      </span>
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
+                    <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
                       Department
                     </div>
                     <div className="text-lg font-medium text-gray-700">
@@ -161,7 +181,7 @@ export const DashboardTab: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider">
+                    <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
                       Tries Used
                     </div>
                     <div className="text-lg font-medium text-gray-700">
@@ -172,7 +192,7 @@ export const DashboardTab: React.FC = () => {
 
                 {currentStudent.spinHistory.length > 0 && (
                   <div>
-                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">
+                    <div className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">
                       Spin History
                     </div>
                     <div className="flex flex-wrap gap-1.5">
@@ -221,7 +241,7 @@ export const DashboardTab: React.FC = () => {
             </div>
           ) : (
             <div className="text-center py-12 text-gray-400 font-medium">
-              No active student. Waiting for registration on the student
+              No active participant. Waiting for registration on the participant
               monitor...
             </div>
           )}
