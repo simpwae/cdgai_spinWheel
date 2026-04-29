@@ -46,12 +46,17 @@ export const ExportTab: React.FC = () => {
         return seg ? seg.name : segId;
       });
 
-  /** Returns "Correct" or "Wrong" for each question attempt in spin history */
+  /** Returns "<Category>: Correct/Wrong" for each question attempt in spin history.
+   *  Returns "N/A" when no question segment was spun. */
   const extractQuestionResult = (spinHistory: string[]): string => {
     const results = spinHistory
       .filter((e) => e.includes(":correct") || e.includes(":wrong"))
-      .map((e) => (e.endsWith(":correct") ? "Correct" : "Wrong"));
-    return results.join(", ");
+      .map((e) => {
+        const isCorrect = e.endsWith(":correct");
+        const category = e.replace(/:correct$|:wrong$/, "").trim();
+        return `${category}: ${isCorrect ? "Correct" : "Wrong"}`;
+      });
+    return results.length > 0 ? results.join(" | ") : "N/A";
   };
 
   // ── Sheet builders ───────────────────────────────────────────────────────────
@@ -73,7 +78,7 @@ export const ExportTab: React.FC = () => {
         "Spins Used": s.spinsUsed,
         "Max Spins": s.maxSpins,
         Status: s.status,
-        "Answered Correctly": extractQuestionResult(s.spinHistory),
+        "Question Result": extractQuestionResult(s.spinHistory),
         "Last Wheel Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
         "Prize Won": clean(s.awardedPrize),
       };
@@ -100,7 +105,7 @@ export const ExportTab: React.FC = () => {
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Answered Correctly": extractQuestionResult(s.spinHistory),
+          "Question Result": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
         };
@@ -123,7 +128,7 @@ export const ExportTab: React.FC = () => {
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Answered Correctly": extractQuestionResult(s.spinHistory),
+          "Question Result": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
         };
@@ -148,7 +153,7 @@ export const ExportTab: React.FC = () => {
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Answered Correctly": extractQuestionResult(s.spinHistory),
+          "Question Result": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
         };
@@ -169,7 +174,7 @@ export const ExportTab: React.FC = () => {
           ID: clean(s.studentId),
           "Spin #": "",
           "Segment / Prize": "",
-          "Answered Correctly": "",
+          "Question Result": "",
           "Is Final Prize": "",
         });
         continue;
@@ -188,8 +193,10 @@ export const ExportTab: React.FC = () => {
         spinCount++;
         const seg = segments.find((sg) => sg.id === entry);
         const segName = seg ? seg.name : entry;
+        // Question segments: s3 = Question Bank, s4 = IQ Games, s6 = Career Questions
+        const isQuestionSeg = ["s3", "s4", "s6"].includes(entry);
         // Look ahead for a question result attached to this spin
-        let questionAnswer = "";
+        let questionAnswer = isQuestionSeg ? "Not Recorded" : "—";
         if (
           i + 1 < history.length &&
           (history[i + 1].endsWith(":correct") ||
@@ -209,7 +216,7 @@ export const ExportTab: React.FC = () => {
           ID: clean(s.studentId),
           "Spin #": spinCount,
           "Segment / Prize": segName,
-          "Answered Correctly": questionAnswer,
+          "Question Result": questionAnswer,
           "Is Final Prize": isFinal ? "Yes" : "No",
         });
         i++;

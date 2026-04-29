@@ -24,17 +24,31 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   const [prizeName, setPrizeName] = useState<string | null>(null);
   const claimAttempted = useRef(false);
 
+  // Capture the student at mount time. StudentApp calls clearSpinResult() immediately
+  // when the spin result arrives, which fires a realtime event that sets currentStudent
+  // to null in context. By the time the student answers (30-90s later), currentStudent
+  // would be null and recordQuestionResult / claimAward would never fire.
+  // Saving to a ref here (before the async realtime event arrives) ensures we always
+  // have the right student to record against.
+  const savedStudentRef = useRef(currentStudent);
+  useEffect(() => {
+    if (currentStudent && !savedStudentRef.current) {
+      savedStudentRef.current = currentStudent;
+    }
+  }, [currentStudent]);
+
   const tryClaimAward = () => {
-    if (!currentStudent || claimAttempted.current) return;
+    const student = savedStudentRef.current;
+    if (!student || claimAttempted.current) return;
     claimAttempted.current = true;
-    if (currentStudent.awardedPrize) {
-      setPrizeName(currentStudent.awardedPrize);
+    if (student.awardedPrize) {
+      setPrizeName(student.awardedPrize);
       setPrizeState("already-awarded");
       return;
     }
     setPrizeState("checking");
     const timeout = setTimeout(() => setPrizeState("no-awards"), 12000);
-    claimAward(currentStudent.id)
+    claimAward(student.id)
       .then((result) => {
         clearTimeout(timeout);
         if (result?.awardName) {
@@ -187,10 +201,12 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
     setSelectedOption(index);
     setShowResult(true);
     const correct = question !== null && index === question.correctAnswerIndex;
-    if (currentStudent) {
-      // Always record category + correct/wrong to DB
-      recordQuestionResult(currentStudent.id, segmentName, correct);
-      // Attempt prize regardless of correct/wrong (consistent with all other result screens)
+    const student = savedStudentRef.current;
+    if (student) {
+      // Always record category + correct/wrong to DB using saved ref
+      // (currentStudent from context is null by this point — clearSpinResult
+      // fires a realtime event that clears it shortly after mount)
+      recordQuestionResult(student.id, segmentName, correct);
       tryClaimAward();
     }
   };
@@ -199,9 +215,10 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
     if (!showResult) {
       setIsTimeUp(true);
       setShowResult(true);
-      // Time up = wrong; record to DB
-      if (currentStudent) {
-        recordQuestionResult(currentStudent.id, segmentName, false);
+      // Time up = wrong; record to DB using saved ref
+      const student = savedStudentRef.current;
+      if (student) {
+        recordQuestionResult(student.id, segmentName, false);
         tryClaimAward();
       }
     }
