@@ -48,9 +48,9 @@ export const StudentsTab: React.FC = () => {
 
     const matchesType =
       typeFilter === 'All Types' ? true :
-      typeFilter === 'Students' ? s.participantType === 'student' :
+      typeFilter === 'Students' ? (s.participantType === 'student' || (s.participantType === 'others' && s.guestType === 'student')) :
       typeFilter === 'Faculty' ? s.participantType === 'faculty' :
-      s.participantType === 'others';
+      (s.participantType === 'others' && s.guestType !== 'student');
 
     return matchesSearch && matchesStatus && matchesType;
   });

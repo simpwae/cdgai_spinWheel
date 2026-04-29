@@ -46,11 +46,11 @@ export const ExportTab: React.FC = () => {
         return seg ? seg.name : segId;
       });
 
-  /** Returns "Yes" or "No" for each question attempt in spin history */
+  /** Returns "Correct" or "Wrong" for each question attempt in spin history */
   const extractQuestionResult = (spinHistory: string[]): string => {
     const results = spinHistory
       .filter((e) => e.includes(":correct") || e.includes(":wrong"))
-      .map((e) => (e.endsWith(":correct") ? "Yes" : "No"));
+      .map((e) => (e.endsWith(":correct") ? "Correct" : "Wrong"));
     return results.join(", ");
   };
 
@@ -196,8 +196,8 @@ export const ExportTab: React.FC = () => {
             history[i + 1].endsWith(":wrong"))
         ) {
           questionAnswer = history[i + 1].endsWith(":correct")
-            ? "Yes"
-            : "No";
+            ? "Correct"
+            : "Wrong";
           i++; // consume the result entry
         }
         const isLastEntry = i === history.length - 1;
