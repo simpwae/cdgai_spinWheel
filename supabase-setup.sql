@@ -1,5 +1,5 @@
 -- ============================================
--- CDGAI Career Fair — Supabase Database Setup
+-- EduWheel — Supabase Database Setup
 -- Run this ONCE in the Supabase SQL Editor.
 -- It drops all existing tables and recreates them clean.
 -- After running, go to Admin → Settings → Import Bundled Questions.
@@ -84,7 +84,7 @@ CREATE TABLE settings (
   id text PRIMARY KEY DEFAULT 'singleton',
   max_tries_default integer NOT NULL DEFAULT 3,
   reward_points integer NOT NULL DEFAULT 5,
-  event_name text NOT NULL DEFAULT 'CDGAI Career Fair 2025'
+  event_name text NOT NULL DEFAULT 'EduWheel'
 );
 
 -- ============================================

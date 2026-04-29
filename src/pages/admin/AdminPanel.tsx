@@ -80,7 +80,7 @@ export const AdminPanel: React.FC = () => {
           </h1>
           <div className="flex items-center space-x-2 sm:space-x-4">
             <div className="hidden sm:block text-sm font-bold text-gray-500">
-              CDGAI Career Fair 2025
+              EduWheel
             </div>
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cdgai-maroon text-white flex items-center justify-center font-bold text-sm">
               AD

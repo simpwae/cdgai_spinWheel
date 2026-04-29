@@ -14,6 +14,7 @@ type TypeFilter = 'All Types' | 'Students' | 'Faculty' | 'Others';
 const deriveParticipantType = (s: Student): string => {
   if (s.participantType === 'faculty' || s.studentId.startsWith('FAC-')) return 'Faculty';
   if (s.participantType === 'student') return 'CECOS Student';
+  if (s.participantType === 'others' && s.guestType === 'student') return 'Student';
   return 'Guest';
 };
 
@@ -86,7 +87,7 @@ export const StudentsTab: React.FC = () => {
             placeholder="Search by name or ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-cdgai-accent/20 focus:border-cdgai-accent transition-all" />
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cdgai-accent/20 focus:border-cdgai-accent transition-all" />
         </div>
 
         {/* Status Filters */}
@@ -161,6 +162,7 @@ export const StudentsTab: React.FC = () => {
                     <span className={`px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap ${
                       pType === 'Faculty' ? 'bg-purple-100 text-purple-700' :
                       pType === 'CECOS Student' ? 'bg-blue-100 text-blue-700' :
+                      pType === 'Student' ? 'bg-sky-100 text-sky-700' :
                       'bg-orange-100 text-orange-700'
                     }`}>
                       {pType}
@@ -236,7 +238,7 @@ export const StudentsTab: React.FC = () => {
             max="10"
             value={newTries}
             onChange={(e) => setNewTries(parseInt(e.target.value) || 1)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent mb-6"
+            className="w-full px-4 py-2 rounded-lg border border-gray-200 text-gray-900 focus:outline-none focus:border-cdgai-accent mb-6"
             aria-label="Maximum tries" />
           
             <div className="flex justify-end space-x-3">

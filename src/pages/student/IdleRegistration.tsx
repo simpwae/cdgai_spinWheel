@@ -181,7 +181,7 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
           <Logo size="lg" className="mb-3" />
 
           <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
-            CDGAI Career Fair 2026
+            EduWheel
           </h1>
 
           <div className="h-8 flex items-center justify-center mb-4 w-full">

@@ -15,7 +15,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', className = '' }) => {
       <div
         className={`${sizeClasses[size]} bg-cdgai-maroon rounded-full flex items-center justify-center shadow-lg border-4 border-white/10`}>
         
-        <span className="font-black text-white tracking-tighter">CDGAI</span>
+        <span className="font-black text-white tracking-tighter">EduWheel</span>
       </div>
     </div>);
 

@@ -22,7 +22,7 @@ export const ExportTab: React.FC = () => {
     if (s.participantType === "student")
       return "CECOS Student";
     if (s.participantType === "others" && s.guestType === "student")
-      return "Guest";
+      return "Student";
     if (s.participantType === "others")
       return "Guest";
     return "Guest";
@@ -46,11 +46,11 @@ export const ExportTab: React.FC = () => {
         return seg ? seg.name : segId;
       });
 
-  /** Returns all question results from spin history as a readable string, e.g. "Correct" or "Correct, Incorrect" */
+  /** Returns "Yes" or "No" for each question attempt in spin history */
   const extractQuestionResult = (spinHistory: string[]): string => {
     const results = spinHistory
       .filter((e) => e.includes(":correct") || e.includes(":wrong"))
-      .map((e) => (e.endsWith(":correct") ? "Correct" : "Incorrect"));
+      .map((e) => (e.endsWith(":correct") ? "Yes" : "No"));
     return results.join(", ");
   };
 
@@ -73,18 +73,20 @@ export const ExportTab: React.FC = () => {
         "Spins Used": s.spinsUsed,
         "Max Spins": s.maxSpins,
         Status: s.status,
-        "Question Answer": extractQuestionResult(s.spinHistory),
+        "Answered Correctly": extractQuestionResult(s.spinHistory),
         "Last Wheel Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
         "Prize Won": clean(s.awardedPrize),
-        "Reward Claimed": s.rewardClaimed ? "Yes" : "No",
-        "Spin History": spinNames.length ? spinNames.join(" → ") : "",
       };
     });
 
-  /** CECOS Students sheet */
+  /** Students sheet (CECOS + external students who selected "Student" on the kiosk) */
   const buildCECOSSheet = () =>
     students
-      .filter((s) => s.participantType === "student")
+      .filter(
+        (s) =>
+          s.participantType === "student" ||
+          (s.participantType === "others" && s.guestType === "student"),
+      )
       .map((s, i) => {
         const spinNames = resolveSpinNames(s);
         return {
@@ -94,14 +96,13 @@ export const ExportTab: React.FC = () => {
           Faculty: clean(s.faculty),
           Department: clean(s.department),
           Email: clean(s.email),
+          "Follow Status": formatFollowStatus(s.phone),
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Question Answer": extractQuestionResult(s.spinHistory),
+          "Answered Correctly": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
-          "Reward Claimed": s.rewardClaimed ? "Yes" : "No",
-          "Spin History": spinNames.length ? spinNames.join(" → ") : "",
         };
       });
 
@@ -122,18 +123,16 @@ export const ExportTab: React.FC = () => {
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Question Answer": extractQuestionResult(s.spinHistory),
+          "Answered Correctly": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
-          "Reward Claimed": s.rewardClaimed ? "Yes" : "No",
-          "Spin History": spinNames.length ? spinNames.join(" → ") : "",
         };
       });
 
-  /** Guests / Others sheet */
+  /** Guests / Others sheet — excludes students (they appear in the Students sheet) */
   const buildGuestsSheet = () =>
     students
-      .filter((s) => s.participantType === "others")
+      .filter((s) => s.participantType === "others" && s.guestType !== "student")
       .map((s, i) => {
         const type = deriveType(s);
         const spinNames = resolveSpinNames(s);
@@ -149,11 +148,9 @@ export const ExportTab: React.FC = () => {
           "Spins Used": s.spinsUsed,
           "Max Spins": s.maxSpins,
           Status: s.status,
-          "Question Answer": extractQuestionResult(s.spinHistory),
+          "Answered Correctly": extractQuestionResult(s.spinHistory),
           "Last Segment": spinNames.length ? spinNames[spinNames.length - 1] : "",
           "Prize Won": clean(s.awardedPrize),
-          "Reward Claimed": s.rewardClaimed ? "Yes" : "No",
-          "Spin History": spinNames.length ? spinNames.join(" → ") : "",
         };
       });
 
@@ -172,7 +169,7 @@ export const ExportTab: React.FC = () => {
           ID: clean(s.studentId),
           "Spin #": "",
           "Segment / Prize": "",
-          "Question Answer": "",
+          "Answered Correctly": "",
           "Is Final Prize": "",
         });
         continue;
@@ -199,8 +196,8 @@ export const ExportTab: React.FC = () => {
             history[i + 1].endsWith(":wrong"))
         ) {
           questionAnswer = history[i + 1].endsWith(":correct")
-            ? "Correct"
-            : "Incorrect";
+            ? "Yes"
+            : "No";
           i++; // consume the result entry
         }
         const isLastEntry = i === history.length - 1;
@@ -212,7 +209,7 @@ export const ExportTab: React.FC = () => {
           ID: clean(s.studentId),
           "Spin #": spinCount,
           "Segment / Prize": segName,
-          "Question Answer": questionAnswer,
+          "Answered Correctly": questionAnswer,
           "Is Final Prize": isFinal ? "Yes" : "No",
         });
         i++;
@@ -239,6 +236,9 @@ export const ExportTab: React.FC = () => {
       if (type === "full") {
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildAllParticipantsSheet()), "All Participants");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildCECOSSheet()), "Students");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildFacultySheet()), "Faculty");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildGuestsSheet()), "Guests & Others");
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(buildSpinLogSheet()), "Spin Log");
         XLSX.writeFile(wb, "session-full-export.xlsx");
       } else if (type === "students") {

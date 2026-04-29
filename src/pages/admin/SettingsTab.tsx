@@ -1299,7 +1299,7 @@ export const SettingsTab: React.FC = () => {
               type="text"
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
-              className="w-full max-w-md px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent"
+              className="w-full max-w-md px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-cdgai-accent text-gray-900"
             />
           </div>
           <button
@@ -1353,7 +1353,7 @@ export const SettingsTab: React.FC = () => {
                   value={resetText}
                   onChange={(e) => setResetText(e.target.value)}
                   placeholder="RESET"
-                  className="w-32 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-red-500 text-center font-bold"
+                  className="w-32 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-red-500 text-center font-bold text-gray-900"
                 />
 
                 <button

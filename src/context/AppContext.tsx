@@ -229,7 +229,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   } | null>(null);
   const [maxTriesDefault, setMaxTriesDefault] = useState(3);
   const [rewardPoints, setRewardPoints] = useState(5);
-  const [eventName, setEventName] = useState("CDGAI Career Fair 2025");
+  const [eventName, setEventName] = useState("EduWheel");
 
   // Track the last spin timestamp we've already processed so we don't re-fire
   const lastProcessedSpinTs = useRef<number | null>(null);

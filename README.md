@@ -1,4 +1,4 @@
-# CDGAI Career Fair — Spin Wheel
+# EduWheel
 
 An interactive spin wheel experience for career fair events. Students register, spin a wheel, and get assigned one of several challenges (trivia question, elevator pitch, resume review, freebee prize, or better luck). A real-time leaderboard tracks scores and an admin panel manages the full event.
 
