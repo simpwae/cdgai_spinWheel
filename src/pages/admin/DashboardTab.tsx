@@ -5,6 +5,19 @@ import {
   Activity,
   HelpCircle,
 } from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  PieChart,
+  Pie,
+  Legend,
+  type PieLabelRenderProps,
+} from "recharts";
 export const DashboardTab: React.FC = () => {
   const {
     students,
@@ -248,46 +261,218 @@ export const DashboardTab: React.FC = () => {
         </div>
       </div>
 
-      {/* Recent Activity */}
+      {/* Recent Activity — removed; replaced by Session Analytics below */}
+
+      {/* ── Session Analytics ── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100 bg-gray-50">
-          <h2 className="text-lg font-bold text-gray-900">Recent Activity</h2>
+          <h2 className="text-xl font-bold text-gray-900">Session Analytics</h2>
+          <p className="text-sm text-gray-500 mt-0.5">Live snapshot of all participants in this session</p>
         </div>
-        <div className="p-0">
-          <div className="divide-y divide-gray-100">
-            <div className="p-4 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <div className="text-sm text-gray-600 flex-1">
-                <span className="font-bold text-gray-900">Alex Johnson</span>{" "}
-                registered for the event.
-              </div>
-              <div className="text-xs text-gray-400 font-medium">2 min ago</div>
-            </div>
-            <div className="p-4 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
-              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              <div className="text-sm text-gray-600 flex-1">
-                <span className="font-bold text-gray-900">Sarah Smith</span>{" "}
-                spun{" "}
-                <span className="font-bold text-blue-600">
-                  Career Questions
-                </span>
-                .
-              </div>
-              <div className="text-xs text-gray-400 font-medium">5 min ago</div>
-            </div>
-            <div className="p-4 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
-              <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-              <div className="text-sm text-gray-600 flex-1">
-                <span className="font-bold text-gray-900">Michael Chen</span>{" "}
-                answered a question correctly.
-              </div>
-              <div className="text-xs text-gray-400 font-medium">
-                12 min ago
-              </div>
-            </div>
+
+        {students.length === 0 ? (
+          <div className="p-12 text-center text-gray-400 font-medium">
+            No participants yet. Analytics will appear once someone registers.
           </div>
-        </div>
+        ) : (
+          <div className="p-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+            {/* Chart 1 — Participants by Faculty */}
+            <AnalyticsPanel title="Participants by Faculty">
+              {(() => {
+                const data = Object.entries(
+                  students.reduce<Record<string, number>>((acc, s) => {
+                    const key = s.faculty || "Unknown";
+                    acc[key] = (acc[key] ?? 0) + 1;
+                    return acc;
+                  }, {})
+                ).map(([name, count]) => ({ name, count }));
+                return (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={data} margin={{ top: 4, right: 16, left: 0, bottom: 60 }}>
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} angle={-30} textAnchor="end" interval={0} />
+                      <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Bar dataKey="count" name="Participants" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </AnalyticsPanel>
+
+            {/* Chart 2 — Participant Types */}
+            <AnalyticsPanel title="Participant Types">
+              {(() => {
+                const counts = students.reduce<Record<string, number>>((acc, s) => {
+                  let label = "Other";
+                  if (s.participantType === "student") label = "CECOS Student";
+                  else if (s.participantType === "faculty") label = "Faculty";
+                  else if (s.participantType === "others") {
+                    if (s.guestType === "student") label = "Guest Student";
+                    else if (s.guestType === "faculty") label = "Guest Faculty";
+                    else label = "Guest";
+                  }
+                  acc[label] = (acc[label] ?? 0) + 1;
+                  return acc;
+                }, {});
+                const data = Object.entries(counts).map(([name, value]) => ({ name, value }));
+                const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ec4899", "#14b8a6", "#f97316"];
+                return (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <PieChart>
+                      <Pie
+                        data={data}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="45%"
+                        outerRadius={80}
+                        label={(props: PieLabelRenderProps) => {
+                          const name = props.name ?? "";
+                          const pct = ((props.percent ?? 0) * 100).toFixed(0);
+                          return `${name} (${pct}%)`;
+                        }}
+                        labelLine={false}
+                      >
+                        {data.map((_entry, index) => (
+                          <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </AnalyticsPanel>
+
+            {/* Chart 3 — Spin Outcomes */}
+            <AnalyticsPanel title="Spin Outcomes">
+              {(() => {
+                const countMap: Record<string, number> = {};
+                for (const s of students) {
+                  for (const segId of s.spinHistory) {
+                    countMap[segId] = (countMap[segId] ?? 0) + 1;
+                  }
+                }
+                const data = Object.entries(countMap)
+                  .map(([segId, count]) => {
+                    const seg = segments.find((sg) => sg.id === segId);
+                    return { name: seg?.name ?? segId, count, color: seg?.color ?? "#6B7280" };
+                  })
+                  .sort((a, b) => b.count - a.count);
+                if (data.length === 0) {
+                  return <EmptyChart message="No spins recorded yet" />;
+                }
+                return (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={data} layout="vertical" margin={{ top: 4, right: 24, left: 8, bottom: 4 }}>
+                      <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
+                      <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Bar dataKey="count" name="Times spun" radius={[0, 4, 4, 0]}>
+                        {data.map((entry, index) => (
+                          <Cell key={index} fill={entry.color} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </AnalyticsPanel>
+
+            {/* Chart 6 — Prizes Won (paired with Spin Outcomes) */}
+            <AnalyticsPanel title="Prizes Won">
+              {(() => {
+                const prizeCounts = students.reduce<Record<string, number>>((acc, s) => {
+                  if (s.awardedPrize) {
+                    acc[s.awardedPrize] = (acc[s.awardedPrize] ?? 0) + 1;
+                  }
+                  return acc;
+                }, {});
+                const data = Object.entries(prizeCounts)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([name, count]) => ({ name, count }));
+                if (data.length === 0) {
+                  return <EmptyChart message="No prizes claimed yet" />;
+                }
+                const PRIZE_COLORS = [
+                  "#ec4899", "#f97316", "#eab308", "#22c55e",
+                  "#14b8a6", "#6366f1", "#a855f7", "#f43f5e",
+                ];
+                return (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={data} layout="vertical" margin={{ top: 4, right: 24, left: 8, bottom: 4 }}>
+                      <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
+                      <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Bar dataKey="count" name="Times claimed" radius={[0, 4, 4, 0]}>
+                        {data.map((_entry, index) => (
+                          <Cell key={index} fill={PRIZE_COLORS[index % PRIZE_COLORS.length]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </AnalyticsPanel>
+
+            {/* Chart 5 — Participants by Department (top 8) — full width */}
+            <AnalyticsPanel title="Participants by Department (top 8)" wide>
+              {(() => {
+                const data = Object.entries(
+                  students.reduce<Record<string, number>>((acc, s) => {
+                    const key = s.department || "Unknown";
+                    acc[key] = (acc[key] ?? 0) + 1;
+                    return acc;
+                  }, {})
+                )
+                  .sort((a, b) => b[1] - a[1])
+                  .slice(0, 8)
+                  .map(([name, count]) => ({ name, count }));
+                return (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={data} margin={{ top: 4, right: 16, left: 0, bottom: 70 }}>
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} angle={-35} textAnchor="end" interval={0} />
+                      <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Bar dataKey="count" name="Participants" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </AnalyticsPanel>
+
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
+// ── Small helper components ───────────────────────────────────────────────────
+
+function AnalyticsPanel({
+  title,
+  wide,
+  children,
+}: {
+  title: string;
+  wide?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`bg-gray-50 rounded-xl border border-gray-200 p-4 ${wide ? "xl:col-span-2" : ""}`}>
+      <div className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">{title}</div>
+      {children}
+    </div>
+  );
+}
+
+function EmptyChart({ message }: { message: string }) {
+  return (
+    <div className="flex items-center justify-center h-[220px] text-gray-400 text-sm font-medium">
+      {message}
+    </div>
+  );
+}
