@@ -8,6 +8,7 @@ import { ResultQuestion } from "./ResultQuestion";
 import { ResultPitch } from "./ResultPitch";
 import { ResultResume } from "./ResultResume";
 import { useAppContext } from "../../context/AppContext";
+import { sendThankYouEmail } from "../../services/email";
 
 type ScreenState =
   | "idle"
@@ -90,10 +91,16 @@ export const StudentApp: React.FC = () => {
 
   // Transition back to idle or locked after a result is dismissed
   const handleResultComplete = useCallback(() => {
-    const wasLocked = currentStudentRef.current
-      ? currentStudentRef.current.spinsUsed >=
-        currentStudentRef.current.maxSpins
+    const student = currentStudentRef.current;
+    const wasLocked = student
+      ? student.spinsUsed >= student.maxSpins
       : false;
+
+    // Fire-and-forget thank-you email — never blocks the UI transition
+    if (student?.email) {
+      sendThankYouEmail(student.name, student.email);
+    }
+
     setCurrentStudent(null);
     if (wasLocked) {
       setScreen("locked");

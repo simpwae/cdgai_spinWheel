@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Thank You for Playing EduWheel!</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #f0f0f0;
+      font-family: 'DM Sans', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .email-wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+
+    /* HEADER */
+    .header {
+      background-color: #C8102E;
+      padding: 36px 48px;
+      text-align: center;
+    }
+
+    .logo-area {
+      display: inline-block;
+    }
+
+    .logo-monogram {
+      font-family: 'Bebas Neue', Arial Black, sans-serif;
+      font-size: 52px;
+      color: #ffffff;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .logo-subtitle {
+      font-family: 'DM Sans', Arial, sans-serif;
+      font-size: 10px;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    /* HERO BAND */
+    .hero-band {
+      background-color: #1a1a1a;
+      padding: 28px 48px;
+      text-align: center;
+    }
+
+    .game-tag {
+      font-family: 'Bebas Neue', Arial Black, sans-serif;
+      font-size: 13px;
+      color: #C8102E;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: 'Bebas Neue', Arial Black, sans-serif;
+      font-size: 48px;
+      color: #ffffff;
+      line-height: 1.05;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    .hero-headline span {
+      color: #C8102E;
+    }
+
+    /* BODY */
+    .body-content {
+      padding: 48px 56px;
+      background-color: #ffffff;
+    }
+
+    .greeting {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+
+    .body-text {
+      font-size: 15.5px;
+      color: #444444;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .highlight-box {
+      background-color: #fdf1f3;
+      border-left: 4px solid #C8102E;
+      padding: 20px 24px;
+      margin: 32px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .highlight-box p {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* CTA BUTTON */
+    .cta-area {
+      text-align: center;
+      margin: 36px 0 28px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #C8102E;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-family: 'DM Sans', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border-radius: 3px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background-color: #eeeeee;
+      margin: 0 56px;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 32px 56px;
+      text-align: center;
+    }
+
+    .footer-org {
+      font-size: 13px;
+      font-weight: 600;
+      color: #C8102E;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #888888;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .footer-text a {
+      color: #C8102E;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .social-row {
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: inline-block;
+      background-color: #C8102E;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 2px;
+    }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      background-color: #1a1a1a;
+      padding: 14px 48px;
+      text-align: center;
+    }
+
+    .bottom-bar p {
+      font-size: 11px;
+      color: #666666;
+      font-weight: 300;
+    }
+
+    /* Wheel decoration */
+    .wheel-decoration {
+      text-align: center;
+      font-size: 56px;
+      margin-bottom: 24px;
+      line-height: 1;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .body-content { padding: 36px 28px; }
+      .header { padding: 28px 28px; }
+      .hero-band { padding: 24px 28px; }
+      .hero-headline { font-size: 36px; }
+      .footer { padding: 24px 28px; }
+      .divider { margin: 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f0f0f0; padding: 24px 0;">
+  <tr>
+    <td align="center">
+      <div class="email-wrapper">
+
+        <!-- HEADER: LOGO -->
+        <div class="header">
+          <div class="logo-area">
+            <!-- Logo representation using text since inline images need hosted URL -->
+            <!-- Replace src below with your hosted logo URL for production -->
+            <!-- <img src="YOUR_HOSTED_LOGO_URL" alt="CDGAI" width="220" style="display:block;" /> -->
+            <div class="logo-monogram">CDGAI</div>
+            <div class="logo-subtitle">Center for Digital Governance &amp; Agentic Innovation</div>
+          </div>
+        </div>
+
+        <!-- HERO BAND -->
+        <div class="hero-band">
+          <div class="game-tag">&#9679; EduWheel</div>
+          <div class="hero-headline">
+            Thank You<br/>for <span>Playing!</span>
+          </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="body-content">
+
+          <div class="wheel-decoration">🎡</div>
+
+          <div class="greeting">We're so glad you joined us!</div>
+
+          <p class="body-text">
+            On behalf of the entire team at the <strong>Center for Digital Governance and Agentic Innovation (CDGAI)</strong>, we want to extend our heartfelt gratitude for participating in <strong>EduWheel</strong>.
+          </p>
+
+          <p class="body-text">
+            Your engagement means the world to us. EduWheel was built with one mission in mind — making learning dynamic, fun, and impactful — and players like you are the reason we keep building.
+          </p>
+
+          <div class="highlight-box">
+            <p>
+              "Every spin of the wheel is a step forward in knowledge. Thank you for taking that step with us — we hope it was as exciting for you as it was meaningful to us."
+            </p>
+          </div>
+
+          <p class="body-text">
+            We'd love to stay connected, share updates on future experiences, and hear your feedback. Follow us on LinkedIn to be the first to know what's coming next!
+          </p>
+
+          <!-- CTA -->
+          <div class="cta-area">
+            <a href="https://www.linkedin.com/company/cdgai/" class="cta-button" target="_blank">
+              Follow Us on LinkedIn
+            </a>
+          </div>
+
+          <p class="body-text" style="font-size:14px; color:#888; text-align:center;">
+            Have feedback or questions? We'd love to hear from you. Just reply to this email.
+          </p>
+
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider"></div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+          <div class="footer-org">CDGAI</div>
+          <p class="footer-text">
+            Center for Digital Governance and Agentic Innovation<br/>
+            <a href="https://www.linkedin.com/company/cdgai/" target="_blank">linkedin.com/company/cdgai</a>
+          </p>
+
+          <div class="social-row">
+            <a href="https://www.linkedin.com/company/cdgai/" class="social-link" target="_blank">
+              LinkedIn ↗
+            </a>
+          </div>
+
+          <p class="footer-text" style="margin-top:20px; font-size:11px;">
+            You received this email because you participated in EduWheel.<br/>
+            &copy; 2025 CDGAI. All rights reserved.
+          </p>
+        </div>
+
+        <!-- BOTTOM BAR -->
+        <div class="bottom-bar">
+          <p>This email was sent by CDGAI &bull; <a href="#" style="color:#666; text-decoration:none;">Unsubscribe</a></p>
+        </div>
+
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
