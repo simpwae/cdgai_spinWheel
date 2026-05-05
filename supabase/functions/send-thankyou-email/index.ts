@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { SmtpClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -381,9 +382,11 @@ serve(async (req) => {
     );
   }
 
-  const resendApiKey = Deno.env.get("RESEND_API_KEY");
-  if (!resendApiKey) {
-    console.error("RESEND_API_KEY env var is not set");
+  const gmailUser = Deno.env.get("GMAIL_USER");
+  const gmailAppPassword = Deno.env.get("GMAIL_APP_PASSWORD");
+
+  if (!gmailUser || !gmailAppPassword) {
+    console.error("GMAIL_USER or GMAIL_APP_PASSWORD env var is not set");
     return new Response(
       JSON.stringify({ error: "Email service not configured" }),
       {
@@ -394,26 +397,28 @@ serve(async (req) => {
   }
 
   const html = buildEmailHtml(name);
+  const client = new SmtpClient();
 
-  let resendResponse: Response;
   try {
-    resendResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${resendApiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "EduWheel <onboarding@resend.dev>",
-        to: [email],
-        subject: `Thank You for Playing EduWheel, ${name}!`,
-        html,
-      }),
+    await client.connectTLS({
+      hostname: "smtp.gmail.com",
+      port: 465,
+      username: gmailUser,
+      password: gmailAppPassword,
     });
+
+    await client.send({
+      from: `EduWheel <${gmailUser}>`,
+      to: email,
+      subject: `Thank You for Playing EduWheel, ${name}!`,
+      html,
+    });
+
+    await client.close();
   } catch (err) {
-    console.error("Failed to reach Resend API:", err);
+    console.error("Failed to send email via Gmail SMTP:", err);
     return new Response(
-      JSON.stringify({ error: "Failed to reach email provider" }),
+      JSON.stringify({ error: "Failed to send email", details: String(err) }),
       {
         status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -421,22 +426,9 @@ serve(async (req) => {
     );
   }
 
-  if (!resendResponse.ok) {
-    const errorBody = await resendResponse.text();
-    console.error("Resend API error:", resendResponse.status, errorBody);
-    return new Response(
-      JSON.stringify({ error: "Email provider error", details: errorBody }),
-      {
-        status: 502,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      },
-    );
-  }
+  console.log("Email sent successfully to", email);
 
-  const result = await resendResponse.json();
-  console.log("Email sent successfully to", email, "id:", result.id);
-
-  return new Response(JSON.stringify({ success: true, id: result.id }), {
+  return new Response(JSON.stringify({ success: true }), {
     status: 200,
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
