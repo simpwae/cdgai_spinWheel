@@ -335,57 +335,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   // --- Initial data load ---
   useEffect(() => {
     const load = async () => {
+      // Core data — students, segments, session, awards, settings
       try {
-        const [dbStudents, dbSegments, dbSession, dbAwards, dbSettings, dbDepts, dbCats] =
+        const [dbStudents, dbSegments, dbSession, dbAwards, dbSettings] =
           await Promise.all([
             fetchStudents(),
             fetchSegments(),
             fetchSession(),
             fetchAwardsDb(),
             fetchSettings(),
-            fetchDepartments(),
-            fetchCategories(),
           ]);
         setStudents(dbStudents.map(dbStudentToStudent));
         setSegments(
           dbSegments.map((s) => ({ id: s.id, name: s.name, color: s.color })),
         );
-
-        // Load all departments (active + inactive) for admin management
-        const mapped = dbDepts.map(dbDepartmentToCustomDepartment);
-        setCustomDepartments(mapped);
-
-        // Load categories from DB — this becomes the primary source of truth
-        const mappedCats = dbCats.map(dbCategoryToCategory);
-        setCategories(mappedCats);
-        // Sync availableCategories string[] for backward-compat with SettingsTab CSV upload
-        const activeCatNames = mappedCats.filter((c) => c.isActive && !c.deletedAt).map((c) => c.name);
-        if (activeCatNames.length > 0) {
-          setAvailableCategories(activeCatNames);
-        }
-
-        // Pre-fetch questions for active departments from Supabase
-        const activeDeptNames = mapped
-          .filter((d) => d.isActive && !d.deletedAt)
-          .map((d) => d.name);
-        if (activeDeptNames.length > 0) {
-          try {
-            const dbQs = await fetchQuestionsByDepartments(activeDeptNames);
-            setQuestions(
-              dbQs.map((q) => ({
-                id: q.id,
-                category: q.category,
-                department: q.department ?? undefined,
-                text: q.text,
-                options: q.options,
-                correctAnswerIndex: q.correct_answer_index,
-              })),
-            );
-          } catch (err) {
-            console.error("Failed to load department questions:", err);
-          }
-        }
-
         setAwards(dbAwards.map(dbAwardToAward));
         if (dbSettings?.max_tries_default != null) {
           setMaxTriesDefault(dbSettings.max_tries_default);
@@ -396,19 +359,62 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         if (dbSettings?.event_name) {
           setEventName(dbSettings.event_name);
         }
-        // Restore current student from session
         if (dbSession?.current_student_id) {
           const match = dbStudents.find(
             (s) => s.id === dbSession.current_student_id,
           );
           if (match) setCurrentStudentState(dbStudentToStudent(match));
         }
-        // Restore pending spin result
         if (dbSession?.last_spin_segment_id && dbSession?.last_spin_timestamp) {
           lastProcessedSpinTs.current = dbSession.last_spin_timestamp;
         }
       } catch (err) {
-        console.error("Failed to load initial data from Supabase:", err);
+        console.error("Failed to load core data from Supabase:", err);
+      }
+
+      // Departments — load independently so a schema/RLS error doesn't affect everything else
+      let mapped: CustomDepartment[] = [];
+      try {
+        const dbDepts = await fetchDepartments();
+        mapped = dbDepts.map(dbDepartmentToCustomDepartment);
+        setCustomDepartments(mapped);
+      } catch (err) {
+        console.error("Failed to load departments:", err);
+      }
+
+      // Categories — load independently
+      try {
+        const dbCats = await fetchCategories();
+        const mappedCats = dbCats.map(dbCategoryToCategory);
+        setCategories(mappedCats);
+        const activeCatNames = mappedCats.filter((c) => c.isActive && !c.deletedAt).map((c) => c.name);
+        if (activeCatNames.length > 0) {
+          setAvailableCategories(activeCatNames);
+        }
+      } catch (err) {
+        console.error("Failed to load categories:", err);
+      }
+
+      // Questions — load independently
+      try {
+        const activeDeptNames = mapped
+          .filter((d) => d.isActive && !d.deletedAt)
+          .map((d) => d.name);
+        if (activeDeptNames.length > 0) {
+          const dbQs = await fetchQuestionsByDepartments(activeDeptNames);
+          setQuestions(
+            dbQs.map((q) => ({
+              id: q.id,
+              category: q.category,
+              department: q.department ?? undefined,
+              text: q.text,
+              options: q.options,
+              correctAnswerIndex: q.correct_answer_index,
+            })),
+          );
+        }
+      } catch (err) {
+        console.error("Failed to load questions:", err);
       }
     };
     load();
