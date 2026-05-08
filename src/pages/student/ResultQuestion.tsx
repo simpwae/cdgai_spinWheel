@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
+import type { Question } from "../../context/AppContext";
 import { CountdownTimer } from "../../components/CountdownTimer";
 import { QUESTIONS_BY_DEPT, StaticQuestion } from "../../data/questions";
 interface ResultQuestionProps {
@@ -12,7 +13,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
   segmentName,
   onComplete,
 }) => {
-  const { currentStudent, claimAward, recordQuestionResult } =
+  const { currentStudent, claimAward, recordQuestionResult, questions } =
     useAppContext();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isTimeUp, setIsTimeUp] = useState(false);
@@ -131,17 +132,53 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
 
     let picked: StaticQuestion | null = null;
 
+    // Helper: convert a DB Question to the StaticQuestion shape
+    const dbQToStatic = (q: Question): StaticQuestion => ({
+      text: q.text,
+      options: q.options as [string, string, string, string],
+      correctAnswerIndex: q.correctAnswerIndex,
+    });
+
     if (dept && QUESTIONS_BY_DEPT[dept]) {
+      // Built-in department — use static question bank (fast, no DB call)
       const deptData = QUESTIONS_BY_DEPT[dept];
       if (deptData[category]?.length > 0) {
         picked = rand(deptData[category]);
       } else if (deptData["Question Bank"]?.length > 0) {
         picked = rand(deptData["Question Bank"]);
       }
+    } else if (dept) {
+      // Custom department — look in DB questions loaded at startup
+      const pool = questions.filter(
+        (q) => q.department === dept && q.category === category,
+      );
+      if (pool.length > 0) {
+        picked = dbQToStatic(rand(pool));
+      } else {
+        // Fall back to same dept, any category
+        const fallbackPool = questions.filter((q) => q.department === dept);
+        if (fallbackPool.length > 0) {
+          picked = dbQToStatic(rand(fallbackPool));
+        }
+      }
     }
 
     if (!picked) {
-      // Guest or unrecognised dept — pick from a random dept's category pool
+      // Guest or unrecognised dept — first try DB questions for any dept,
+      // then fall back to built-in static questions
+      const dbPool = questions.filter((q) => q.category === category);
+      if (dbPool.length > 0) {
+        const singlePick = rand(dbPool);
+        picked = {
+          text: singlePick.text,
+          options: singlePick.options as [string, string, string, string],
+          correctAnswerIndex: singlePick.correctAnswerIndex,
+        };
+      }
+    }
+
+    if (!picked) {
+      // Final fallback — built-in static questions from a random dept
       const allDepts = Object.keys(QUESTIONS_BY_DEPT).sort(
         () => Math.random() - 0.5,
       );
@@ -157,7 +194,7 @@ export const ResultQuestion: React.FC<ResultQuestionProps> = ({
     }
 
     setQuestion(picked);
-  }, [currentStudent, segmentName]);
+  }, [currentStudent, segmentName, questions]);
 
   // Safety net: if student data NEVER arrives (page-reload edge case),
   // pick a generic question after 2 s so the timer doesn't just hang.

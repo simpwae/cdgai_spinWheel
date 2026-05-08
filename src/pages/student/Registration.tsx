@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Logo } from '../../components/Logo';
-import { useAppContext, Department, Faculty, FACULTY_DEPARTMENTS } from '../../context/AppContext';
+import { useAppContext, Department } from '../../context/AppContext';
 interface RegistrationProps {
   onComplete: () => void;
   onLocked: () => void;
@@ -10,20 +10,21 @@ export const Registration: React.FC<RegistrationProps> = ({
   onComplete,
   onLocked
 }) => {
-  const { registerStudent } = useAppContext();
+  const { registerStudent, customDepartments } = useAppContext();
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
-  const [faculty, setFaculty] = useState<Faculty | ''>('');
   const [department, setDepartment] = useState<Department>('');
   const [errors, setErrors] = useState<{
     name?: boolean;
     studentId?: boolean;
-    faculty?: boolean;
     department?: boolean;
   }>({});
   const [warning, setWarning] = useState('');
 
-  const availableDepartments = faculty ? FACULTY_DEPARTMENTS[faculty] : [];
+  const ALL_DEPARTMENTS = useMemo(
+    () => customDepartments.filter((d) => d.isActive && !d.deletedAt).map((d) => d.name).sort(),
+    [customDepartments],
+  );
 
   const isValidName = (val: string) => /^[a-zA-Z\s]+$/.test(val.trim());
 
@@ -33,7 +34,6 @@ export const Registration: React.FC<RegistrationProps> = ({
     const newErrors = {
       name: !name.trim() || !isValidName(name),
       studentId: !studentId.trim(),
-      faculty: !faculty,
       department: !department
     };
     setErrors(newErrors);
@@ -41,8 +41,8 @@ export const Registration: React.FC<RegistrationProps> = ({
       if (!name.trim()) setWarning('');
       else if (!isValidName(name)) setWarning('Name must contain only letters and spaces.');
     }
-    if (newErrors.name || newErrors.studentId || newErrors.faculty || newErrors.department) return;
-    const result = await registerStudent(name, studentId, '', '', faculty, department, 'student');
+    if (newErrors.name || newErrors.studentId || newErrors.department) return;
+    const result = await registerStudent(name, studentId, '', '', '', department, 'student');
     if (!result.success) {
       if (result.error === 'name_mismatch') {
         setWarning(
@@ -171,48 +171,20 @@ export const Registration: React.FC<RegistrationProps> = ({
           </div>
 
           <div>
-            <label htmlFor="reg-faculty" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
-              Faculty
-            </label>
-            <select
-              id="reg-faculty"
-              value={faculty}
-              onChange={(e) => {
-                const val = e.target.value as Faculty | '';
-                setFaculty(val);
-                setDepartment('');
-                setErrors((p) => ({ ...p, faculty: false, department: false }));
-              }}
-              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none ${errors.faculty ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
-              
-              <option value="">Select Faculty</option>
-              {(Object.keys(FACULTY_DEPARTMENTS) as Faculty[]).map((f) => (
-                <option key={f} value={f}>{f}</option>
-              ))}
-            </select>
-            {errors.faculty &&
-            <p role="alert" className="mt-2 text-sm text-red-500 font-medium">
-                This field is required
-              </p>
-            }
-          </div>
-
-          <div>
             <label htmlFor="reg-department" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">
               Department
             </label>
             <select
               id="reg-department"
               value={department}
-              disabled={!faculty}
               onChange={(e) => {
                 setDepartment(e.target.value as Department);
                 setErrors((p) => ({ ...p, department: false }));
               }}
-              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none disabled:opacity-50 disabled:cursor-not-allowed ${errors.department ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
+              className={`w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 bg-gray-50 text-gray-900 text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-cdgai-accent/20 transition-all appearance-none ${errors.department ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cdgai-accent'}`}>
               
-              <option value="">{faculty ? 'Select Department' : 'Select a faculty first'}</option>
-              {availableDepartments.map((d) => (
+              <option value="">Select Department</option>
+              {ALL_DEPARTMENTS.map((d) => (
                 <option key={d} value={d}>{d}</option>
               ))}
             </select>

@@ -7,15 +7,12 @@ export interface DbStudent {
   faculty: string;
   department: string;
   participant_type: string;
-  score: number;
   spins_used: number;
   max_spins: number;
   status: "active" | "locked" | "banned";
   spin_history: string[];
   reward_claimed: boolean;
   awarded_prize: string | null;
-  pending_score: number | null;
-  pending_feedback: string | null;
   created_at: string;
   // Guest extra fields (optional — added via ALTER TABLE migration)
   is_guest?: boolean;
@@ -56,6 +53,7 @@ export interface DbSettings {
   max_tries_default: number;
   reward_points: number;
   event_name: string;
+  available_categories: string[];
 }
 
 export interface DbAward {
@@ -64,4 +62,25 @@ export interface DbAward {
   total_quantity: number;
   remaining_quantity: number;
   created_at: string;
+}
+
+export interface DbDepartment {
+  id: string;
+  name: string;
+  slug: string;
+  faculty: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface DbCategory {
+  id: string;
+  name: string;
+  slug: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }

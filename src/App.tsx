@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
+import { ToastProvider } from "./components/Toast";
 import { StudentApp } from "./pages/student/StudentApp";
 import { AdminPanel } from "./pages/admin/AdminPanel";
 const AppContent = () => {
@@ -14,9 +15,11 @@ const AppContent = () => {
 export function App() {
   return (
     <AppProvider>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <AppContent />
-      </Router>
+      <ToastProvider>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <AppContent />
+        </Router>
+      </ToastProvider>
     </AppProvider>
   );
 }

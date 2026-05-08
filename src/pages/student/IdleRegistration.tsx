@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "../../components/Logo";
 import {
@@ -6,12 +6,6 @@ import {
   Department,
   FACULTY_DEPARTMENTS,
 } from "../../context/AppContext";
-
-// Exact department names from the questions table — dropdowns ensure the value
-// saved to DB always matches a real department in the questions data.
-const ALL_DEPARTMENTS: string[] = [
-  ...new Set(Object.values(FACULTY_DEPARTMENTS).flatMap((arr) => [...arr])),
-].sort();
 
 const SEMESTERS = [
   "1st Semester",
@@ -41,7 +35,19 @@ export const IdleRegistration: React.FC<IdleRegistrationProps> = ({
   onComplete,
   onLocked,
 }) => {
-  const { registerStudent } = useAppContext();
+  const { registerStudent, customDepartments } = useAppContext();
+
+  // Dynamic department list: built-in + active custom departments
+  const ALL_DEPARTMENTS = useMemo(() => {
+    const builtIn = Object.values(FACULTY_DEPARTMENTS).flatMap((arr) => [
+      ...arr,
+    ]);
+    const custom = customDepartments
+      .filter((d) => d.isActive)
+      .map((d) => d.name);
+    return [...new Set([...builtIn, ...custom])].sort();
+  }, [customDepartments]);
+
   const [taglineIndex, setTaglineIndex] = useState(0);
 
   // Who is registering

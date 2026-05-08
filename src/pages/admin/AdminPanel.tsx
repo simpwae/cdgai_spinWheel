@@ -4,14 +4,16 @@ import { DashboardTab } from './DashboardTab';
 import { StudentsTab } from './StudentsTab';
 import { SettingsTab } from './SettingsTab';
 import { ExportTab } from './ExportTab';
+import { CategoriesTab } from './CategoriesTab';
 import {
   LayoutDashboard,
   Users,
   Settings,
   Download,
-  LogOut } from
+  LogOut,
+  Tag } from
 'lucide-react';
-type Tab = 'dashboard' | 'students' | 'settings' | 'export';
+type Tab = 'dashboard' | 'students' | 'settings' | 'export' | 'categories';
 export const AdminPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const navItems = [
@@ -24,6 +26,11 @@ export const AdminPanel: React.FC = () => {
     id: 'students',
     label: 'Participants',
     icon: <Users size={20} />
+  },
+  {
+    id: 'categories',
+    label: 'Categories',
+    icon: <Tag size={20} />
   },
   {
     id: 'settings',
@@ -98,6 +105,7 @@ export const AdminPanel: React.FC = () => {
         <main className="flex-1 overflow-y-auto p-4 sm:p-8 pb-20 md:pb-8">
           {activeTab === 'dashboard' && <DashboardTab />}
           {activeTab === 'students' && <StudentsTab />}
+          {activeTab === 'categories' && <CategoriesTab />}
           {activeTab === 'settings' && <SettingsTab />}
           {activeTab === 'export' && <ExportTab />}
         </main>

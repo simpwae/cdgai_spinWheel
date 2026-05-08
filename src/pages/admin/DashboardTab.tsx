@@ -24,26 +24,9 @@ export const DashboardTab: React.FC = () => {
     currentStudent,
     segments,
     recordSpin,
-    submitAdminScore,
-    rewardPoints,
   } = useAppContext();
   const [isSpinning, setIsSpinning] = useState(false);
   const spinningRef = useRef(false);
-
-  // Pitch scoring state
-  const [pitchStudent, setPitchStudent] = useState<typeof currentStudent>(null);
-  const [pitchScore, setPitchScore] = useState(5);
-  const [pitchFeedback, setPitchFeedback] = useState("");
-  const [pitchSubmitted, setPitchSubmitted] = useState(false);
-
-  // Resume scoring state
-  const [resumeStudent, setResumeStudent] = useState<typeof currentStudent>(null);
-  const [resumeScore, setResumeScore] = useState(5);
-  const [resumeFeedback, setResumeFeedback] = useState("");
-  const [resumeSubmitted, setResumeSubmitted] = useState(false);
-
-  // suppress unused-var warnings for submit handlers (used by future UI)
-  void pitchSubmitted; void resumeSubmitted;
 
   const activeStudents = students.filter((s) => s.status === "active").length;
   const totalQuestionsAnswered = students.reduce(
@@ -61,46 +44,13 @@ export const DashboardTab: React.FC = () => {
       return;
     spinningRef.current = true;
     setIsSpinning(true);
-    const points = segmentId === "s2" ? rewardPoints : 0;
-    recordSpin(currentStudent.id, segmentId, points);
+    recordSpin(currentStudent.id, segmentId);
     // Reset after 3 s — the realtime event will clear currentStudent before this
     setTimeout(() => {
       spinningRef.current = false;
       setIsSpinning(false);
     }, 3000);
-    // If pitch segment, capture the student so admin can score below
-    if (segmentId === "s5") {
-      setPitchStudent(currentStudent);
-      setPitchScore(5);
-      setPitchFeedback("");
-      setPitchSubmitted(false);
-    }
-    // If resume segment, capture the student so admin can score below
-    if (segmentId === "s7") {
-      setResumeStudent(currentStudent);
-      setResumeScore(5);
-      setResumeFeedback("");
-      setResumeSubmitted(false);
-    }
   };
-
-  const handlePitchSubmit = () => {
-    if (!pitchStudent) return;
-    submitAdminScore(pitchStudent.id, pitchScore, pitchFeedback || undefined);
-    setPitchSubmitted(true);
-  };
-  void handlePitchSubmit;
-
-  const handleResumeSubmit = () => {
-    if (!resumeStudent) return;
-    submitAdminScore(
-      resumeStudent.id,
-      resumeScore,
-      resumeFeedback || undefined,
-    );
-    setResumeSubmitted(true);
-  };
-  void handleResumeSubmit;
   return (
     <div className="space-y-6">
       {/* Stats Row */}
@@ -277,30 +227,7 @@ export const DashboardTab: React.FC = () => {
         ) : (
           <div className="p-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
 
-            {/* Chart 1 — Participants by Faculty */}
-            <AnalyticsPanel title="Participants by Faculty">
-              {(() => {
-                const data = Object.entries(
-                  students.reduce<Record<string, number>>((acc, s) => {
-                    const key = s.faculty || "Unknown";
-                    acc[key] = (acc[key] ?? 0) + 1;
-                    return acc;
-                  }, {})
-                ).map(([name, count]) => ({ name, count }));
-                return (
-                  <ResponsiveContainer width="100%" height={220}>
-                    <BarChart data={data} margin={{ top: 4, right: 16, left: 0, bottom: 60 }}>
-                      <XAxis dataKey="name" tick={{ fontSize: 11 }} angle={-30} textAnchor="end" interval={0} />
-                      <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                      <Tooltip />
-                      <Bar dataKey="count" name="Participants" fill="#6366f1" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                );
-              })()}
-            </AnalyticsPanel>
-
-            {/* Chart 2 — Participant Types */}
+            {/* Chart 1 — Participant Types */}
             <AnalyticsPanel title="Participant Types">
               {(() => {
                 const counts = students.reduce<Record<string, number>>((acc, s) => {

@@ -48,10 +48,17 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
   useEffect(() => {
     if (!isTimeUp) return;
     if (prizeState === 'idle' || prizeState === 'checking') return;
-    const delay = prizeState === 'new-award' ? 7000 : 3000;
+    const delay = prizeState === 'new-award' ? 7000 : 5000;
     const timer = setTimeout(() => onCompleteRef.current(), delay);
     return () => clearTimeout(timer);
   }, [isTimeUp, prizeState]);
+
+  // If time is up but prize check hasn't resolved yet, still auto-proceed after 15s
+  useEffect(() => {
+    if (!isTimeUp) return;
+    const fallback = setTimeout(() => onCompleteRef.current(), 15000);
+    return () => clearTimeout(fallback);
+  }, [isTimeUp]);
 
   return (
     <div className="min-h-screen w-full bg-[#EA580C] flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden text-white">
@@ -95,47 +102,6 @@ export const ResultPitch: React.FC<ResultPitchProps> = ({ onComplete }) => {
                 className="flex items-center space-x-2 px-5 sm:px-8 py-2 sm:py-3 rounded-full border-2 border-white/40 bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg transition-all active:scale-95">
                 <SkipForward size={20} />
                 <span>Done Pitching</span>
-              </button>
-            </motion.div>
-          ) : !(currentStudent?.pendingScore !== null && currentStudent?.pendingScore !== undefined) ? (
-            <motion.div
-              key="waiting"
-              initial={{
-                opacity: 0,
-                scale: 0.8,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              className="flex flex-col items-center"
-            >
-              <h2 className="text-3xl sm:text-5xl font-black text-yellow-300 mb-6 sm:mb-8">
-                Time's up!
-              </h2>
-              <div className="flex items-center space-x-4 bg-white/20 px-6 sm:px-8 py-3 sm:py-4 rounded-full mb-8">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                  }}
-                  className="w-4 h-4 rounded-full bg-white"
-                />
-
-                <span className="text-lg sm:text-2xl font-bold">
-                  Awaiting judge score...
-                </span>
-              </div>
-              {/* Escape hatch — auto-proceeds after 60 s via useEffect, this is immediate */}
-              <button
-                onClick={() => onCompleteRef.current()}
-                className="px-6 sm:px-8 py-2 sm:py-3 rounded-full border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white font-bold text-sm sm:text-base transition-all active:scale-95"
-              >
-                Go Home →
               </button>
             </motion.div>
           ) : (

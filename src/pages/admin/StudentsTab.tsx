@@ -175,7 +175,7 @@ export const StudentsTab: React.FC = () => {
                     {formatFollowStatus(participant.phone)}
                   </td>
                   <td className="p-4 text-sm text-gray-600">
-                    {pType === 'Faculty' ? (participant.faculty || '—') : (participant.department || '—')}
+                    {participant.department || '—'}
                   </td>
                   <td className="p-4 text-center text-sm text-gray-600">
                     {participant.spinsUsed} / {participant.maxSpins}

@@ -401,6 +401,7 @@ const toCellText = (value: unknown) => {
 const parseSingleFile = async (
   file: File,
   departmentHint?: string | null,
+  additionalDepartments: string[] = [],
 ): Promise<{ parsed: ParsedQuestion[]; errors: string[] }> => {
   const workbook = /\.csv$/i.test(file.name)
     ? XLSX.read(await file.text(), {
@@ -446,6 +447,16 @@ const parseSingleFile = async (
   const fallbackDepartment =
     normalizeDepartment(departmentHint || "") || deptFromFilename(file.name);
 
+  // Build a fast exact-match lookup for custom/additional departments
+  const additionalLower = new Map(
+    additionalDepartments.map((d) => [d.trim().toLowerCase(), d.trim()]),
+  );
+
+  const resolveAdditionalDept = (raw: string): string | null => {
+    const lower = raw.trim().toLowerCase();
+    return additionalLower.get(lower) ?? null;
+  };
+
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index];
     const rowNum = index + 2;
@@ -458,7 +469,9 @@ const parseSingleFile = async (
         : null);
     const rawDepartment = toCellText(row.department);
     const department =
-      normalizeDepartment(rawDepartment) || fallbackDepartment || null;
+      normalizeDepartment(rawDepartment) ||
+      resolveAdditionalDept(rawDepartment) ||
+      fallbackDepartment || null;
     const option1 = toCellText(row.option1);
     const option2 = toCellText(row.option2);
     const option3 = toCellText(row.option3);
@@ -487,7 +500,9 @@ const parseSingleFile = async (
     }
     if (!department && rawDepartment) {
       errors.push(
-        `${file.name} row ${rowNum}: could not normalize department "${rawDepartment}"`,
+        `${file.name} row ${rowNum}: department "${rawDepartment}" is not recognised. ` +
+          `Known departments: built-in (Civil, Electrical, …) or custom categories. ` +
+          `Create the category in Admin → Categories first, or fix the spelling.`,
       );
       continue;
     }
@@ -518,6 +533,8 @@ export const SettingsTab: React.FC = () => {
     updateMaxTriesDefault,
     updateRewardPoints,
     updateEventName,
+    customDepartments,
+    availableCategories,
   } = useAppContext();
   const [maxTries, setMaxTries] = useState(maxTriesDefault);
   const [rewardPoints, setRewardPoints] = useState(contextRewardPoints);
@@ -659,6 +676,14 @@ export const SettingsTab: React.FC = () => {
           .join(", "),
       );
 
+      // Collect active department and category names for strict validation
+      const activeCustomDeptNames = customDepartments
+        .filter((d) => d.isActive && !d.deletedAt)
+        .map((d) => d.name);
+      // Build sets for O(1) lookup (case-insensitive)
+      const activeDeptSet = new Set(activeCustomDeptNames.map((n) => n.toLowerCase()));
+      const activeCatSet = new Set(availableCategories.map((n) => n.toLowerCase()));
+
       try {
         // Step 1 — parse every file, collecting questions grouped by department
         const byDept = new Map<string | null, ParsedQuestion[]>();
@@ -673,17 +698,35 @@ export const SettingsTab: React.FC = () => {
             const { parsed, errors } = await parseSingleFile(
               source.file,
               fileDeptHint,
+              activeCustomDeptNames,
             );
             allErrors.push(...errors);
-            totalParsed += parsed.length;
 
-            for (const q of parsed) {
+            // Strict post-parse validation: reject questions with unknown dept/category
+            const strictValid: ParsedQuestion[] = [];
+            for (let i = 0; i < parsed.length; i++) {
+              const q = parsed[i];
+              const rowNum = i + 2;
+              const fname = source.sourceLabel ?? source.file.name;
+              if (q.category && !activeCatSet.has(q.category.toLowerCase())) {
+                allErrors.push(`${fname} row ${rowNum}: category "${q.category}" is not an active category. Add it in Admin → Categories first.`);
+                continue;
+              }
+              if (q.department && !activeDeptSet.has(q.department.toLowerCase())) {
+                allErrors.push(`${fname} row ${rowNum}: department "${q.department}" is not an active department. Add it in Admin → Departments first.`);
+                continue;
+              }
+              strictValid.push(q);
+            }
+            totalParsed += strictValid.length;
+
+            for (const q of strictValid) {
               if (!byDept.has(q.department)) byDept.set(q.department, []);
               byDept.get(q.department)!.push(q);
             }
 
             parseResults.push(
-              `✓ ${source.sourceLabel ?? source.file.name}: ${parsed.length} questions`,
+              `✓ ${source.sourceLabel ?? source.file.name}: ${strictValid.length} questions`,
             );
           } catch (err) {
             allErrors.push(
@@ -757,7 +800,7 @@ export const SettingsTab: React.FC = () => {
         setImportMessage(`Import failed: ${getErrMsg(err)}`);
       }
     },
-    [refreshQuestions],
+    [refreshQuestions, customDepartments],
   );
 
   const handleBundledImport = useCallback(async () => {
@@ -977,19 +1020,16 @@ export const SettingsTab: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="text-xs font-semibold text-gray-500 self-center mr-1">
-              Sample CSVs:
+              Sample CSV:
             </span>
-            {KNOWN_DEPARTMENTS.map((dept) => (
-              <a
-                key={dept}
-                href={`/sample-questions/${dept}.csv`}
-                download
-                className="inline-flex items-center space-x-1 px-2 py-1 rounded bg-cdgai-accent/10 text-xs font-bold text-cdgai-accent hover:bg-cdgai-accent/20 transition-colors"
-              >
-                <Download size={12} />
-                <span>{dept}</span>
-              </a>
-            ))}
+            <a
+              href="/questions/All_departments.csv"
+              download
+              className="inline-flex items-center space-x-1 px-2 py-1 rounded bg-cdgai-accent/10 text-xs font-bold text-cdgai-accent hover:bg-cdgai-accent/20 transition-colors"
+            >
+              <Download size={12} />
+              <span>Download Sample CSV</span>
+            </a>
           </div>
         </div>
         <div className="p-6 space-y-6">
@@ -1001,13 +1041,15 @@ export const SettingsTab: React.FC = () => {
                 const d = q.department || "General";
                 countByDept[d] = (countByDept[d] || 0) + 1;
               });
+              // Show all departments that have questions (built-in + custom)
+              const deptsWithQuestions = Object.keys(countByDept).sort();
               return (
                 <div>
                   <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
                     Questions per Department
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                    {KNOWN_DEPARTMENTS.map((dept) => {
+                    {deptsWithQuestions.map((dept) => {
                       const count = countByDept[dept] || 0;
                       return (
                         <div
