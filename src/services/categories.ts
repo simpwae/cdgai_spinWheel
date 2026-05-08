@@ -16,7 +16,7 @@ export async function fetchCategories(): Promise<DbCategory[]> {
     .select('*')
     .is('deleted_at', null)
     .order('name');
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data ?? [];
 }
 
@@ -28,7 +28,7 @@ export async function fetchActiveCategories(): Promise<DbCategory[]> {
     .eq('is_active', true)
     .is('deleted_at', null)
     .order('name');
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data ?? [];
 }
 
@@ -40,7 +40,7 @@ export async function getCategoryByName(name: string): Promise<DbCategory | null
     .ilike('name', name.trim())
     .is('deleted_at', null)
     .maybeSingle();
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -51,7 +51,7 @@ export async function insertCategory(name: string): Promise<DbCategory> {
     .insert({ name: trimmed, slug: toSlug(trimmed), is_active: true })
     .select()
     .single();
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -67,7 +67,7 @@ export async function updateCategory(
     .eq('id', id)
     .select()
     .single();
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -81,7 +81,7 @@ export async function softDeleteCategory(id: string): Promise<void> {
     .from('categories')
     .update({ deleted_at: new Date().toISOString(), is_active: false })
     .eq('id', id);
-  if (error) throw error;
+  if (error) throw new Error(error.message);
 }
 
 export interface CategorySafetyInfo {
@@ -97,7 +97,7 @@ export async function checkCategoryDeletionSafety(
     .from('questions')
     .select('id', { count: 'exact', head: true })
     .eq('category', categoryName);
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   const questionCount = count ?? 0;
   return { questionCount, canHardDelete: questionCount === 0 };
 }
