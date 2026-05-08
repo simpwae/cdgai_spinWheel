@@ -50,7 +50,7 @@ export async function insertDepartment(
   const trimmed = name.trim();
   const { data, error } = await supabase
     .from('departments')
-    .insert({ name: trimmed, slug: toSlug(trimmed), is_active: true, faculty: '' })
+    .insert({ name: trimmed, slug: toSlug(trimmed), is_active: true })
     .select()
     .single();
   if (error) throw new Error(error.message);
