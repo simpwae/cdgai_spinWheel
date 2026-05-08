@@ -68,7 +68,6 @@ export interface DbDepartment {
   id: string;
   name: string;
   slug: string;
-  faculty: string;
   is_active: boolean;
   created_at: string;
   updated_at: string;

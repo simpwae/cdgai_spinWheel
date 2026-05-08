@@ -111,7 +111,6 @@ export interface CustomDepartment {
   id: string;
   name: string;
   slug: string;
-  faculty: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -235,8 +234,8 @@ interface AppContextType {
   checkCategoryDeletion: (categoryName: string) => Promise<CategorySafetyInfo>;
   customDepartments: CustomDepartment[];
   refreshCustomDepartments: () => Promise<void>;
-  addCustomDepartment: (name: string, faculty: string, questionCategories: string[]) => Promise<CustomDepartment>;
-  updateCustomDepartment: (id: string, updates: Partial<Pick<CustomDepartment, 'name' | 'faculty' | 'isActive'>>) => Promise<void>;
+  addCustomDepartment: (name: string, _questionCategories?: string[]) => Promise<CustomDepartment>;
+  updateCustomDepartment: (id: string, updates: Partial<Pick<CustomDepartment, 'name' | 'isActive'>>) => Promise<void>;
   removeCustomDepartment: (id: string) => Promise<void>;
   toggleDepartmentActiveItem: (id: string, isActive: boolean) => Promise<void>;
   checkDepartmentDeletion: (departmentName: string) => Promise<DepartmentSafetyInfo>;
@@ -287,7 +286,6 @@ function dbDepartmentToCustomDepartment(row: DbDepartment): CustomDepartment {
     id: row.id,
     name: row.name,
     slug: row.slug,
-    faculty: row.faculty,
     isActive: row.is_active,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -1036,8 +1034,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const addCustomDepartment = useCallback(
-    async (name: string, faculty: string, _questionCategories?: string[]): Promise<CustomDepartment> => {
-      const row = await insertDepartmentDb(name, faculty);
+    async (name: string, _questionCategories?: string[]): Promise<CustomDepartment> => {
+      const row = await insertDepartmentDb(name);
       const dept = dbDepartmentToCustomDepartment(row);
       setCustomDepartments((prev) => {
         if (prev.some((d) => d.id === dept.id)) return prev;
@@ -1051,11 +1049,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateCustomDepartment = useCallback(
     async (
       id: string,
-      updates: Partial<Pick<CustomDepartment, "name" | "faculty" | "isActive">>,
+      updates: Partial<Pick<CustomDepartment, "name" | "isActive">>,
     ): Promise<void> => {
       const row = await updateDepartmentDb(id, {
         ...(updates.name !== undefined && { name: updates.name }),
-        ...(updates.faculty !== undefined && { faculty: updates.faculty }),
         ...(updates.isActive !== undefined && { is_active: updates.isActive }),
       });
       const updated = dbDepartmentToCustomDepartment(row);
@@ -1088,7 +1085,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     (faculty: string): string[] => {
       // Primary: DB departments (active, non-deleted)
       const fromDb = customDepartments
-        .filter((d) => d.isActive && !d.deletedAt && d.faculty === faculty)
+        .filter((d) => d.isActive && !d.deletedAt)
         .map((d) => d.name);
       if (fromDb.length > 0) return fromDb;
       // Fallback: hardcoded constants (if DB is empty or loading)

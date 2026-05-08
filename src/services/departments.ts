@@ -46,12 +46,11 @@ export async function getDepartmentByName(name: string): Promise<DbDepartment | 
 
 export async function insertDepartment(
   name: string,
-  faculty: string,
 ): Promise<DbDepartment> {
   const trimmed = name.trim();
   const { data, error } = await supabase
     .from('departments')
-    .insert({ name: trimmed, faculty, slug: toSlug(trimmed), is_active: true })
+    .insert({ name: trimmed, slug: toSlug(trimmed), is_active: true })
     .select()
     .single();
   if (error) throw error;
@@ -60,7 +59,7 @@ export async function insertDepartment(
 
 export async function updateDepartment(
   id: string,
-  updates: Partial<Pick<DbDepartment, 'name' | 'faculty' | 'is_active'>>,
+  updates: Partial<Pick<DbDepartment, 'name' | 'is_active'>>,
 ): Promise<DbDepartment> {
   const patch: Record<string, unknown> = { ...updates };
   if (updates.name) patch.slug = toSlug(updates.name);

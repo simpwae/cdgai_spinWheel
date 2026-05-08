@@ -125,7 +125,6 @@ function DepartmentsSection() {
   const { toast } = useToast();
 
   const [newName, setNewName] = useState("");
-  const [newFaculty, setNewFaculty] = useState("");
   const [formError, setFormError] = useState("");
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
@@ -133,7 +132,6 @@ function DepartmentsSection() {
 
   const [editId, setEditId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
-  const [editFaculty, setEditFaculty] = useState("");
   const [editError, setEditError] = useState("");
   const [editSaving, setEditSaving] = useState(false);
 
@@ -141,11 +139,6 @@ function DepartmentsSection() {
   const [safetyDept, setSafetyDept] = useState<CustomDepartment | null>(null);
   const [safetyInfo, setSafetyInfo] = useState<{ studentCount: number; questionCount: number } | null>(null);
   const [safetyLoading, setSafetyLoading] = useState(false);
-
-  const uniqueFaculties = useMemo(
-    () => [...new Set(customDepartments.map((d) => d.faculty).filter(Boolean))].sort(),
-    [customDepartments],
-  );
 
   const questionCounts = useMemo(
     () => questions.reduce<Record<string, number>>((acc, q) => {
@@ -164,7 +157,7 @@ function DepartmentsSection() {
 
   const filtered = useMemo(() => {
     return customDepartments.filter((d) => {
-      const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.faculty.toLowerCase().includes(search.toLowerCase());
+      const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase());
       const matchStatus =
         statusFilter === "all" ||
         (statusFilter === "active" && d.isActive && !d.deletedAt) ||
@@ -187,9 +180,8 @@ function DepartmentsSection() {
     if (isDuplicate(trimmed)) { setFormError(`"${trimmed}" already exists.`); return; }
     setSaving(true);
     try {
-      await addCustomDepartment(trimmed, newFaculty || "Custom");
+      await addCustomDepartment(trimmed);
       setNewName("");
-      setNewFaculty("");
       toast(`Department "${trimmed}" created.`);
     } catch (err) {
       setFormError(err instanceof Error ? err.message : "Failed to create department.");
@@ -205,7 +197,7 @@ function DepartmentsSection() {
     if (isDuplicate(trimmed, editId)) { setEditError(`"${trimmed}" already exists.`); return; }
     setEditSaving(true);
     try {
-      await updateCustomDepartment(editId, { name: trimmed, faculty: editFaculty });
+      await updateCustomDepartment(editId, { name: trimmed });
       setEditId(null);
       toast("Department updated.");
     } catch (err) {
@@ -293,16 +285,9 @@ function DepartmentsSection() {
       </div>
 
       <form onSubmit={handleAdd} className="p-6 border-b border-gray-100 space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="dept-name" className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">Department Name *</label>
-            <input id="dept-name" type="text" value={newName} onChange={(e) => { setNewName(e.target.value); setFormError(""); }} placeholder="e.g. Robotics, Data Science…" className={`w-full px-3.5 py-2.5 rounded-lg border bg-gray-50 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all ${formError ? "border-red-400" : "border-gray-200 focus:border-blue-400"}`} />
-          </div>
-          <div>
-            <label htmlFor="dept-faculty" className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">Faculty</label>
-            <input id="dept-faculty" type="text" value={newFaculty} onChange={(e) => setNewFaculty(e.target.value)} placeholder="e.g. Faculty of Engineering" list="faculty-suggestions" className="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all" />
-            <datalist id="faculty-suggestions">{uniqueFaculties.map((f) => <option key={f} value={f} />)}</datalist>
-          </div>
+        <div>
+          <label htmlFor="dept-name" className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">Department Name *</label>
+          <input id="dept-name" type="text" value={newName} onChange={(e) => { setNewName(e.target.value); setFormError(""); }} placeholder="e.g. Robotics, Data Science…" className={`w-full px-3.5 py-2.5 rounded-lg border bg-gray-50 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all ${formError ? "border-red-400" : "border-gray-200 focus:border-blue-400"}`} />
         </div>
         {formError && <p className="text-sm text-red-600 font-medium flex items-center gap-1.5"><AlertTriangle size={13} /> {formError}</p>}
         <button type="submit" disabled={saving} className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
@@ -334,16 +319,9 @@ function DepartmentsSection() {
             <li key={dept.id} className="p-4 sm:p-5">
               {editId === dept.id ? (
                 <div className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Name</label>
-                      <input autoFocus type="text" value={editName} onChange={(e) => { setEditName(e.target.value); setEditError(""); }} className={`w-full px-3 py-2 rounded-lg border text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all ${editError ? "border-red-400" : "border-gray-300 focus:border-blue-400"}`} />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Faculty</label>
-                      <input type="text" value={editFaculty} onChange={(e) => setEditFaculty(e.target.value)} list="faculty-suggestions-edit" className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all" />
-                      <datalist id="faculty-suggestions-edit">{uniqueFaculties.map((f) => <option key={f} value={f} />)}</datalist>
-                    </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Name</label>
+                    <input autoFocus type="text" value={editName} onChange={(e) => { setEditName(e.target.value); setEditError(""); }} className={`w-full px-3 py-2 rounded-lg border text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all ${editError ? "border-red-400" : "border-gray-300 focus:border-blue-400"}`} />
                   </div>
                   {editName.trim() !== dept.name && (
                     <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 flex items-start gap-1.5">
@@ -366,7 +344,6 @@ function DepartmentsSection() {
                       <p className={`font-bold text-gray-900 ${dept.deletedAt ? "line-through text-gray-400" : ""}`}>{dept.name}</p>
                       <StatusBadge isActive={dept.isActive} isDeleted={!!dept.deletedAt} />
                     </div>
-                    <p className="text-xs text-gray-500 mt-0.5">{dept.faculty || "—"}</p>
                     <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
                       <span>{questionCounts[dept.name] ?? 0} questions</span>
                       <span>{studentCounts[dept.name] ?? 0} students</span>
@@ -379,7 +356,7 @@ function DepartmentsSection() {
                         {togglingId === dept.id ? <span className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" /> : dept.isActive ? <ToggleRight size={14} /> : <ToggleLeft size={14} />}
                         {dept.isActive ? "Active" : "Inactive"}
                       </button>
-                      <button onClick={() => { setEditId(dept.id); setEditName(dept.name); setEditFaculty(dept.faculty); setEditError(""); }} className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit"><Edit2 size={14} /></button>
+                      <button onClick={() => { setEditId(dept.id); setEditName(dept.name); setEditError(""); }} className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit"><Edit2 size={14} /></button>
                       <button onClick={() => openSafetyModal(dept)} className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Archive"><Trash2 size={14} /></button>
                     </div>
                   )}
